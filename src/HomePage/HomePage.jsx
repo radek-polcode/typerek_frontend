@@ -10,7 +10,7 @@ export default class HomePage extends Component {
   static propTypes = {}
 
   componentDidMount() {
-    this.props.dispatch(userActions.getAll());
+    // this.props.dispatch(userActions.getAll());
   }
 
   handleDeleteUser(id) {

@@ -1,4 +1,4 @@
-import config from 'config';
+import config from '../_config';
 import { authHeader } from '../_helpers';
 
 export const userService = {
@@ -13,16 +13,12 @@ export const userService = {
 
 const namespace = 'admin/'
 
-function login(username, password) {
+function login(email, password) {
   const requestOptions = {
     method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({username, password})
+    headers: config.headers,
+    body: JSON.stringify({email, password})
   };
-
   return fetch(`${config.apiUrl}/auth/sign_in`, requestOptions)
     .then(handleResponse)
     .then(user => {
@@ -56,10 +52,7 @@ function getById(id) {
 function register(user) {
   const requestOptions = {
     method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify(user)
   }
 
