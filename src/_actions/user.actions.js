@@ -1,5 +1,5 @@
 import { userConstants} from '../_constants'
-import { userService } from '../services'
+import { userService } from '../_services'
 import { alertActions } from '.';
 import { history } from '../_helpers'
 
