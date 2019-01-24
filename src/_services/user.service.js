@@ -16,7 +16,7 @@ const namespace = 'admin/'
 function login(email, password) {
   const requestOptions = {
     method: 'POST',
-    headers: config.headers,
+    headers: config.defaultHeaders,
     body: JSON.stringify({email, password})
   };
   return fetch(`${config.apiUrl}/auth/sign_in`, requestOptions)
@@ -52,7 +52,7 @@ function getById(id) {
 function register(user) {
   const requestOptions = {
     method: 'POST',
-    headers: config.headers,
+    headers: config.defaultHeaders,
     body: JSON.stringify(user)
   }
 
@@ -63,9 +63,7 @@ function update(user) {
   const requestOptions = {
       method: 'PUT',
       headers: { 
-        ...authHeader(), 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        ...authHeader()
       },
       body: JSON.stringify(user)
   };
