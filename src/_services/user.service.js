@@ -56,7 +56,7 @@ function register(user) {
     body: JSON.stringify(user)
   }
 
-  return fetch(`${config.apiUrl}/auth/sign_up`, requestOptions).then(handleResponse)
+  return fetch(`${config.apiUrl}/auth`, requestOptions).then(handleResponse)
 }
 
 function update(user) {
@@ -87,7 +87,6 @@ function handleResponse(response) {
       if (data && response.headers.get('access-token')) {
         data = assignAuthHeaders(data, response.headers)
       }
-      console.log(data)
       if (!response.ok) {
           if (response.status === 401) {
               // auto logout if 401 response returned from api
