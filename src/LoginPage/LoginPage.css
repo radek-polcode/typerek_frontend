@@ -1,0 +1,83 @@
+.btn-link {
+  border: none;
+  color: #3087c1;
+}
+
+.btn-link:active {
+  border: none;
+  color: #1985ac;
+  background-color: transparent;
+}
+
+.btn-link:hover {
+  background-color: transparent;
+  border: none;
+  color: #167495;;
+}
+
+.cardGroup {
+  border: 1px solid rgb(35, 40, 44);
+  border-radius: 5px;
+}
+
+.card__input {
+  background-color: #515b65 !important;
+  border: 1px solid #23282c;
+  color: #e4e7ea;
+}
+.card__input:focus {
+  color: #e4e7ea;
+}
+
+.card__input__prepend {
+  background-color: #343b41;
+  border: 1px solid #23282c;
+  color: #d9dce0;
+}
+
+.card__login {
+  background-color: #3a4149;
+  padding: 15px;
+  color: #e4e7ea;
+}
+
+.card__signup {
+  background-color: #20a8d8;
+  color: #fff;
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+.card__signup__button {
+  color: #fff;
+  background-color: #1985ac;
+  border-color: #187da0;
+  margin-top: 15px;
+}
+
+.card__signup__button:hover, .card__signup__button:active  {
+  color: #fff;
+  background-color: #1985ac;
+  border-color: #187da0;
+  text-decoration: none;
+}
+
+.login__button {
+  background-color: #20a8d8;
+  border-color: #20a8d8;
+}
+
+.login__button:active {
+  background-color: #1985ac;
+  border-color: #187da0;
+}
+
+.login__button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(32,168,216,.5);
+}
+
+.login__button:hover {
+  background-color: #1985ac;
+  border-color: #187da0;
+}
