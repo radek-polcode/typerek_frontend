@@ -1,5 +1,11 @@
 .app {
+  align-items: center;
+  background-color: #2f353a;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   min-height: 100vh;
+}
+
+.main {
+  justify-content: center;
 }
