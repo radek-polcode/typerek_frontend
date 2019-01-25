@@ -71,12 +71,12 @@ class RegisterPage extends Component {
                       <Label htmlFor="email">Email</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText className="card__input__prepend">
-                            <FaAt className="card__input__icon" />
+                          <InputGroupText className="form__input__prepend">
+                            <FaAt />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input type="text" 
-                               className="form-control card__input" 
+                               className="form-control form__input" 
                                name="email" 
                                value={user.email} 
                                onChange={this.handleChange} />
@@ -89,12 +89,12 @@ class RegisterPage extends Component {
                       <Label htmlFor="username">Username</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
-                            <InputGroupText className="card__input__prepend">
-                              <FaUser className="card__input__icon" />
+                            <InputGroupText className="form__input__prepend">
+                              <FaUser />
                             </InputGroupText>
                           </InputGroupAddon>
                         <Input type="text" 
-                               className="form-control card__input" 
+                               className="form-control form__input" 
                                name="username" 
                                value={user.username} 
                                onChange={this.handleChange} />
@@ -107,12 +107,12 @@ class RegisterPage extends Component {
                       <Label htmlFor="password">Password</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
-                            <InputGroupText className="card__input__prepend">
-                              <FaLock className="card__input__icon" />
+                            <InputGroupText className="form__input__prepend">
+                              <FaLock />
                             </InputGroupText>
                           </InputGroupAddon>
                         <Input type="password" 
-                               className="form-control card__input" 
+                               className="form-control form__input" 
                                name="password" 
                                value={user.password} 
                                onChange={this.handleChange} />
@@ -126,7 +126,7 @@ class RegisterPage extends Component {
                       {registering && 
                           <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                       }
-                      <Link to="/login" className="btn btn-link">Cancel</Link>
+                      <Link to="/login" className="btn card__register__btn--link">Cancel</Link>
                   </FormGroup>
               </Form>
             </CardBody>

@@ -52,7 +52,7 @@ class LoginPage extends Component {
     return(
       <Row className="main">
         <Col md="8">
-          <CardGroup className="cardGroup">
+          <CardGroup className="cardgroup">
             <Card className="card__login">
               <CardBody>
                 <CardTitle>
@@ -66,12 +66,12 @@ class LoginPage extends Component {
                       <Label htmlFor="email">Email</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText className="card__input__prepend">
-                            <FaAt className="card__input__icon" />
+                          <InputGroupText className="form__input__prepend">
+                            <FaAt />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input type="text" 
-                              className="form-control card__input" 
+                              className="form-control form__input" 
                               name="email" value={email} 
                               onChange={this.handleChange} />
                         {submitted && !email &&
@@ -83,12 +83,12 @@ class LoginPage extends Component {
                       <Label htmlFor="password">Password</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText className="card__input__prepend">
-                            <FaLock className="card__input__icon" />
+                          <InputGroupText className="form__input__prepend">
+                            <FaLock />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input type="password" 
-                              className="form-control card__input" 
+                              className="form-control form__input" 
                               name="password" 
                               value={password} 
                               onChange={this.handleChange} />
@@ -98,11 +98,11 @@ class LoginPage extends Component {
                       </InputGroup>
                   </FormGroup>
                   <div className="form-group">
-                      <Button className="btn btn-primary login__button">Login</Button>
+                      <Button className="btn btn-primary form__button__login">Login</Button>
                       {loggingIn &&
                           <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                       }
-                      <Link to="#" className="btn btn-link">Forgot password?</Link>
+                      <Link to="#" className="btn card__login__btn--link">Forgot password?</Link>
                   </div>
                 </Form>
               </CardBody>
@@ -115,7 +115,7 @@ class LoginPage extends Component {
                 <CardSubtitle>
                   Dont't have account yet? Register now!
                 </CardSubtitle>
-                <Link to="/register" className="btn btn-link card__signup__button">Register now</Link>
+                <Link to="/register" className="btn form__button__signup">Register now</Link>
               </CardBody>
             </Card>
           </CardGroup>

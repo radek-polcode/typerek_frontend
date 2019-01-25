@@ -4,11 +4,44 @@
   color: #e4e7ea;
 }
 
-.card__input {
+.card__register__btn--link {
+  border: none;
+  color: #3087c1;
+}
+
+.card__register__btn--link:active {
+  border: none;
+  color: #1985ac;
+  background-color: transparent;
+}
+
+.card__register__btn--link:hover {
+  background-color: transparent;
+  border: none;
+  color: #167495;;
+}
+
+.form__input {
   background-color: #515b65 !important;
   border: 1px solid #23282c;
   color: #e4e7ea;
 }
-.card__input:focus {
+.form__input:focus {
+  color: #e4e7ea;
+}
+
+.form__input__prepend {
+  background-color: #343b41;
+  border: 1px solid #23282c;
+  color: #d9dce0;
+}
+
+.form__input {
+  background-color: #515b65 !important;
+  border: 1px solid #23282c;
+  color: #e4e7ea;
+}
+
+.form__input:focus {
   color: #e4e7ea;
 }

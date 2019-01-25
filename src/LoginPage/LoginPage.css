@@ -1,44 +1,29 @@
-.btn-link {
-  border: none;
-  color: #3087c1;
-}
-
-.btn-link:active {
-  border: none;
-  color: #1985ac;
-  background-color: transparent;
-}
-
-.btn-link:hover {
-  background-color: transparent;
-  border: none;
-  color: #167495;;
-}
-
-.cardGroup {
+.cardgroup {
   border: 1px solid rgb(35, 40, 44);
   border-radius: 5px;
-}
-
-.card__input {
-  background-color: #515b65 !important;
-  border: 1px solid #23282c;
-  color: #e4e7ea;
-}
-.card__input:focus {
-  color: #e4e7ea;
-}
-
-.card__input__prepend {
-  background-color: #343b41;
-  border: 1px solid #23282c;
-  color: #d9dce0;
 }
 
 .card__login {
   background-color: #3a4149;
   padding: 15px;
   color: #e4e7ea;
+}
+
+.card__login__btn--link {
+  border: none;
+  color: #3087c1;
+}
+
+.card__login__btn--link:active {
+  border: none;
+  color: #1985ac;
+  background-color: transparent;
+}
+
+.card__login__btn--link:hover {
+  background-color: transparent;
+  border: none;
+  color: #167495;;
 }
 
 .card__signup {
@@ -49,35 +34,51 @@
   text-align: center;
 }
 
-.card__signup__button {
+.form__input {
+  background-color: #515b65 !important;
+  border: 1px solid #23282c;
+  color: #e4e7ea;
+}
+
+.form__input:focus {
+  color: #e4e7ea;
+}
+
+.form__input__prepend {
+  background-color: #343b41;
+  border: 1px solid #23282c;
+  color: #d9dce0;
+}
+
+.form__button__signup {
   color: #fff;
   background-color: #1985ac;
   border-color: #187da0;
   margin-top: 15px;
 }
 
-.card__signup__button:hover, .card__signup__button:active  {
+.form__button__signup:hover, .form__button__signup:active  {
   color: #fff;
   background-color: #1985ac;
   border-color: #187da0;
   text-decoration: none;
 }
 
-.login__button {
+.form__button__login {
   background-color: #20a8d8;
   border-color: #20a8d8;
 }
 
-.login__button:active {
+.form__button__login:active {
   background-color: #1985ac;
   border-color: #187da0;
 }
 
-.login__button:focus {
+.form__button__login:focus {
   box-shadow: 0 0 0 0.2rem rgba(32,168,216,.5);
 }
 
-.login__button:hover {
+.form__button__login:hover {
   background-color: #1985ac;
   border-color: #187da0;
 }
