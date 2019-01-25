@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { Row, Col } from 'reactstrap';
+import { Card,
+         CardBody,  CardTitle, CardSubtitle } from 'reactstrap';
+import { Form, FormGroup, 
+         Input, InputGroup, InputGroupAddon, InputGroupText, 
+         Label } from 'reactstrap';
+import { FaAt, FaLock, FaUser } from 'react-icons/fa';
+
+import cx from 'classnames';
+import styles from './RegisterPage.module.css'
 import { userActions } from '../_actions';
 
 class RegisterPage extends Component {
@@ -47,39 +57,86 @@ class RegisterPage extends Component {
     const { user, submitted } = this.state;
 
     return (
-      <div className="col-md-6 col-md-offset-3">
-          <h2>Register</h2>
-          <form name="form" onSubmit={this.handleSubmit}>
-              <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
-                  <label htmlFor="email">Email</label>
-                  <input type="text" className="form-control" name="email" value={user.email} onChange={this.handleChange} />
-                  {submitted && !user.email &&
-                      <div className="help-block">Email is required</div>
-                  }
-              </div>
-              <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
-                  <label htmlFor="username">Username</label>
-                  <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-                  {submitted && !user.username &&
-                      <div className="help-block">Username is required</div>
-                  }
-              </div>
-              <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-                  <label htmlFor="password">Password</label>
-                  <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-                  {submitted && !user.password &&
-                      <div className="help-block">Password is required</div>
-                  }
-              </div>
-              <div className="form-group">
-                  <button className="btn btn-primary">Register</button>
-                  {registering && 
-                      <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                  }
-                  <Link to="/login" className="btn btn-link">Cancel</Link>
-              </div>
-          </form>
-      </div>
+      <Row className="main">
+        <Col md="6">
+          <Card className={styles.card__register}>
+            <CardBody>
+              <CardTitle>
+                  <h2>Register</h2>
+              </CardTitle>
+              <CardSubtitle>
+                <p className="text-muted">Create your account</p>
+              </CardSubtitle>
+              <Form name="form" onSubmit={this.handleSubmit}>
+                  <FormGroup className={(submitted && !user.email ? ' has-error' : '')}>
+                      <Label htmlFor="email">Email</Label>
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText className={styles.form__input__prepend}>
+                            <FaAt />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input type="text" 
+                               className={cx("form-control", styles.form__input)} 
+                               name="email" 
+                               value={user.email} 
+                               onChange={this.handleChange} />
+                        {submitted && !user.email &&
+                            <div className="help-block">Email is required</div>
+                        }
+                      </InputGroup>
+                  </FormGroup>
+                  <FormGroup className={(submitted && !user.username ? ' has-error' : '')}>
+                      <Label htmlFor="username">Username</Label>
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                            <InputGroupText className={cx(styles.form__input__prepend)}>
+                              <FaUser />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                        <Input type="text" 
+                               className={cx("form-control", styles.form__input)} 
+                               name="username" 
+                               value={user.username} 
+                               onChange={this.handleChange} />
+                        {submitted && !user.username &&
+                            <div className="help-block">Username is required</div>
+                        }
+                      </InputGroup>
+                  </FormGroup>
+                  <FormGroup className={(submitted && !user.password ? ' has-error' : '')}>
+                      <Label htmlFor="password">Password</Label>
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                            <InputGroupText className={styles.form__input__prepend}>
+                              <FaLock />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                        <Input type="password" 
+                               className={cx("form-control", styles.form__input)} 
+                               name="password" 
+                               value={user.password} 
+                               onChange={this.handleChange} />
+                        {submitted && !user.password &&
+                            <div className="help-block">Password is required</div>
+                        }
+                      </InputGroup>
+                  </FormGroup>
+                  <FormGroup>
+                      <button className="btn btn-success">Register</button>
+                      {registering && 
+                          <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                      }
+                      <Link to="/login" 
+                            className={cx("btn", styles['card__register__btn--link'])}>
+                        Cancel
+                      </Link>
+                  </FormGroup>
+              </Form>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
     )
   }
 }

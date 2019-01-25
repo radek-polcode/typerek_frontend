@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { Row, Col } from 'reactstrap';
+import { Card, CardGroup, CardImg, CardText,
+         CardBody,  CardTitle, CardSubtitle } from 'reactstrap';
+import { Button, Form, FormGroup, 
+         Input, InputGroup, InputGroupAddon, InputGroupText, 
+         Label } from 'reactstrap';
+import { FaAt, FaLock } from 'react-icons/fa';
+
+import cx from 'classnames';
+import styles from './LoginPage.module.css'
 import { userActions } from '../_actions';
 
 class LoginPage extends Component {  
@@ -41,32 +51,77 @@ class LoginPage extends Component {
     const { email, password, submitted } = this.state;
 
     return(
-      <div className="col-md-6 col-md-offset-3">
-                <h2>Login</h2>
-                <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'form-group' + (submitted && !email ? ' has-error' : '')}>
-                        <label htmlFor="email">Email</label>
-                        <input type="text" className="form-control" name="email" value={email} onChange={this.handleChange} />
+      <Row className="main">
+        <Col md="8">
+          <CardGroup className={styles.cardgroup}>
+            <Card className={styles.card__login}>
+              <CardBody>
+                <CardTitle>
+                  <h2>Login</h2>
+                </CardTitle>
+                <CardSubtitle>
+                  <p className="text-muted">Sign In to your account</p>
+                </CardSubtitle>
+                <Form className="form" onSubmit={this.handleSubmit}>
+                  <FormGroup className={(submitted && !email ? ' has-error' : '')}>
+                      <Label htmlFor="email">Email</Label>
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText className={styles.form__input__prepend}>
+                            <FaAt />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input type="text" 
+                              className={cx("form-control", styles.form__input)} 
+                              name="email" value={email} 
+                              onChange={this.handleChange} />
                         {submitted && !email &&
                             <div className="help-block">Email is required</div>
                         }
-                    </div>
-                    <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                      </InputGroup>
+                  </FormGroup>
+                  <FormGroup className={(submitted && !password ? ' has-error' : '')}>
+                      <Label htmlFor="password">Password</Label>
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText className={styles.form__input__prepend}>
+                            <FaLock />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input type="password" 
+                              className={cx("form-control", styles.form__input)} 
+                              name="password" 
+                              value={password} 
+                              onChange={this.handleChange} />
                         {submitted && !password &&
                             <div className="help-block">Password is required</div>
                         }
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary">Login</button>
-                        {loggingIn &&
-                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
-                        <Link to="/register" className="btn btn-link">Register</Link>
-                    </div>
-                </form>
-            </div>
+                      </InputGroup>
+                  </FormGroup>
+                  <FormGroup className="form-group">
+                      <Button className={cx("btn btn-primary", styles.form__button__login)}>Login</Button>
+                      {loggingIn &&
+                          <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                      }
+                    <Link to="#" className={cx("btn", styles['card__login__btn--link'])}>Forgot password?</Link>
+                  </FormGroup>
+                </Form>
+              </CardBody>
+            </Card>
+            <Card className={styles.card__signup}>
+              <CardBody>
+                <CardTitle>
+                  <h2>Sign up</h2>
+                </CardTitle>
+                <CardSubtitle>
+                  Dont't have account yet? Register now!
+                </CardSubtitle>
+                <Link to="/register" className={cx("btn", styles.card__signup__button)}>Register now</Link>
+              </CardBody>
+            </Card>
+          </CardGroup>
+        </Col>
+      </Row>
     )
   }
 }
