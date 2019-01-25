@@ -12,36 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-/* 
-  Login and register, elements in cards 
-*/
-.card__auth {
-  background-color: #3a4149;
-  padding: 15px;
-  color: #e4e7ea;
-}
-
-.card__auth__btn__link {
-  border: none;
-  color: #3087c1;
-}
-
-.card__auth__btn__link__active {
-  border: none;
-  background-color: transparent;
-  color:#1985ac;
-
-}
-
-.card__form__input {
-  background-color: #515b65 !important;
-  border: 1px solid #23282c;
-  color: #e4e7ea;
-}
-
-.card__form__input__prepend {
-  background-color: #343b41;
-  border: 1px solid #23282c;
-  color: #d9dce0;
-}
