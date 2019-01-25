@@ -4,25 +4,23 @@
 }
 
 .card__login {
-  background-color: #3a4149;
-  padding: 15px;
-  color: #e4e7ea;
+  composes: card__auth from '../index.css'
 }
 
 .card__login__btn--link {
-  border: none;
-  color: #3087c1;
+  composes: card__auth__btn__link from '../index.css'
 }
 
-.card__login__btn--link:active {
+.card__login__btn--link:active, 
+.card__login__btn--link:hover {
   border: none;
-  color: #1985ac;
   background-color: transparent;
+}
+.card__login__btn--link:active {
+  color: #1985ac;
 }
 
 .card__login__btn--link:hover {
-  background-color: transparent;
-  border: none;
   color: #167495;;
 }
 
@@ -34,10 +32,22 @@
   text-align: center;
 }
 
+.card__signup__button,
+.card__signup__button:hover, 
+.card__signup__button:active {
+  color: #fff;
+  background-color: #1985ac;
+  border-color: #187da0;
+  margin-top: 15px;
+}
+
+.card__signup__button:hover, 
+.card__signup__button:active  {
+  text-decoration: none;
+}
+
 .form__input {
-  background-color: #515b65 !important;
-  border: 1px solid #23282c;
-  color: #e4e7ea;
+  composes: card__form__input from '../index.css'
 }
 
 .form__input:focus {
@@ -45,23 +55,7 @@
 }
 
 .form__input__prepend {
-  background-color: #343b41;
-  border: 1px solid #23282c;
-  color: #d9dce0;
-}
-
-.form__button__signup {
-  color: #fff;
-  background-color: #1985ac;
-  border-color: #187da0;
-  margin-top: 15px;
-}
-
-.form__button__signup:hover, .form__button__signup:active  {
-  color: #fff;
-  background-color: #1985ac;
-  border-color: #187da0;
-  text-decoration: none;
+  composes: card__form__input__prepend from '../index.css'
 }
 
 .form__button__login {
@@ -69,16 +63,12 @@
   border-color: #20a8d8;
 }
 
-.form__button__login:active {
+.form__button__login:active, 
+.form__button__login:hover {
   background-color: #1985ac;
   border-color: #187da0;
 }
 
 .form__button__login:focus {
   box-shadow: 0 0 0 0.2rem rgba(32,168,216,.5);
-}
-
-.form__button__login:hover {
-  background-color: #1985ac;
-  border-color: #187da0;
 }

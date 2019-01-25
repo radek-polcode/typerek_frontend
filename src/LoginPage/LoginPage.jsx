@@ -116,7 +116,7 @@ class LoginPage extends Component {
                 <CardSubtitle>
                   Dont't have account yet? Register now!
                 </CardSubtitle>
-                <Link to="/register" className={cx("btn", styles.form__button__signup)}>Register now</Link>
+                <Link to="/register" className={cx("btn", styles.card__signup__button)}>Register now</Link>
               </CardBody>
             </Card>
           </CardGroup>
