@@ -12,7 +12,7 @@ import { FaAt, FaLock } from 'react-icons/fa';
 
 import cx from 'classnames';
 import styles from './LoginPage.module.css'
-import { userActions } from '../_actions';
+import { userActions } from '../../../_actions';
 
 class LoginPage extends Component {  
   constructor(props) {

@@ -1,9 +1,9 @@
 .card__register {
-  composes: card__auth from '../index.css'
+  composes: card__auth from '../../../index.css'
 }
 
 .card__register__btn--link {
-  composes: card__auth__btn__link from '../index.css'
+  composes: card__auth__btn__link from '../../../index.css'
 }
 
 .card__register__btn--link:active, 
@@ -21,7 +21,7 @@
 }
 
 .form__input {
-  composes: card__form__input from '../index.css'
+  composes: card__form__input from '../../../index.css'
 }
 
 .form__input:focus {
@@ -29,5 +29,5 @@
 }
 
 .form__input__prepend {
-  composes: card__form__input__prepend from '../index.css'
+  composes: card__form__input__prepend from '../../../index.css'
 }
