@@ -13,7 +13,7 @@ import { FaAt, FaLock, FaUser } from 'react-icons/fa';
 import { ButtonLink } from '../../components/'
 import cx from 'classnames';
 import styles from './RegisterPage.module.css'
-import { userActions } from '../../../_actions';
+import { userActions } from '../../../../_actions';
 
 class RegisterPage extends Component {
   constructor(props) {
