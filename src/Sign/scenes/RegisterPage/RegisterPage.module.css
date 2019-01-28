@@ -1,0 +1,15 @@
+.card__register {
+  composes: card__auth from '../../sign_shared.module.css'
+}
+
+.form__input {
+  composes: card__form__input from '../../sign_shared.module.css'
+}
+
+.form__input:focus {
+  color: #e4e7ea;
+}
+
+.form__input__prepend {
+  composes: card__form__input__prepend from '../../sign_shared.module.css'
+}
