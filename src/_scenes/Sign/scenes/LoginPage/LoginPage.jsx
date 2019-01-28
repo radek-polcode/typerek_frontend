@@ -54,7 +54,7 @@ class LoginPage extends Component {
 
     return(
       <Row className="main">
-        <Col md="8">
+        <Col md="12">
           <CardGroup className={styles.cardgroup}>
             <Card className={styles.card__login}>
               <CardBody>
