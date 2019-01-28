@@ -1,2 +1,2 @@
-export * from './components/LoginPage'
-export * from './components/RegisterPage'
+export * from './scenes/LoginPage'
+export * from './scenes/RegisterPage'

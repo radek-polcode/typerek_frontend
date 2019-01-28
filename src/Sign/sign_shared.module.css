@@ -12,11 +12,18 @@
   color: #3087c1;
 }
 
-.card__auth__btn__link__active {
+.card__auth__btn__link:active, .card__auth__btn__link:hover {
   border: none;
   background-color: transparent;
   color:#1985ac;
+}
 
+.card__auth__btn__link:focus {
+  box-shadow: none;
+}
+
+.card__auth__btn__link:hover {
+  color: #167495;
 }
 
 .card__form__input {
