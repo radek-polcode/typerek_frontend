@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import cx from 'classnames';
 import { Row, Col } from 'reactstrap';
 import { Card, CardGroup, CardImg, CardText,
          CardBody,  CardTitle, CardSubtitle } from 'reactstrap';
@@ -11,9 +12,9 @@ import { Button, Form, FormGroup,
 import { FaAt, FaLock } from 'react-icons/fa';
 
 import { ButtonLink } from '../../components/'
-import cx from 'classnames';
 import styles from './LoginPage.module.css'
-import { userActions } from '../../../_actions';
+
+import { userActions } from '../../../../_actions';
 
 class LoginPage extends Component {  
   constructor(props) {
