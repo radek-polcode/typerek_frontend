@@ -6,6 +6,7 @@ import { Container } from 'reactstrap'
 import { history } from '../_helpers'
 import { alertActions } from '../_actions'
 import { PrivateRoute } from '../_components'
+import { Header } from '../_scenes/Layout/components'
 import { HomePage } from '../_scenes/HomePage';
 import { LoginPage } from '../_scenes/Sign';
 import { RegisterPage } from '../_scenes/Sign'
@@ -26,7 +27,8 @@ class App extends Component {
     const { alert } = this.props;
     return (
         <div className="app">
-            <Container>
+            <Header />
+            <Container className="main__container">
                 {alert.message &&
                     <div className={`alert ${alert.type}`}>{alert.message}</div>
                 }
