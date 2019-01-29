@@ -1,11 +1,9 @@
 .app {
-  align-items: center;
   background-color: #2f353a;
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
 }
-
-.main {
+.main__container {
+  align-items: center;
+  display: flex;
   justify-content: center;
+  min-height: 95vh;
 }
