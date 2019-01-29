@@ -10,6 +10,7 @@ import { Header } from '../_scenes/Layout/components'
 import { HomePage } from '../_scenes/HomePage';
 import { LoginPage } from '../_scenes/Sign';
 import { RegisterPage } from '../_scenes/Sign'
+import { Dashboard } from '../_scenes/Admin'
 
 import './App.css';
 
@@ -35,6 +36,7 @@ class App extends Component {
                 <Router history={history}>
                     <div>
                         <PrivateRoute exact path="/" component={HomePage} />
+                        <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/register" component={RegisterPage} />
                     </div>
