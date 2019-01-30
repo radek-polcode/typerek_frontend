@@ -46,7 +46,7 @@ class Header extends Component {
         color="dark"
         expand="md"
       >
-        <NavbarBrand href="#">Typerek</NavbarBrand>
+        <NavbarBrand href="/">Typerek</NavbarBrand>
         <NavbarToggler 
           onClick={this.toggle}
         >
@@ -66,7 +66,7 @@ class Header extends Component {
           </Nav>
           <Nav className="ml-auto">
             <NavItem>
-              <NavLink href="#">Admin</NavLink>
+              <NavLink href="/admin/dashboard">Admin</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">Logout</NavLink>
