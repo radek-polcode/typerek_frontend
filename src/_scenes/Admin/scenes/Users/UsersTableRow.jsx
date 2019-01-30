@@ -9,7 +9,7 @@ UsersTableRow.defaultProps = {
   users: {}
 }
 
-function UsersTableRow({ user, index }) {
+function UsersTableRow({ user, index, handleDeleteUser }) {
   return (
     <tr>
       <td>
@@ -29,6 +29,11 @@ function UsersTableRow({ user, index }) {
       </td>
       <td>
         {user.attributes.created_at}
+      </td>
+      <td>
+        <button onClick={handleDeleteUser(user.id)}>
+          Delete 
+        </button>
       </td>
     </tr>
   )

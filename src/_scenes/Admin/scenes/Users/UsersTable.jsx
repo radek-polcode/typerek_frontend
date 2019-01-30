@@ -7,21 +7,25 @@ import { UsersTableHeadings } from './UsersTableHeadings'
 import { UsersTableBody } from './UsersTableBody'
 
 UsersTable.propTypes = {
-  users: PropTypes.object.isRequired
+  users: PropTypes.object.isRequired,
+  handleDeleteUser: PropTypes.func.isRequired
 }
 
 UsersTable.defaultProps = {
   users: {}
 }
 
-function UsersTable({ users }) {
+function UsersTable({ users, handleDeleteUser }) {
   return (
     <Table 
       className={styles.table__users}
       dark
     >
       <UsersTableHeadings />
-      <UsersTableBody users={users} />
+      <UsersTableBody 
+        users={users}
+        handleDeleteUser={handleDeleteUser}
+      />
     </Table>
   )
 }

@@ -10,16 +10,30 @@ class Users extends Component {
   static propTypes = {
   }
 
+  constructor(props) {
+    super(props)
+    this.handleDeleteUser = this.handleDeleteUser.bind(this)
+  }
+
   componentDidMount() {
     this.props.dispatch(userActions.getAll());
   }
 
+  handleDeleteUser(id) {
+    console.log(id)
+    return (e) => this.props.dispatch(userActions.delete(id));
+  }
+
   render() {
     const { users } = this.props
+    const handleDeleteUser = this.handleDeleteUser
     return (
       <div>
         <h2>Users</h2>
-        <UsersTable users={users} />
+        <UsersTable 
+          users={users}
+          handleDeleteUser={handleDeleteUser}
+        />
       </div>
     )
   }
