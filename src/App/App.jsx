@@ -11,6 +11,7 @@ import { HomePage } from '../_scenes/HomePage';
 import { LoginPage } from '../_scenes/Sign';
 import { RegisterPage } from '../_scenes/Sign'
 import { Dashboard } from '../_scenes/Admin'
+import { Users } from '../_scenes/Admin'
 
 import './App.css';
 
@@ -37,6 +38,7 @@ class App extends Component {
                     <div>
                         <PrivateRoute exact path="/" component={HomePage} />
                         <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
+                        <PrivateRoute exact path="/admin/users" component={Users} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/register" component={RegisterPage} />
                     </div>
