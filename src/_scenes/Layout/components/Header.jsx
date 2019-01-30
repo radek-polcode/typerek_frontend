@@ -24,9 +24,7 @@ class Header extends Component {
     isOpen: false
   }
 
-  static propTypes = {
-    prop: PropTypes
-  }
+  static propTypes = {}
 
   handleDeleteUser(id) {
     return (e) => this.props.dispatch(userActions.delete(id));
@@ -50,12 +48,12 @@ class Header extends Component {
         <NavbarToggler 
           onClick={this.toggle}
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </NavbarToggler>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto">
             <NavItem active>
-              <NavLink href="#">Rules <span class="sr-only">(current)</span></NavLink>
+              <NavLink href="#">Rules <span className="sr-only">(current)</span></NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">Tournaments</NavLink>
