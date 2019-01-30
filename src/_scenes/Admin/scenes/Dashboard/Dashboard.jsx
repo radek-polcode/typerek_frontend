@@ -10,16 +10,14 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        
+        <h2>Dashboard</h2>
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  return {
-      'asd': 'asd'
-  };
+  return {};
 }
 
 const connectedDashboard = connect(mapStateToProps)(Dashboard);
