@@ -37,7 +37,8 @@ function getAll() {
     headers: authHeader()
   };
 
-  return fetch(`${config.apiUrl}/${namespace}users`, requestOptions).then(handleResponse);
+  return fetch(`${config.apiUrl}/${namespace}users`, requestOptions)
+          .then(handleResponse);
 }
 
 function getById(id) {
@@ -101,7 +102,6 @@ function handleResponse(response) {
           const error = (data && data.message) || response.statusText;
           return Promise.reject(error);
       }
-
       return data;
   });
 }
