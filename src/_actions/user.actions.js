@@ -19,7 +19,7 @@ function login(email, password) {
       .then(
         user => {
           dispatch(success(user));
-          history.push('/');
+          history.push('/admin/dashboard');
         },
         error => {
           dispatch(failure(error.toString()));
