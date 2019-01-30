@@ -84,7 +84,11 @@ function _delete(id) {
 function handleResponse(response) {
   return response.text().then(text => {
       let data = text && JSON.parse(text);
-      if (data && response.headers.get('access-token')) {
+      let userFromLocalStorage = localStorage.getItem('user')
+      // set auth headers if user not exists in localStorage 
+      if (data 
+          && response.headers.get('access-token') 
+          && userFromLocalStorage == undefined) {
         data = assignAuthHeaders(data, response.headers)
       }
       if (!response.ok) {
