@@ -72,7 +72,7 @@ function getAll() {
   };
 
   function request() { return { type: userConstants.GETALL_REQUEST } }
-  function success(user) { return { type: userConstants.GETALL_SUCCESS, user } }
+  function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
   function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
