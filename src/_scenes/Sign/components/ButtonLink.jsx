@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import cx from 'classnames';
-import styles from '../sign_shared.module.css'
+import '../../../App/App.css'
 
 ButtonLink.propTypes = {
   link: PropTypes.string.required,
@@ -19,7 +18,7 @@ function ButtonLink({link, linkText}) {
   return (
     <>
       <Link to={link} 
-            className={cx("btn", styles.card__auth__btn__link)}>
+            className="btn card__btn__link">
         {linkText}
       </Link>
     </>
