@@ -12,6 +12,7 @@ import { LoginPage } from '../_scenes/Sign';
 import { RegisterPage } from '../_scenes/Sign'
 import { Dashboard } from '../_scenes/Admin'
 import { Users } from '../_scenes/Admin'
+import { UserForm } from '../_scenes/Admin'
 
 import './App.css';
 
@@ -39,6 +40,8 @@ class App extends Component {
                         <PrivateRoute exact path="/" component={HomePage} />
                         <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
                         <PrivateRoute exact path="/admin/users" component={Users} />
+                        <PrivateRoute exact path="/admin/users/new" component={UserForm} />
+                        <PrivateRoute exact path="/admin/users/edit/:id" component={UserForm} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/register" component={RegisterPage} />
                     </div>

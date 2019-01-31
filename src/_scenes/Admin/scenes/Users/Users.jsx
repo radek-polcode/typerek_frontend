@@ -20,16 +20,17 @@ class Users extends Component {
   }
 
   handleDeleteUser(id) {
-    console.log(id)
     return (e) => this.props.dispatch(userActions.delete(id));
   }
 
   render() {
     const { users } = this.props
     const handleDeleteUser = this.handleDeleteUser
+
     return (
       <div>
         <h2>Users</h2>
+        <a href='/admin/users/new'>Add new user</a>
         <UsersTable 
           users={users}
           handleDeleteUser={handleDeleteUser}
