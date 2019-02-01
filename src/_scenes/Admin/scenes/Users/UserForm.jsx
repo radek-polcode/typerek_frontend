@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import { Button,
          Card, CardHeader, CardBody,
          CustomInput, Form, FormGroup, 
@@ -7,21 +9,21 @@ import { Button,
 import { FaAt, FaLock, FaUser } from 'react-icons/fa';
 
 import '../../../../App/App.css'
+import { userActions } from '../../../../_actions';
 
 class UserForm extends Component {
   constructor(props) {
     super(props)
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   state = {
-    user: {
-        email: '',
-        username: '',
-        password: '',
-        role: '',
-        takesPart: true
-    },
+    email: '',
+    username: '',
+    password: '',
+    role: 'registered',
+    takesPart: true,
     submitted: false
   }
 
@@ -29,7 +31,6 @@ class UserForm extends Component {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    console.log(value)
     this.setState({
       [name]: value
     });
@@ -37,12 +38,30 @@ class UserForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log('submit')
+    const { email, username, password, role } = this.state
+    const { dispatch } = this.props;
+
+    let user = {
+      data: {
+        attributes: {
+          email: email,
+          username: username,
+          password: password,
+          role: role
+        }
+      }
+    }
+    if (email && username && password && role) {
+      dispatch(userActions.addUser(user))
+    }
   }
 
   render() {
-    const { user, submitted } = this.state;
-    const ROLES = ['registered', 'admin']
+    const { email, username, password, submitted } = this.state;
+    const ROLES = [
+        {value: 'registered'},
+        {value: 'admin'}
+    ]
 
     return (
       <Card className="card__form">
@@ -51,7 +70,7 @@ class UserForm extends Component {
         </CardHeader>
         <CardBody>
           <Form name="form" onSubmit={this.handleSubmit}>
-            <FormGroup className={(submitted && !user.email ? ' has-error' : '')}>
+            <FormGroup className={(submitted && !email ? ' has-error' : '')}>
                 <Label htmlFor="email">Email</Label>
                 <InputGroup>
                   <InputGroupAddon addonType="prepend">
@@ -63,12 +82,12 @@ class UserForm extends Component {
                          className="form-control card__form__input" 
                          name="email" 
                          onChange={this.handleInputChange} />
-                  {submitted && !user.email &&
+                  {submitted && !email &&
                       <div className="help-block">Email is required</div>
                   }
                 </InputGroup>
             </FormGroup>
-            <FormGroup className={(submitted && !user.username ? ' has-error' : '')}>
+            <FormGroup className={(submitted && !username ? ' has-error' : '')}>
                 <Label htmlFor="username">Username</Label>
                 <InputGroup>
                   <InputGroupAddon addonType="prepend">
@@ -80,12 +99,12 @@ class UserForm extends Component {
                          className="form-control card__form__input"
                          name="username" 
                          onChange={this.handleInputChange} />
-                  {submitted && !user.username &&
+                  {submitted && !username &&
                       <div className="help-block">Username is required</div>
                   }
                 </InputGroup>
             </FormGroup>
-            <FormGroup className={(submitted && !user.password ? ' has-error' : '')}>
+            <FormGroup className={(submitted && !password ? ' has-error' : '')}>
                 <Label htmlFor="password">Password</Label>
                 <InputGroup>
                   <InputGroupAddon addonType="prepend">
@@ -98,7 +117,7 @@ class UserForm extends Component {
                          name="password" 
                          onChange={this.handleInputChange} 
                   />
-                  {submitted && !user.password &&
+                  {submitted && !password &&
                       <div className="help-block">Password is required</div>
                   }
                 </InputGroup>
@@ -109,10 +128,15 @@ class UserForm extends Component {
                   <Input type="select" 
                          className="form-control card__form__input"
                          name="role" 
-                         onChange={this.handleInputChange} 
+                         onChange={this.handleInputChange}
+                         value={this.state.role}
                   >
-                    {ROLES.map(el => {
-                      return <option>{el}</option>
+                    {ROLES.map((el, index) => {
+                      return <option
+                                key={index + 1}
+                                value={el.value}>
+                                  {  el.value}
+                              </option>
                     })}
                   </Input>
                 </InputGroup>
@@ -141,4 +165,9 @@ class UserForm extends Component {
   }
 }
 
-export { UserForm }
+function mapStateToProps(state) {
+  return {};
+}
+const connectedUserForm = connect(mapStateToProps)(UserForm);
+
+export { connectedUserForm as UserForm };

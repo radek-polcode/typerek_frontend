@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import { UserForm } from './'
+import { UserForm } from './';
 
-function AddUser() {
-  return (
-    <>
-      <UserForm />
-    </>
-  )
+class AddUser extends Component {
+  render() {
+    return (
+        <>
+          <UserForm />
+        </>
+    )
+  }
 }
-
-export { AddUser }
+function mapStateToProps(state) {
+  return {
+    ...state
+  };
+}
+const connectedUserForm = connect(mapStateToProps)(AddUser);
+export { connectedUserForm as AddUser };

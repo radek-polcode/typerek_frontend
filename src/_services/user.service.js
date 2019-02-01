@@ -2,6 +2,7 @@ import config from '../_config';
 import { authHeader } from '../_helpers';
 
 export const userService = {
+  addUser,
   login,
   logout,
   register,
@@ -48,6 +49,17 @@ function getById(id) {
   };
 
   return fetch(`${config.apiUrl}/${namespace}users/${id}`, requestOptions).then(handleResponse)
+}
+
+function addUser(user) {
+  const requestOptions = {
+    method: 'POST',
+    headers: authHeader(),
+    body: JSON.stringify(user)
+  }
+
+  return fetch(`${config.apiUrl}/${namespace}users`, requestOptions)
+          .then(handleResponse)
 }
 
 function register(user) {

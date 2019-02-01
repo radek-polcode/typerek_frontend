@@ -2,6 +2,18 @@ import { userConstants } from '../_constants';
 
 export function users(state = {}, action) {
   switch (action.type) {
+    case userConstants.ADDUSER_REQUEST:
+    return {
+      ...state,
+    }
+    case userConstants.ADDUSER_FAILURE:
+      return {
+        error: action.error
+      }
+    case userConstants.ADDUSER_SUCCESS:
+      return {
+        items: state.items.concat(action.user.data)
+      }
     case userConstants.GETALL_REQUEST:
       return {
         loading: true

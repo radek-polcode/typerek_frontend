@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { userActions } from '../../../../_actions/user.actions'
 
@@ -30,7 +31,7 @@ class Users extends Component {
     return (
       <div>
         <h2>Users</h2>
-        <a href='/admin/users/new'>Add new user</a>
+        <Link to='/admin/users/new'>Add new user</Link>
         <UsersTable 
           users={users}
           handleDeleteUser={handleDeleteUser}
