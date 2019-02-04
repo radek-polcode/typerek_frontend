@@ -9,6 +9,7 @@ export const userService = {
   getAll,
   getById,
   update,
+  updateUser,
   delete: _delete
 };
 
@@ -57,8 +58,17 @@ function addUser(user) {
     headers: authHeader(),
     body: JSON.stringify(user)
   }
-
   return fetch(`${config.apiUrl}/${namespace}users`, requestOptions)
+          .then(handleResponse)
+}
+
+function updateUser(user, id) {  
+  const requestOptions = {
+    method: 'PATCH',
+    headers: authHeader(),
+    body: JSON.stringify(user)
+  }
+  return fetch(`${config.apiUrl}/${namespace}users/${id}`, requestOptions)
           .then(handleResponse)
 }
 

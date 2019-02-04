@@ -14,6 +14,25 @@ export function users(state = {}, action) {
       return {
         items: state.items.concat(action.user.data)
       }
+    case userConstants.UPDATE_USER_REQUEST:
+      return {
+        ...state,
+      }
+    case userConstants.UPDATE_USER_FAILURE:
+      return {
+        error: action.error
+      }
+    case userConstants.UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter(function(user) {
+          if (user.id === action.user.id) {
+            return user
+          } else {
+            return action.user
+          }
+        })          
+    }
     case userConstants.GETALL_REQUEST:
       return {
         loading: true

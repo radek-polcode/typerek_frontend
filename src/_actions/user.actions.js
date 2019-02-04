@@ -5,6 +5,7 @@ import { history } from '../_helpers'
 
 export const userActions = {
   addUser,
+  updateUser,
   login,
   logout, 
   register,
@@ -87,7 +88,7 @@ function addUser(user) {
           history.push('/admin/users');
           dispatch(alertActions.success('User added successfully'));
         },
-        error => error => {
+        error => {
           dispatch(failure(error.toString()));
           dispatch(alertActions.error(error.toString()));
         }
@@ -97,6 +98,28 @@ function addUser(user) {
   function request(user) { return { type: userConstants.ADDUSER_REQUEST, user } }
   function success(user) { return { type: userConstants.ADDUSER_SUCCESS, user } }
   function failure(error) { return { type: userConstants.ADDUSER_FAILURE, error } }
+}
+
+function updateUser(user, id) {
+  return dispatch => {
+    dispatch(request());
+    userService.updateUser(user, id)
+      .then(
+        user => {
+          dispatch(success(user));
+          history.push('/admin/users');
+          dispatch(alertActions.success('User edited successfully'));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        }
+      )
+  };
+
+  function request(user) { return { type: userConstants.UPDATEUSER_REQUEST, user } }
+  function success(user) { return { type: userConstants.UPDATEUSER_SUCCESS, user } }
+  function failure(error) { return { type: userConstants.UPDATEUSER_FAILURE, error } }
 }
 
 function _delete(id) {

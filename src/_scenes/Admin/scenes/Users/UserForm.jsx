@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { Button,
@@ -18,12 +19,18 @@ class UserForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  static propTypes = {
+    isEditing: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired
+  }
+
   state = {
-    email: '',
-    username: '',
-    password: '',
-    role: 'registered',
-    takesPart: true,
+    userId: this.props.user.id,
+    type: this.props.user.type,
+    email: this.props.user.attributes.email,
+    username: this.props.user.attributes.username,
+    role: this.props.user.attributes.role,
+    takesPart: this.props.user.attributes.take_part,
     submitted: false
   }
 
@@ -38,26 +45,46 @@ class UserForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { email, username, password, role } = this.state
+
+    const userId = this.state.userId
+    const isEditing = this.props.isEditing
+    
+    const { email, username, password, role, takesPart } = this.state
     const { dispatch } = this.props;
 
     let user = {
       data: {
+        type: 'users',
         attributes: {
           email: email,
           username: username,
-          password: password,
-          role: role
+          role: role,
+          take_part: takesPart
         }
       }
     }
-    if (email && username && password && role) {
-      dispatch(userActions.addUser(user))
+
+    if (isEditing) {
+      dispatch(userActions.updateUser(user, userId))
+    } else {
+      if (email && username && password && role) {
+        Object.assign(user.data.attributes, {password: password})
+        dispatch(userActions.addUser(user))
+      }
+    }
+  }
+
+  setButtonName() {
+    if (this.props.isEditing) {
+      return 'Update user'
+    } else {
+      return 'Add user'
     }
   }
 
   render() {
-    const { email, username, password, submitted } = this.state;
+    const { email, username, password, takesPart, submitted } = this.state;
+
     const ROLES = [
         {value: 'registered'},
         {value: 'admin'}
@@ -81,7 +108,9 @@ class UserForm extends Component {
                   <Input type="text" 
                          className="form-control card__form__input" 
                          name="email" 
-                         onChange={this.handleInputChange} />
+                         onChange={this.handleInputChange}
+                         value={email}
+                  />
                   {submitted && !email &&
                       <div className="help-block">Email is required</div>
                   }
@@ -98,13 +127,16 @@ class UserForm extends Component {
                   <Input type="text" 
                          className="form-control card__form__input"
                          name="username" 
-                         onChange={this.handleInputChange} />
+                         onChange={this.handleInputChange}
+                         value={username}
+                  />
                   {submitted && !username &&
                       <div className="help-block">Username is required</div>
                   }
                 </InputGroup>
             </FormGroup>
-            <FormGroup className={(submitted && !password ? ' has-error' : '')}>
+            { !this.props.isEditing && 
+              <FormGroup className={(submitted && !password ? ' has-error' : '')}>
                 <Label htmlFor="password">Password</Label>
                 <InputGroup>
                   <InputGroupAddon addonType="prepend">
@@ -121,7 +153,8 @@ class UserForm extends Component {
                       <div className="help-block">Password is required</div>
                   }
                 </InputGroup>
-            </FormGroup>
+              </FormGroup>
+            }
             <FormGroup>
                 <Label htmlFor="role">Role</Label>
                 <InputGroup>
@@ -149,13 +182,14 @@ class UserForm extends Component {
                   name="takesPart"
                   label="Takes part"
                   onChange={this.handleInputChange} 
+                  checked={takesPart}
                   inline
                 />
               </div>
             </FormGroup>
             <FormGroup>
               <Button>
-                Add
+                {this.setButtonName()}
               </Button>
             </FormGroup>
         </Form>
