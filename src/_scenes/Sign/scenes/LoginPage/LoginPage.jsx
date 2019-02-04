@@ -13,6 +13,7 @@ import { FaAt, FaLock } from 'react-icons/fa';
 
 import { ButtonLink } from '../../components/'
 import styles from './LoginPage.module.css'
+import '../../../../App/App.css'
 
 import { userActions } from '../../../../_actions';
 
@@ -56,7 +57,7 @@ class LoginPage extends Component {
       <Row className="main">
         <Col md="12">
           <CardGroup className={styles.cardgroup}>
-            <Card className={styles.card__login}>
+            <Card className="card__form">
               <CardBody>
                 <CardTitle>
                   <h2>Login</h2>
@@ -69,12 +70,12 @@ class LoginPage extends Component {
                       <Label htmlFor="email">Email</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText className={styles.form__input__prepend}>
+                          <InputGroupText className="card__form__input__prepend">
                             <FaAt />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input type="text" 
-                              className={cx("form-control", styles.form__input)} 
+                              className="form-control card__form__input" 
                               name="email" value={email} 
                               onChange={this.handleChange} />
                         {submitted && !email &&
@@ -86,12 +87,12 @@ class LoginPage extends Component {
                       <Label htmlFor="password">Password</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText className={styles.form__input__prepend}>
+                          <InputGroupText className="card__form__input__prepend">
                             <FaLock />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input type="password" 
-                              className={cx("form-control", styles.form__input)} 
+                              className="form-control card__form__input"
                               name="password" 
                               value={password} 
                               onChange={this.handleChange} />
@@ -101,7 +102,7 @@ class LoginPage extends Component {
                       </InputGroup>
                   </FormGroup>
                   <FormGroup className="form-group">
-                      <Button className={cx("btn btn-primary", styles.form__button__login)}>Login</Button>
+                    <Button className="btn btn-primary button__default">Login</Button>
                       {loggingIn &&
                           <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                       }

@@ -4,6 +4,7 @@ import { alertActions } from '.';
 import { history } from '../_helpers'
 
 export const userActions = {
+  addUser,
   login,
   logout, 
   register,
@@ -72,8 +73,30 @@ function getAll() {
   };
 
   function request() { return { type: userConstants.GETALL_REQUEST } }
-  function success(user) { return { type: userConstants.GETALL_SUCCESS, user } }
+  function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
   function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
+function addUser(user) {
+  return dispatch => {
+    dispatch(request());
+    userService.addUser(user)
+      .then(
+        user => {
+          dispatch(success(user));
+          history.push('/admin/users');
+          dispatch(alertActions.success('User added successfully'));
+        },
+        error => error => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        }
+    );
+  };
+
+  function request(user) { return { type: userConstants.ADDUSER_REQUEST, user } }
+  function success(user) { return { type: userConstants.ADDUSER_SUCCESS, user } }
+  function failure(error) { return { type: userConstants.ADDUSER_FAILURE, error } }
 }
 
 function _delete(id) {

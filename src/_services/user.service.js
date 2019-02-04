@@ -2,6 +2,7 @@ import config from '../_config';
 import { authHeader } from '../_helpers';
 
 export const userService = {
+  addUser,
   login,
   logout,
   register,
@@ -37,7 +38,8 @@ function getAll() {
     headers: authHeader()
   };
 
-  return fetch(`${config.apiUrl}/${namespace}users`, requestOptions).then(handleResponse);
+  return fetch(`${config.apiUrl}/${namespace}users`, requestOptions)
+          .then(handleResponse);
 }
 
 function getById(id) {
@@ -47,6 +49,17 @@ function getById(id) {
   };
 
   return fetch(`${config.apiUrl}/${namespace}users/${id}`, requestOptions).then(handleResponse)
+}
+
+function addUser(user) {
+  const requestOptions = {
+    method: 'POST',
+    headers: authHeader(),
+    body: JSON.stringify(user)
+  }
+
+  return fetch(`${config.apiUrl}/${namespace}users`, requestOptions)
+          .then(handleResponse)
 }
 
 function register(user) {
@@ -84,7 +97,11 @@ function _delete(id) {
 function handleResponse(response) {
   return response.text().then(text => {
       let data = text && JSON.parse(text);
-      if (data && response.headers.get('access-token')) {
+      let userFromLocalStorage = localStorage.getItem('user')
+      // set auth headers if user not exists in localStorage 
+      if (data 
+          && response.headers.get('access-token') 
+          && userFromLocalStorage == undefined) {
         data = assignAuthHeaders(data, response.headers)
       }
       if (!response.ok) {
@@ -97,7 +114,6 @@ function handleResponse(response) {
           const error = (data && data.message) || response.statusText;
           return Promise.reject(error);
       }
-
       return data;
   });
 }

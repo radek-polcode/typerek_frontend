@@ -3,10 +3,6 @@
   border-radius: 5px;
 }
 
-.card__login {
-  composes: card__auth from '../../sign_shared.module.css'
-}
-
 .card__signup {
   background-color: #20a8d8;
   color: #fff;
@@ -27,31 +23,4 @@
 .card__signup__button:hover, 
 .card__signup__button:active  {
   text-decoration: none;
-}
-
-.form__input {
-  composes: card__form__input from '../../sign_shared.module.css'
-}
-
-.form__input:focus {
-  color: #e4e7ea;
-}
-
-.form__input__prepend {
-  composes: card__form__input__prepend from '../../sign_shared.module.css'
-}
-
-.form__button__login {
-  background-color: #20a8d8;
-  border-color: #20a8d8;
-}
-
-.form__button__login:active, 
-.form__button__login:hover {
-  background-color: #1985ac;
-  border-color: #187da0;
-}
-
-.form__button__login:focus {
-  box-shadow: 0 0 0 0.2rem rgba(32,168,216,.5);
 }
