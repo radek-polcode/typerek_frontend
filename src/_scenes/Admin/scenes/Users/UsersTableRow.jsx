@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 UsersTableRow.propTypes = {
   users: PropTypes.object.isRequired
@@ -31,6 +32,9 @@ function UsersTableRow({ user, index, handleDeleteUser }) {
         {user.attributes.created_at}
       </td>
       <td>
+        <Link to={`/admin/users/${user.id}/edit`}>
+          Edit 
+        </Link>
         <button onClick={handleDeleteUser(user.id)}>
           Delete 
         </button>
