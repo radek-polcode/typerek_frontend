@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link, IndexLink, Router } from 'react-router-dom';
 import { connect } from 'react-redux'
+
+import { userActions } from '../../../_actions' 
 
 import {
   Collapse,
@@ -13,7 +16,6 @@ import {
 } from 'reactstrap';
 
 
-import { userActions } from '../../../_actions' 
 
 
 class Header extends Component {
@@ -46,7 +48,7 @@ class Header extends Component {
         color="dark"
         expand="md"
       >
-        <NavbarBrand href="/">Typerek</NavbarBrand>
+        <NavbarBrand tag={Link} to="/">Typerek</NavbarBrand>
         <NavbarToggler 
           onClick={this.toggle}
         >
@@ -66,13 +68,18 @@ class Header extends Component {
           </Nav>
           <Nav className="ml-auto">
             <NavItem>
-              <NavLink href="/admin/dashboard">Dashboard</NavLink>
+              <NavLink tag={Link} to="/admin/dashboard">Dashboard</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/admin/users">Users</NavLink>
+              <NavLink tag={Link} to="/admin/users">Users</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#">Logout</NavLink>
+              <NavLink 
+                tag={Link}
+                to="/login"
+              >
+                Logout
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>

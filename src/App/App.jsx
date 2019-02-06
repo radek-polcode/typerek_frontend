@@ -31,23 +31,25 @@ class App extends Component {
     const { alert } = this.props;
     return (
         <div className="app">
-            <Header />
-            <Container className="main__container">
-                {alert.message &&
-                    <div className={`alert ${alert.type}`}>{alert.message}</div>
-                }
-                <Router history={history}>
-                    <div>
-                        <PrivateRoute exact path="/" component={HomePage} />
-                        <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
-                        <PrivateRoute exact path="/admin/users" component={Users} />
-                        <PrivateRoute exact path="/admin/users/new" component={AddUser} />
-                        <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
-                        <Route path="/login" component={LoginPage} />
-                        <Route path="/register" component={RegisterPage} />
-                    </div>
-                </Router>
-            </Container>
+            <Router history={history}>
+                <>
+                    <Header />
+                    <Container className="main__container">
+                        {alert.message &&
+                            <div className={`alert ${alert.type}`}>{alert.message}</div>
+                        }
+                            <div>
+                                <PrivateRoute exact path="/" component={HomePage} />
+                                <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
+                                <PrivateRoute exact path="/admin/users" component={Users} />
+                                <PrivateRoute exact path="/admin/users/new" component={AddUser} />
+                                <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
+                                <Route path="/login" component={LoginPage} />
+                                <Route path="/register" component={RegisterPage} />
+                            </div>
+                    </Container>
+                </>
+            </Router>
         </div>
     );
   }
