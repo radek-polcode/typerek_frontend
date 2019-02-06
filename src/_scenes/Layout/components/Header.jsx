@@ -67,7 +67,7 @@ class Header extends Component {
           </Nav>
           <Nav className="ml-auto">
             <NavItem>
-              <NavLink href="/admin/dashboard">Header</NavLink>
+              <NavLink href="/admin/dashboard">Dashboard</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/admin/users">Users</NavLink>
