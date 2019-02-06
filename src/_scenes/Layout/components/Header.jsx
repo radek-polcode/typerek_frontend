@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
 import {
   Collapse,
   Navbar,
@@ -37,6 +39,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
     <header className="app-header">
       <Navbar
@@ -64,7 +67,10 @@ class Header extends Component {
           </Nav>
           <Nav className="ml-auto">
             <NavItem>
-              <NavLink href="/admin/dashboard">Admin</NavLink>
+              <NavLink href="/admin/dashboard">Header</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/admin/users">Users</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">Logout</NavLink>
@@ -77,5 +83,9 @@ class Header extends Component {
   }
 }
 
-export { Header as Header }; 
+function mapStateToProps(state) {
+  return {};
+}
+const connectedHeader = connect(mapStateToProps)(Header);
 
+export { connectedHeader as Header };
