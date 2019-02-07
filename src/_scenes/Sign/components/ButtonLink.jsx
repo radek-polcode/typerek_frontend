@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import '../../../App/App.css'
 
 ButtonLink.propTypes = {
-  link: PropTypes.string.required,
-  linkText: PropTypes.string.required
+  link: PropTypes.string.isRequired,
+  linkText: PropTypes.string.isRequired
 }
 
 ButtonLink.defaultProps = {
@@ -14,7 +14,7 @@ ButtonLink.defaultProps = {
   linkText: ''
 }
 
-function ButtonLink({link, linkText}) {  
+function ButtonLink({link, linkText}) {
   return (
     <>
       <Link to={link} 

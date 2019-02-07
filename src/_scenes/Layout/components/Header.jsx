@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { Link, IndexLink, Router } from 'react-router-dom';
 import { connect } from 'react-redux'
 
-import { userActions } from '../../../_actions' 
+import { store } from '../../../_helpers'
+import { userActions } from '../../../_actions'
 
 import {
   Collapse,
@@ -14,8 +15,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-
-
+import { AdminLinks } from './AdminLinks';
 
 
 class Header extends Component {
@@ -25,13 +25,37 @@ class Header extends Component {
   }
 
   state = {
-    isOpen: false
+    isOpen: false,
+    loggedIn: false,
+    loggedInRole: ''
   }
 
   static propTypes = {}
 
+  componentDidMount() {
+    // it might be done better I suppose, but now don't now how
+    let currentState = store.getState()
+    this.setState({
+      loggedIn: currentState.authentication.loggedIn
+    })
+
+    if (currentState.authentication.user) {
+      this.setState({
+        loggedInRole: currentState.authentication.user.data.role,
+      })
+    }
+  }
+
   handleDeleteUser(id) {
     return (e) => this.props.dispatch(userActions.delete(id));
+  }
+
+  setLinkText() {
+    if (this.state.loggedIn) {
+      return 'Logout' 
+    } else {
+      return 'Login'
+    }
   }
 
   toggle() {
@@ -41,6 +65,9 @@ class Header extends Component {
   }
 
   render() {
+    const loggedIn = this.state.loggedIn
+    const role = this.state.loggedInRole
+
     return (
     <header className="app-header">
       <Navbar
@@ -67,18 +94,15 @@ class Header extends Component {
             </NavItem>
           </Nav>
           <Nav className="ml-auto">
-            <NavItem>
-              <NavLink tag={Link} to="/admin/dashboard">Dashboard</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/admin/users">Users</NavLink>
-            </NavItem>
+            { loggedIn && role === 'admin' &&
+              <AdminLinks />
+            }
             <NavItem>
               <NavLink 
                 tag={Link}
                 to="/login"
               >
-                Logout
+                {this.setLinkText()}
               </NavLink>
             </NavItem>
           </Nav>
@@ -90,7 +114,9 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    auth: state.authentication
+  };
 }
 const connectedHeader = connect(mapStateToProps)(Header);
 
