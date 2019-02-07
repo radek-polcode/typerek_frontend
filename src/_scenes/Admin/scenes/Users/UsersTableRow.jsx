@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 
 UsersTableRow.propTypes = {
-  users: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 }
 
 UsersTableRow.defaultProps = {
-  users: {}
+  user: {}
 }
 
 function UsersTableRow({ user, index, handleDeleteUser }) {

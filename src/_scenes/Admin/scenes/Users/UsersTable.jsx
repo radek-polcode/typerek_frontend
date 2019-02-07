@@ -3,8 +3,7 @@ import { Table } from 'reactstrap';
 import PropTypes from 'prop-types'
 
 import styles from './Users.module.css'
-import { UsersTableHeadings } from './UsersTableHeadings'
-import { UsersTableBody } from './UsersTableBody'
+import { UsersTableRow } from './UsersTableRow'
 
 UsersTable.propTypes = {
   users: PropTypes.object.isRequired,
@@ -21,11 +20,28 @@ function UsersTable({ users, handleDeleteUser }) {
       className={styles.table__users}
       dark
     >
-      <UsersTableHeadings />
-      <UsersTableBody 
-        users={users}
-        handleDeleteUser={handleDeleteUser}
-      />
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Takes part</th>
+          <th>Registered</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.items &&
+          users.items.map((user, index) =>
+          <UsersTableRow
+            key={user.id}
+            index={index}
+            handleDeleteUser={handleDeleteUser}
+            user={user}
+          />
+        )}
+      </tbody>
     </Table>
   )
 }
