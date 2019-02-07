@@ -35,8 +35,14 @@ function login(email, password) {
 }
 
 function logout() {
-  userService.logout();
-  return { type: userConstants.LOGOUT }
+  return dispatch => {
+    userService.logout();
+    dispatch(success());
+    dispatch(alertActions.success('Wylogowano'))
+    history.push('/login');
+  }
+
+  function success() { return { type: userConstants.LOGOUT } }
 }
 
 function register(user) {

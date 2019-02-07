@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link, IndexLink, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-
-import { store } from '../../../_helpers'
-import { userActions } from '../../../_actions'
-
 import {
   Collapse,
   Navbar,
@@ -15,8 +11,9 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { AdminLinks } from './AdminLinks';
 
+import { AdminLinks } from './AdminLinks';
+import { userActions } from '../../../_actions'
 
 class Header extends Component {
   constructor(props) {
@@ -26,32 +23,17 @@ class Header extends Component {
 
   state = {
     isOpen: false,
-    loggedIn: false,
-    loggedInRole: ''
   }
 
   static propTypes = {}
-
-  componentDidMount() {
-    // it might be done better I suppose, but now don't now how
-    let currentState = store.getState()
-    this.setState({
-      loggedIn: currentState.authentication.loggedIn
-    })
-
-    if (currentState.authentication.user) {
-      this.setState({
-        loggedInRole: currentState.authentication.user.data.role,
-      })
-    }
-  }
 
   handleDeleteUser(id) {
     return (e) => this.props.dispatch(userActions.delete(id));
   }
 
   setLinkText() {
-    if (this.state.loggedIn) {
+    const { user } = this.props
+    if (user) {
       return 'Logout' 
     } else {
       return 'Login'
@@ -65,8 +47,7 @@ class Header extends Component {
   }
 
   render() {
-    const loggedIn = this.state.loggedIn
-    const role = this.state.loggedInRole
+    const { user } = this.props;
 
     return (
     <header className="app-header">
@@ -94,13 +75,14 @@ class Header extends Component {
             </NavItem>
           </Nav>
           <Nav className="ml-auto">
-            { loggedIn && role === 'admin' &&
+            { user && user.data && user.data.role === 'admin' &&
               <AdminLinks />
             }
             <NavItem>
               <NavLink 
                 tag={Link}
                 to="/login"
+                onClick={this.handleLogout}
               >
                 {this.setLinkText()}
               </NavLink>
@@ -114,8 +96,11 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
+  const { users, authentication } = state;
+  const { user } = authentication;
   return {
-    auth: state.authentication
+      user,
+      users
   };
 }
 const connectedHeader = connect(mapStateToProps)(Header);
