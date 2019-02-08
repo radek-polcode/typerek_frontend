@@ -11,6 +11,10 @@ body {
   height: 100%;
 }
 
+/* .alert {
+  margin-top: 80px;
+} */
+
 #app {
   background-color: #2f353a;
 }

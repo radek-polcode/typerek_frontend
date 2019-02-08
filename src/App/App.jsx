@@ -14,6 +14,7 @@ import { Dashboard } from '../_scenes/Admin'
 import { Users } from '../_scenes/Admin'
 import { AddUser } from '../_scenes/Admin'
 import { EditUser } from '../_scenes/Admin'
+import { AppAlert } from '../_scenes/Layout/components';
 
 import './App.css';
 
@@ -35,18 +36,21 @@ class App extends Component {
                 <>
                     <Header />
                     <Container className="main">
-                        {alert.message &&
-                            <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
-                            <div className="main__content">
-                                <PrivateRoute exact path="/" component={HomePage} />
-                                <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
-                                <PrivateRoute exact path="/admin/users" component={Users} />
-                                <PrivateRoute exact path="/admin/users/new" component={AddUser} />
-                                <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
-                                <Route path="/login" component={LoginPage} />
-                                <Route path="/register" component={RegisterPage} />
-                            </div>
+                        <div className="main__content">
+                            {alert.message &&
+                                <AppAlert 
+                                    message={alert.message}
+                                    alertType={alert.type} 
+                                />
+                            }
+                            <PrivateRoute exact path="/" component={HomePage} />
+                            <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
+                            <PrivateRoute exact path="/admin/users" component={Users} />
+                            <PrivateRoute exact path="/admin/users/new" component={AddUser} />
+                            <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
+                            <Route path="/login" component={LoginPage} />
+                            <Route path="/register" component={RegisterPage} />
+                        </div>
                     </Container>
                     <Footer />
                 </>
