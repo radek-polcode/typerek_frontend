@@ -179,10 +179,11 @@ class UserForm extends Component {
                 <CustomInput
                   id="takesPart"
                   type="checkbox"
-                  name="takesPart"
+                  value={takesPart} 
+                  checked={takesPart ? true : false}
                   label="Takes part"
-                  onChange={this.handleInputChange} 
-                  checked={takesPart}
+                  name="takesPart"
+                  onChange={this.handleInputChange}
                   inline
                 />
               </div>
