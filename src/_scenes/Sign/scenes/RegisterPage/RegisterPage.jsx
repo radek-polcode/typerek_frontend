@@ -55,7 +55,7 @@ class RegisterPage extends Component {
     const { user, submitted } = this.state;
 
     return (
-      <Row className="main">
+      <Row>
         <Col md="12">
           <Card className="card__form">
             <CardBody>

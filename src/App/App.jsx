@@ -6,7 +6,7 @@ import { Container } from 'reactstrap'
 import { history } from '../_helpers'
 import { alertActions } from '../_actions'
 import { PrivateRoute } from '../_components'
-import { Header } from '../_scenes/Layout/components'
+import { Header, Footer } from '../_scenes/Layout/components'
 import { HomePage } from '../_scenes/HomePage';
 import { LoginPage } from '../_scenes/Sign';
 import { RegisterPage } from '../_scenes/Sign'
@@ -30,15 +30,15 @@ class App extends Component {
   render() {
     const { alert } = this.props;
     return (
-        <div className="app">
+        <div className="flex__container">
             <Router history={history}>
                 <>
                     <Header />
-                    <Container className="main__container">
+                    <Container className="main">
                         {alert.message &&
                             <div className={`alert ${alert.type}`}>{alert.message}</div>
                         }
-                            <div>
+                            <div className="main__content">
                                 <PrivateRoute exact path="/" component={HomePage} />
                                 <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
                                 <PrivateRoute exact path="/admin/users" component={Users} />
@@ -48,6 +48,7 @@ class App extends Component {
                                 <Route path="/register" component={RegisterPage} />
                             </div>
                     </Container>
+                    <Footer />
                 </>
             </Router>
         </div>

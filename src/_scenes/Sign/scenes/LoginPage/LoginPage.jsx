@@ -54,7 +54,7 @@ class LoginPage extends Component {
     const { email, password, submitted } = this.state;
 
     return(
-      <Row className="main">
+      <Row>
         <Col md="12">
           <CardGroup className={styles.cardgroup}>
             <Card className="card__form">

@@ -1,11 +1,40 @@
-.app {
+
+@media screen and (max-width: 600px) {
+  .card__form__input__prepend {
+    display: none;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#app {
   background-color: #2f353a;
 }
-.main__container {
+
+.app__footer {
+  height: 50px;
+  margin-top: -50px;
   align-items: center;
-  display: flex;
   justify-content: center;
-  min-height: 95vh;
+}
+
+.flex__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  min-height: 100vh;
+}
+
+.main__content {
+  margin-top: 80px;
+  padding: 20px;
+  padding-bottom: 50px;
 }
 
 /* 
@@ -70,4 +99,3 @@
   border: 1px solid #23282c;
   color: #d9dce0;
 }
-
