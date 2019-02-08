@@ -89,7 +89,6 @@ class UserForm extends Component {
         {value: 'registered'},
         {value: 'admin'}
     ]
-    console.log(this.props)
 
     return (
       <Card className="card__form">
