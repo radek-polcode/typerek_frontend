@@ -1,11 +1,44 @@
-.app {
+
+@media screen and (max-width: 600px) {
+  .card__form__input__prepend {
+    display: none;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* .alert {
+  margin-top: 80px;
+} */
+
+#app {
   background-color: #2f353a;
 }
-.main__container {
+
+.app__footer {
+  height: 50px;
+  margin-top: -50px;
   align-items: center;
-  display: flex;
   justify-content: center;
-  min-height: 95vh;
+}
+
+.flex__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  min-height: 100vh;
+}
+
+.main__content {
+  margin-top: 80px;
+  padding: 20px;
+  padding-bottom: 50px;
 }
 
 /* 
@@ -71,3 +104,24 @@
   color: #d9dce0;
 }
 
+/* Tables */
+.table__action__icon {
+  cursor: pointer;
+  margin: 0 5px 0 5px;
+}
+
+.icon__delete {
+  color: #f86c6b
+}
+
+.icon__delete:hover {
+  color: #d13232
+}
+
+.icon__edit {
+  color: #ffd043;
+}
+
+.icon__edit:hover {
+  color: #ff9900;
+}

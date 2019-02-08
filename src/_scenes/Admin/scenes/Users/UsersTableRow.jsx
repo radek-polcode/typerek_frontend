@@ -1,13 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
+import cx from 'classnames';
+
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+
+import styles from '../../../../App/App.css'
 
 UsersTableRow.propTypes = {
-  users: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 }
 
 UsersTableRow.defaultProps = {
-  users: {}
+  user: {}
 }
 
 function UsersTableRow({ user, index, handleDeleteUser }) {
@@ -33,11 +38,12 @@ function UsersTableRow({ user, index, handleDeleteUser }) {
       </td>
       <td>
         <Link to={`/admin/users/${user.id}/edit`}>
-          Edit 
+          <FaPencilAlt className={cx(styles.table__action__icon, styles.icon__edit)} />
         </Link>
-        <button onClick={handleDeleteUser(user.id)}>
-          Delete 
-        </button>
+        <FaTrashAlt 
+          className="table__action__icon icon__delete" 
+          onClick={handleDeleteUser(user.id)}
+        /> 
       </td>
     </tr>
   )

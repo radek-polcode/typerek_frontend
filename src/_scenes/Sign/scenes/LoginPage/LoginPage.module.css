@@ -1,3 +1,9 @@
+@media screen and (max-width: 600px) {
+  .cardgroup {
+    border: none !important;
+  }
+}
+
 .cardgroup {
   border: 1px solid rgb(35, 40, 44);
   border-radius: 5px;

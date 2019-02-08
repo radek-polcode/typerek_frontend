@@ -35,8 +35,14 @@ function login(email, password) {
 }
 
 function logout() {
-  userService.logout();
-  return { type: userConstants.LOGOUT }
+  return dispatch => {
+    userService.logout();
+    dispatch(success());
+    dispatch(alertActions.success('Wylogowano'))
+    history.push('/login');
+  }
+
+  function success() { return { type: userConstants.LOGOUT } }
 }
 
 function register(user) {
@@ -128,8 +134,13 @@ function _delete(id) {
 
     userService.delete(id)
       .then(
-        user => dispatch(success(id)),
-        error => dispatch(failure(id, error.toString()))
+        user => {
+          dispatch(success(id));
+          dispatch(alertActions.success('User removed successfully'));
+        },
+        error => {
+          dispatch(failure(id, error.toString()))
+        }
       );
   };
 
