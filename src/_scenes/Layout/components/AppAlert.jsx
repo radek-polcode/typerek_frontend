@@ -1,36 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import { Alert } from 'reactstrap'
+import { alertActions } from '../../../_actions'
 
 class AppAlert extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      visible: true
-    };
-
     this.onDismiss = this.onDismiss.bind(this);
   }
 
-  static PropTypes = {
-    message: propTypes.string.isRequired
+  state = {
+    visible: true,
+    alertType: this.props.alertType.replace(/alert-/, ''),
+    message: this.props.message
+  };
+
+  static propTypes = {
+    message: propTypes.string.isRequired,
+    alertType: propTypes.string.isRequired
   }
 
   onDismiss() {
+    const { dispatch } = this.props;
     this.setState({ visible: false });
-  }
-
-  getAlertType(alertType) {
-    alertType.replace(/alert/, '')
+    dispatch(alertActions.clear());
   }
 
   render() {
-    const { message, alertType } = this.props;
+    const { alertType, message, visible } = this.state;
     return (
       <Alert 
-        color={this.getAlertType(alertType)} 
-        isOpen={this.state.visible} 
+        color={alertType} 
+        isOpen={visible} 
         toggle={this.onDismiss}
       >
         {message}
@@ -39,4 +42,9 @@ class AppAlert extends Component {
   }
 }
 
-export { AppAlert };
+function mapStateToProps(state) {
+  return {};
+}
+
+const connectedApp = connect(mapStateToProps)(AppAlert);
+export { connectedApp as AppAlert }; 

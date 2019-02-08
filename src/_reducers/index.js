@@ -14,7 +14,6 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  console.log(action.type)
   if (action.type === 'USERS_LOGOUT') {
     Object.keys(state).forEach(key => {
       localStorage.removeItem(`persist:${key}`);

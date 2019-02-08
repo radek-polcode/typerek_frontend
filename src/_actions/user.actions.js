@@ -134,8 +134,13 @@ function _delete(id) {
 
     userService.delete(id)
       .then(
-        user => dispatch(success(id)),
-        error => dispatch(failure(id, error.toString()))
+        user => {
+          dispatch(success(id));
+          dispatch(alertActions.success('User removed successfully'));
+        },
+        error => {
+          dispatch(failure(id, error.toString()))
+        }
       );
   };
 
