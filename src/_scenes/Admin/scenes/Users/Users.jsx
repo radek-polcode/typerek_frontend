@@ -30,12 +30,11 @@ class Users extends Component {
 
     return (
       <div>
-        <h2>Users</h2>
-        <Link to='/admin/users/new'>Add new user</Link>
-        <UsersTable 
-          users={users}
-          handleDeleteUser={handleDeleteUser}
-        />
+          <Link to='/admin/users/new'>Add new user</Link>
+          <UsersTable 
+            users={users}
+            handleDeleteUser={handleDeleteUser}
+          />
       </div>
     )
   }

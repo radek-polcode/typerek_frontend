@@ -99,3 +99,25 @@ body {
   border: 1px solid #23282c;
   color: #d9dce0;
 }
+
+/* Tables */
+.table__action__icon {
+  cursor: pointer;
+  margin: 0 5px 0 5px;
+}
+
+.icon__delete {
+  color: #f86c6b
+}
+
+.icon__delete:hover {
+  color: #d13232
+}
+
+.icon__edit {
+  color: #ffd043;
+}
+
+.icon__edit:hover {
+  color: #ff9900;
+}
