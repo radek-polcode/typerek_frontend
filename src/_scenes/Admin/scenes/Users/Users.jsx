@@ -21,7 +21,7 @@ class Users extends Component {
   }
 
   handleDeleteUser(id) {
-    return (e) => this.props.dispatch(userActions.delete(id));
+    return this.props.dispatch(userActions.delete(id));
   }
 
   render() {
