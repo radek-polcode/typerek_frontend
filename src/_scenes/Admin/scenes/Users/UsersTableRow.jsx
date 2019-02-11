@@ -8,14 +8,11 @@ import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import styles from '../../../../App/App.css'
 
 UsersTableRow.propTypes = {
-  user: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
-  handleDeleteUser: PropTypes.func.isRequired
+  user: PropTypes.object.isRequired
 }
 
 UsersTableRow.defaultProps = {
-  user: {},
-  index: 0
+  user: {}
 }
 
 function UsersTableRow({ user, index, handleDeleteUser }) {
@@ -45,7 +42,7 @@ function UsersTableRow({ user, index, handleDeleteUser }) {
         </Link>
         <FaTrashAlt 
           className="table__action__icon icon__delete" 
-          onClick={() => { if(window.confirm('Are you sure?')) handleDeleteUser(user.id)} }
+          onClick={handleDeleteUser(user.id)}
         /> 
       </td>
     </tr>
