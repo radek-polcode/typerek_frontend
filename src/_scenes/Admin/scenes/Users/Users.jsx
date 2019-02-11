@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withNamespaces } from 'react-i18next';
 
 import { userActions } from '../../../../_actions/user.actions'
 
@@ -25,12 +26,12 @@ class Users extends Component {
   }
 
   render() {
-    const { users } = this.props
+    const { users, t } = this.props
     const handleDeleteUser = this.handleDeleteUser
 
     return (
       <div>
-          <Link to='/admin/users/new'>Add new user</Link>
+          <Link to='/admin/users/new'>{t('admin.usersTable.addNewUser')}</Link>
           <UsersTable 
             users={users}
             handleDeleteUser={handleDeleteUser}
@@ -48,4 +49,6 @@ function mapStateToProps(state) {
 }
 
 const connectedUsers = connect(mapStateToProps)(Users);
-export { connectedUsers as Users }; 
+const translatedUsers = withNamespaces()(connectedUsers)
+
+export { translatedUsers as Users }; 

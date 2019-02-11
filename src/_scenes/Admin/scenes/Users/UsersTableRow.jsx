@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
 import cx from 'classnames';
-
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { withNamespaces } from 'react-i18next';
 
 import styles from '../../../../App/App.css'
 
@@ -18,7 +18,7 @@ UsersTableRow.defaultProps = {
   index: 0
 }
 
-function UsersTableRow({ user, index, handleDeleteUser }) {
+function UsersTableRow({ user, index, handleDeleteUser, t }) {
   return (
     <tr>
       <td>
@@ -45,11 +45,12 @@ function UsersTableRow({ user, index, handleDeleteUser }) {
         </Link>
         <FaTrashAlt 
           className="table__action__icon icon__delete" 
-          onClick={() => { if(window.confirm('Are you sure you want to delete this user?')) handleDeleteUser(user.id)} }
+          onClick={() => { if(window.confirm(t('userForm.confirmationMessage'))) handleDeleteUser(user.id)} }
         /> 
       </td>
     </tr>
   )
 }
+const translatedComponent = withNamespaces()(UsersTableRow);
 
-export { UsersTableRow }
+export { translatedComponent as UsersTableRow }

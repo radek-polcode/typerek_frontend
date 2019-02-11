@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withNamespaces } from 'react-i18next';
 
 import { Button,
          Card, CardHeader, CardBody,
@@ -74,31 +75,31 @@ class UserForm extends Component {
     }
   }
 
-  setButtonName() {
+  setButtonName(t) {
     if (this.props.isEditing) {
-      return 'Update user'
+      return t('admin.userForm.updateUserButton')
     } else {
-      return 'Add user'
+      return t('admin.userForm.addUserButton')
     }
   }
 
   render() {
     const { email, username, password, takesPart, submitted } = this.state;
-
     const ROLES = [
         {value: 'registered'},
         {value: 'admin'}
     ]
+    const { t } = this.props
 
     return (
       <Card className="card__form">
         <CardHeader tag="h2">
-          User Form
+          {t('admin.userForm.title')}
         </CardHeader>
         <CardBody>
           <Form name="form" onSubmit={this.handleSubmit}>
             <FormGroup className={(submitted && !email ? ' has-error' : '')}>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('shared.email')}</Label>
                 <InputGroup>
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText className="card__form__input__prepend">
@@ -112,12 +113,12 @@ class UserForm extends Component {
                          value={email}
                   />
                   {submitted && !email &&
-                      <div className="help-block">Email is required</div>
+                      <div className="help-block">{t('shared.email')} {t('shared.isRequired')}</div>
                   }
                 </InputGroup>
             </FormGroup>
             <FormGroup className={(submitted && !username ? ' has-error' : '')}>
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username">{t('shared.username')}</Label>
                 <InputGroup>
                   <InputGroupAddon addonType="prepend">
                       <InputGroupText className="card__form__input__prepend">
@@ -131,13 +132,13 @@ class UserForm extends Component {
                          value={username}
                   />
                   {submitted && !username &&
-                      <div className="help-block">Username is required</div>
+                      <div className="help-block">{t('shared.username')} {t('shared.isRequired')}</div>
                   }
                 </InputGroup>
             </FormGroup>
             { !this.props.isEditing && 
               <FormGroup className={(submitted && !password ? ' has-error' : '')}>
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('shared.password')}</Label>
                 <InputGroup>
                   <InputGroupAddon addonType="prepend">
                       <InputGroupText className="card__form__input__prepend">
@@ -150,13 +151,13 @@ class UserForm extends Component {
                          onChange={this.handleInputChange} 
                   />
                   {submitted && !password &&
-                      <div className="help-block">Password is required</div>
+                      <div className="help-block">{t('shared.password')} {t('shared.isRequired')}</div>
                   }
                 </InputGroup>
               </FormGroup>
             }
             <FormGroup>
-                <Label htmlFor="role">Role</Label>
+                <Label htmlFor="role">{t('shared.role')}</Label>
                 <InputGroup>
                   <Input type="select" 
                          className="form-control card__form__input"
@@ -181,7 +182,7 @@ class UserForm extends Component {
                   type="checkbox"
                   value={takesPart} 
                   checked={takesPart ? true : false}
-                  label="Takes part"
+                  label={t('shared.takesPart')}
                   name="takesPart"
                   onChange={this.handleInputChange}
                   inline
@@ -190,7 +191,7 @@ class UserForm extends Component {
             </FormGroup>
             <FormGroup>
               <Button>
-                {this.setButtonName()}
+                {this.setButtonName(t)}
               </Button>
             </FormGroup>
         </Form>
@@ -203,6 +204,8 @@ class UserForm extends Component {
 function mapStateToProps(state) {
   return {};
 }
-const connectedUserForm = connect(mapStateToProps)(UserForm);
 
-export { connectedUserForm as UserForm };
+const connectedUserForm = connect(mapStateToProps)(UserForm);
+const translatedUserForm = withNamespaces()(connectedUserForm)
+
+export { translatedUserForm as UserForm };

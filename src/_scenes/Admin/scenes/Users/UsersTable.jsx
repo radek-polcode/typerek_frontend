@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Card, CardHeader, CardBody } from 'reactstrap';
 import styles from './Users.module.css'
 import { UsersTableRow } from './UsersTableRow'
+import { withNamespaces } from 'react-i18next';
 
 UsersTable.propTypes = {
   users: PropTypes.object.isRequired,
@@ -14,11 +15,11 @@ UsersTable.defaultProps = {
   users: {}
 }
 
-function UsersTable({ users, handleDeleteUser }) {
+function UsersTable({ users, handleDeleteUser, t }) {
   return (
     <Card className="card__form">
       <CardHeader tag="h2">
-        Users list
+        {t('admin.usersTable.title')}
       </CardHeader>
       <CardBody>
         <Table
@@ -28,12 +29,12 @@ function UsersTable({ users, handleDeleteUser }) {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Takes part</th>
-                <th>Registered</th>
-                <th>Action</th>
+                <th>{t('shared.username')}</th>
+                <th>{t('shared.email')}</th>
+                <th>{t('shared.role')}</th>
+                <th>{t('shared.takesPart')}</th>
+                <th>{t('admin.usersTable.registered')}</th>
+                <th>{t('shared.action')}</th>
               </tr>
             </thead>
             <tbody>
@@ -52,5 +53,5 @@ function UsersTable({ users, handleDeleteUser }) {
     </Card>
   )
 }
-
-export { UsersTable }
+const translatedComponent = withNamespaces()(UsersTable)
+export { translatedComponent as UsersTable }

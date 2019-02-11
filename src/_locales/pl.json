@@ -1,0 +1,17 @@
+{
+  "admin": {
+    "userForm": {
+      "username": "Nazwa użytkownika",
+      "confirmationMessage": "Na pewno chcesz usunąć tego użytkownika?",
+      "email": "Email"
+    },
+    "usersTable": {
+      "username": "Nazwa użytkownika",
+      "email": "Email",
+      "role": "Rola",
+      "takesPart": "Bierze udział",
+      "registered": "Zarejestrowany",
+      "action": "Akcja"
+    }
+  }
+}

@@ -6,8 +6,9 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import { LoadingView } from './_components/'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { persistor, store } from './_helpers';
 import { App } from './App';
+import './i18n';
+import { persistor, store } from './_helpers';
 
 import './index.css';
 import * as serviceWorker from './serviceWorker';
