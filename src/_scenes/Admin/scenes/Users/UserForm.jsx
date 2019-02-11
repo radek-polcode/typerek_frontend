@@ -30,7 +30,7 @@ class UserForm extends Component {
     email: this.props.user.attributes.email,
     username: this.props.user.attributes.username,
     role: this.props.user.attributes.role,
-    takesPart: this.props.user.attributes.take_part,
+    takesPart: this.props.user.attributes.takesPart,
     submitted: false
   }
 
