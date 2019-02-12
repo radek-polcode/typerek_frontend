@@ -2,6 +2,7 @@ import { userConstants} from '../_constants'
 import { userService } from '../_services'
 import { alertActions } from '.';
 import { history } from '../_helpers'
+import i18n from '../i18n';
 
 export const userActions = {
   addUser,
@@ -35,10 +36,14 @@ function login(email, password) {
 }
 
 function logout() {
+  let t = i18n.t.bind(i18n);
+
   return dispatch => {
     userService.logout();
     dispatch(success());
-    dispatch(alertActions.success('Wylogowano'))
+    dispatch(alertActions.success(
+      t('alerts.auth.logout')
+    ))
     history.push('/login');
   }
 
@@ -46,6 +51,8 @@ function logout() {
 }
 
 function register(user) {
+  let t = i18n.t.bind(i18n);
+
   return dispatch => {
     dispatch(request(user));
 
@@ -54,7 +61,9 @@ function register(user) {
         user => {
           dispatch(success());
           history.push('/login');
-          dispatch(alertActions.success('Registration successful'));
+          dispatch(alertActions.success(
+            t('alerts.users.registeredSuccessfully')
+          ));
         },
         error => {
           dispatch(failure(error.toString()));
@@ -85,6 +94,8 @@ function getAll() {
 }
 
 function addUser(user) {
+  let t = i18n.t.bind(i18n);
+
   return dispatch => {
     dispatch(request());
     userService.addUser(user)
@@ -92,7 +103,9 @@ function addUser(user) {
         user => {
           dispatch(success(user));
           history.push('/admin/users');
-          dispatch(alertActions.success('User added successfully'));
+          dispatch(alertActions.success(
+            t('alerts.users.addedSuccessfully')
+          ));
         },
         error => {
           dispatch(failure(error.toString()));
@@ -107,6 +120,8 @@ function addUser(user) {
 }
 
 function updateUser(user, id) {
+  let t = i18n.t.bind(i18n);
+
   return dispatch => {
     dispatch(request());
     userService.updateUser(user, id)
@@ -114,7 +129,9 @@ function updateUser(user, id) {
         user => {
           dispatch(success(user));
           history.push('/admin/users');
-          dispatch(alertActions.success('User edited successfully'));
+          dispatch(alertActions.success(
+            t('alerts.users.editedSuccessfully')
+          ));
         },
         error => {
           dispatch(failure(error.toString()));
@@ -129,6 +146,8 @@ function updateUser(user, id) {
 }
 
 function _delete(id) {
+  let t = i18n.t.bind(i18n);
+
   return dispatch => {
     dispatch(request(id));
 
@@ -136,7 +155,9 @@ function _delete(id) {
       .then(
         user => {
           dispatch(success(id));
-          dispatch(alertActions.success('User removed successfully'));
+          dispatch(alertActions.success(
+            t('alerts.users.removedSuccessfully')
+          ));
         },
         error => {
           dispatch(failure(id, error.toString()))

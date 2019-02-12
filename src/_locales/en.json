@@ -13,6 +13,17 @@
       "title": "Users list"
     }
   },
+  "alerts": {
+    "auth": {
+      "logout": "Logged out"
+    },
+    "users": {
+      "addedSuccessfully": "User added successfully",
+      "editedSuccessfully": "User edited successfully",
+      "registeredSuccessfully": "Registration successful",
+      "removedSuccessfully": "User removed successfully"
+    }
+  },
   "auth": {
     "forgotPassword": "Forgot Password?",
     "loginButton": "Login",
