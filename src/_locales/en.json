@@ -25,6 +25,19 @@
     "signUpCardTitle": "Sign up",
     "signUpCardSubtitle": "Dont't have account yet? Register now!"
   },
+  "footer": {
+    "copyright": "Copyright"
+  },
+  "navbar": {
+    "brandName": "Typerek",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "logout": "Logout",
+    "rules": "Rules",
+    "tournaments": "Tournaments",
+    "users": "Users",
+    "yourGroups": "Your groups"
+  },
   "shared": {
     "action": "Action",
     "cancelLink": "Cancel",

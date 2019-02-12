@@ -1,11 +1,14 @@
 import React from 'react'
+import { withNamespaces } from 'react-i18next';
 
-function Footer() {
+function Footer({ t }) {
   return (
     <div className="app__footer flex__container">
-      <p>Copyright 2019</p>
+      <p>{(t('footer.copyright'))} 2019</p>
     </div>
   )
 }
 
-export { Footer }
+const translatedFooter = withNamespaces()(Footer)
+
+export { translatedFooter as Footer }

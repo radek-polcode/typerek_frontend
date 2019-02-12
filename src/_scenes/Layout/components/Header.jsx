@@ -11,6 +11,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+import { withNamespaces } from 'react-i18next';
 
 import { AdminLinks } from './AdminLinks';
 import { userActions } from '../../../_actions'
@@ -32,11 +33,11 @@ class Header extends Component {
   }
 
   setLinkText() {
-    const { user } = this.props
+    const { user, t } = this.props
     if (user) {
-      return 'Logout' 
+      return t('navbar.logout')
     } else {
-      return 'Login'
+      return t('navbar.login')
     }
   }
 
@@ -47,7 +48,7 @@ class Header extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, t } = this.props;
 
     return (
       <header className="app-header">
@@ -56,7 +57,7 @@ class Header extends Component {
           color="dark"
           expand="md"
         >
-          <NavbarBrand tag={Link} to="/">Typerek</NavbarBrand>
+          <NavbarBrand tag={Link} to="/">{t('navbar.brandName')}</NavbarBrand>
           <NavbarToggler 
             onClick={this.toggle}
           >
@@ -65,13 +66,13 @@ class Header extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto">
               <NavItem active>
-                <NavLink href="#">Rules <span className="sr-only">(current)</span></NavLink>
+                <NavLink href="#">{t('navbar.rules')} <span className="sr-only">(current)</span></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Tournaments</NavLink>
+                <NavLink href="#">{t('navbar.tournaments')}</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Your groups</NavLink>
+                <NavLink href="#">{t('navbar.yourGroups')}</NavLink>
               </NavItem>
             </Nav>
             <Nav className="ml-auto">
@@ -103,6 +104,8 @@ function mapStateToProps(state) {
       users
   };
 }
-const connectedHeader = connect(mapStateToProps)(Header);
 
-export { connectedHeader as Header };
+const connectedHeader = connect(mapStateToProps)(Header);
+const translatedHeader = withNamespaces()(connectedHeader)
+
+export { translatedHeader as Header };
