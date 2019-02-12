@@ -1,13 +1,4 @@
 {
-  "shared": {
-    "action": "Action",
-    "email": "Email",
-    "isRequired": "is required",
-    "password": "Password",
-    "role": "Role",
-    "takesPart": "Takes part",
-    "username": "Username"
-  },
   "admin": {
     "userForm": {
       "addUserButton": "Add user",
@@ -21,5 +12,27 @@
       "takesPart": "Takes part",
       "title": "Users list"
     }
-  } 
+  },
+  "auth": {
+    "forgotPassword": "Forgot Password?",
+    "loginButton": "Login",
+    "loginCardTitle": "Login",
+    "loginCardSubtitle": "Sign in to your account",
+    "registerButton": "Register now",
+    "registerButton2": "Register",
+    "registerTitle": "Register",
+    "registerSubtitle": "Create your account",
+    "signUpCardTitle": "Sign up",
+    "signUpCardSubtitle": "Dont't have account yet? Register now!"
+  },
+  "shared": {
+    "action": "Action",
+    "cancelLink": "Cancel",
+    "email": "Email",
+    "isRequired": "is required",
+    "password": "Password",
+    "role": "Role",
+    "takesPart": "Takes part",
+    "username": "Username"
+  }
 }

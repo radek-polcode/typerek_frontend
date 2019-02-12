@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withNamespaces } from 'react-i18next';
 
 import { Row, Col } from 'reactstrap';
 import { Card, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
@@ -51,7 +52,7 @@ class RegisterPage extends Component {
     }
   }
   render() {
-    const { registering  } = this.props;
+    const { registering, t } = this.props;
     const { user, submitted } = this.state;
 
     return (
@@ -60,14 +61,14 @@ class RegisterPage extends Component {
           <Card className="card__form">
             <CardBody>
               <CardTitle>
-                  <h2>Register</h2>
+                  <h2>{t('auth.registerTitle')}</h2>
               </CardTitle>
               <CardSubtitle>
-                <p className="text-muted">Create your account</p>
+                <p className="text-muted">{t('auth.registerSubtitle')}</p>
               </CardSubtitle>
               <Form name="form" onSubmit={this.handleSubmit}>
                   <FormGroup className={(submitted && !user.email ? ' has-error' : '')}>
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t('shared.email')}</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText className="card__form__input__prepend">
@@ -80,12 +81,14 @@ class RegisterPage extends Component {
                                value={user.email} 
                                onChange={this.handleChange} />
                         {submitted && !user.email &&
-                            <div className="help-block">Email is required</div>
+                            <div className="help-block">
+                              {t('shared.email')} {t('shared.isRequired')}
+                            </div>
                         }
                       </InputGroup>
                   </FormGroup>
                   <FormGroup className={(submitted && !user.username ? ' has-error' : '')}>
-                      <Label htmlFor="username">Username</Label>
+                      <Label htmlFor="username">{t('shared.username')}</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText className="card__form__input__prepend">
@@ -98,12 +101,14 @@ class RegisterPage extends Component {
                                value={user.username} 
                                onChange={this.handleChange} />
                         {submitted && !user.username &&
-                            <div className="help-block">Username is required</div>
+                            <div className="help-block">
+                              {t('shared.username')} {t('shared.isRequired')}
+                            </div>
                         }
                       </InputGroup>
                   </FormGroup>
                   <FormGroup className={(submitted && !user.password ? ' has-error' : '')}>
-                      <Label htmlFor="password">Password</Label>
+                      <Label htmlFor="password">{t('shared.password')}</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText className="card__form__input__prepend">
@@ -116,18 +121,22 @@ class RegisterPage extends Component {
                                value={user.password} 
                                onChange={this.handleChange} />
                         {submitted && !user.password &&
-                            <div className="help-block">Password is required</div>
+                            <div className="help-block">
+                              {t('shared.password')} {t('shared.isRequired')}
+                            </div>
                         }
                       </InputGroup>
                   </FormGroup>
                   <FormGroup>
-                      <Button color="success">Register</Button>
+                      <Button color="success">
+                        {t('auth.registerButton2')}
+                      </Button>
                       {registering && 
                           <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                       }
                       <ButtonLink 
                         link='/login'
-                        linkText='Cancel'
+                        linkText={t('shared.cancelLink')}
                       />
                   </FormGroup>
               </Form>
@@ -147,4 +156,6 @@ function mapStateToProps(state) {
 }
 
 const connectedRegisterPage = connect(mapStateToProps)(RegisterPage);
-export { connectedRegisterPage as RegisterPage };
+const translatedLoginPage = withNamespaces()(connectedRegisterPage)
+
+export { translatedLoginPage as RegisterPage };
