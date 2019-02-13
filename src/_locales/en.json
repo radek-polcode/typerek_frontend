@@ -1,5 +1,14 @@
 {
   "admin": {
+    "competitionsTable": {
+      "competitionName": "Name",
+      "endDate": "End date",
+      "place": "Place",
+      "startDate": "Start date",
+      "title": "Competitions list",
+      "winner": "Winner",
+      "year": "Year"
+    },
     "dashboard": {
       "title": "Dashboard"
     },

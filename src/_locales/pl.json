@@ -1,5 +1,14 @@
 {
   "admin": {
+    "competitionsTable": {
+      "competitionName": "Nazwa",
+      "endDate": "Data zakończenia",
+      "place": "Miejsce",
+      "startDate": "Data rozpoczęcia",
+      "title": "Lista turniejów",
+      "winner": "Zwycięzca",
+      "year": "Rok"
+    },
     "dashboard": {
       "title": "Dashboard"
     },

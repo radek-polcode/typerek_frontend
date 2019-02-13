@@ -35,6 +35,7 @@ function CompetitionsTable({ competitions, t }) {
                 <th>{t('admin.competitionsTable.startDate')}</th>
                 <th>{t('admin.competitionsTable.endDate')}</th>
                 <th>{t('admin.competitionsTable.winner')}</th>
+                <th>{t('shared.action')}</th>
               </tr>
             </thead>
             <tbody>
