@@ -1,26 +1,8 @@
-import { authenticationHeaders } from '../_helpers';
-import config from '../_config';
+import { authenticationService } from '../_services'
 
-const namespace = 'admin/'
-
-export const competitionService = {
-  getAll
+export const handlingResponse = {
+  handleResponse,
 };
-
-
-function logout() {
-  localStorage.removeItem('user');
-}
-
-function getAll() {
-  const requestOptions = {
-    method: 'GET',
-    headers: authenticationHeaders()
-  };
-
-  return fetch(`${config.apiUrl}/${namespace}competitions`, requestOptions)
-          .then(handleResponse);
-}
 
 function handleResponse(response) {
   return response.text().then(text => {
@@ -35,7 +17,7 @@ function handleResponse(response) {
       if (!response.ok) {
           if (response.status === 401) {
               // auto logout if 401 response returned from api
-              logout();
+              authenticationService.logout();
               // window.location.reload(true);
           }
 
