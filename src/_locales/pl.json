@@ -1,17 +1,65 @@
 {
   "admin": {
+    "dashboard": {
+      "title": "Dashboard"
+    },
     "userForm": {
-      "username": "Nazwa użytkownika",
-      "confirmationMessage": "Na pewno chcesz usunąć tego użytkownika?",
-      "email": "Email"
+      "addUserButton": "Dodaj użytkownika",
+      "confirmationMessage": "Czy na pewno chcesz usunąć tego użytkownika?",
+      "title": "Formularz użytkownika",
+      "updateUserButton": "Zaktualizuj"
     },
     "usersTable": {
-      "username": "Nazwa użytkownika",
-      "email": "Email",
-      "role": "Rola",
-      "takesPart": "Bierze udział",
+      "addNewUser": "Dodaj nowego użytkownika",
       "registered": "Zarejestrowany",
-      "action": "Akcja"
+      "takesPart": "Bierze udział",
+      "title": "Lista użytkowników"
     }
+  },
+  "alerts": {
+    "auth": {
+      "logout": "Wylogowano"
+    },
+    "users": {
+      "addedSuccessfully": "Użytkownik został dodany",
+      "editedSuccessfully": "Użytkownik został edytowany",
+      "registeredSuccessfully": "Zostałeś/aś zarejestrowany/a",
+      "removedSuccessfully": "Użytkownik został usunięty"
+    }
+  },
+  "auth": {
+    "forgotPassword": "Zapomniałeś hasła?",
+    "loginButton": "Zaloguj",
+    "loginCardTitle": "Logowanie",
+    "loginCardSubtitle": "Zaloguj się do swojego konta",
+    "registerButton": "Zarejestruj",
+    "registerButton2": "Zarejestruj",
+    "registerTitle": "Zarejestruj",
+    "registerSubtitle": "Stwórz swoje konto",
+    "signUpCardTitle": "Zarejestruj",
+    "signUpCardSubtitle": "Nie masz jeszcze konta? Zarejestruj się teraz!"
+  },
+  "footer": {
+    "copyright": "Copyright"
+  },
+  "navbar": {
+    "brandName": "Typerek",
+    "dashboard": "Dashboard",
+    "login": "Zaloguj",
+    "logout": "Wyloguj",
+    "rules": "Zasady",
+    "tournaments": "Turnieje",
+    "users": "Użytkownicy",
+    "yourGroups": "Twoje grupy"
+  },
+  "shared": {
+    "action": "Akcja",
+    "cancelLink": "Anuluj",
+    "email": "Email",
+    "isRequired": "jest wymagany/a",
+    "password": "Hasło",
+    "role": "Rola",
+    "takesPart": "Bierze udział",
+    "username": "Nazwa użytkownika"
   }
 }
