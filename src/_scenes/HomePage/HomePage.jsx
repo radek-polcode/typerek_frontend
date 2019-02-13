@@ -9,10 +9,6 @@ import { userActions } from '../../_actions';
 export default class HomePage extends Component {
   static propTypes = {}
 
-  componentDidMount() {
-    // this.props.dispatch(userActions.getAll());
-  }
-
   handleDeleteUser(id) {
     return (e) => this.props.dispatch(userActions.delete(id));
   }

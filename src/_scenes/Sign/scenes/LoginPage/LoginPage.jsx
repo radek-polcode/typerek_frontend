@@ -16,13 +16,13 @@ import { ButtonLink } from '../../components/'
 import styles from './LoginPage.module.css'
 import '../../../../App/App.css'
 
-import { userActions } from '../../../../_actions';
+import { authenticationActions } from '../../../../_actions';
 
 class LoginPage extends Component {  
   constructor(props) {
     super(props);
 
-    this.props.dispatch(userActions.logout());    
+    this.props.dispatch(authenticationActions.logout());    
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,7 +46,7 @@ class LoginPage extends Component {
     const { email, password } = this.state;
     const { dispatch } = this.props;
     if (email && password) {
-      dispatch(userActions.login(email, password))
+      dispatch(authenticationActions.login(email, password))
     }
   }
 

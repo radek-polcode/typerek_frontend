@@ -1,11 +1,9 @@
-import config from '../_config';
+import { authenticationService } from './'
 import { authHeader } from '../_helpers';
+import config from '../_config';
 
 export const userService = {
   addUser,
-  login,
-  logout,
-  register,
   getAll,
   getById,
   update,
@@ -14,24 +12,6 @@ export const userService = {
 };
 
 const namespace = 'admin/'
-
-function login(email, password) {
-  const requestOptions = {
-    method: 'POST',
-    headers: config.defaultHeaders,
-    body: JSON.stringify({email, password})
-  };
-  return fetch(`${config.apiUrl}/auth/sign_in`, requestOptions)
-    .then(handleResponse)
-    .then(user => {
-      localStorage.setItem('user', JSON.stringify(user));
-      return user
-    });
-}
-
-function logout() {
-  localStorage.removeItem('user');
-}
 
 function getAll() {
   const requestOptions = {
@@ -72,16 +52,6 @@ function updateUser(user, id) {
           .then(handleResponse)
 }
 
-function register(user) {
-  const requestOptions = {
-    method: 'POST',
-    headers: config.defaultHeaders,
-    body: JSON.stringify(user)
-  }
-
-  return fetch(`${config.apiUrl}/auth`, requestOptions).then(handleResponse)
-}
-
 function update(user) {
   const requestOptions = {
       method: 'PUT',
@@ -117,7 +87,7 @@ function handleResponse(response) {
       if (!response.ok) {
           if (response.status === 401) {
               // auto logout if 401 response returned from api
-              logout();
+              authenticationService.logout();
               // window.location.reload(true);
           }
 
