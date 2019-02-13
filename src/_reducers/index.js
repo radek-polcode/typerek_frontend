@@ -1,16 +1,18 @@
 
 import { combineReducers } from 'redux';
 
+import { alert } from './alert.reducer';
 import { authentication } from './authentication.reducer';
+import { competitions } from './competitions.reducer';
 import { registration } from './registration.reducer';
 import { users } from './users.reducer';
-import { alert } from './alert.reducer';
 
 const appReducer = combineReducers({
+  alert,
+  competitions,
   authentication,
   registration,
-  users,
-  alert
+  users
 });
 
 const rootReducer = (state, action) => {

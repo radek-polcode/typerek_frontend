@@ -4,24 +4,35 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 
+import { competitionActions } from '../../../../_actions/competition.actions'
+
+import { CompetitionsTable } from './CompetitionsTable'
+
 export default class Competitions extends Component {
   static propTypes = {
-    prop: PropTypes
+  }
+
+  componentDidMount() {
+    this.props.dispatch(competitionActions.getAll());
   }
 
   render() {
+    const { competitions } = this.props
+
     return (
       <div>
-
+        <CompetitionsTable
+          competitions={competitions} 
+        />
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  const { users } = state;
+  const { competitions } = state;
   return {
-    users
+    competitions
   };
 }
 
