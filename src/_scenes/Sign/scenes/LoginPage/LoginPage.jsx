@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withNamespaces } from 'react-i18next';
 
 import cx from 'classnames';
 import { Row, Col } from 'reactstrap';
@@ -50,7 +51,7 @@ class LoginPage extends Component {
   }
 
   render() {
-    const { loggingIn } = this.props;
+    const { loggingIn, t } = this.props;
     const { email, password, submitted } = this.state;
 
     return(
@@ -60,14 +61,14 @@ class LoginPage extends Component {
             <Card className="card__form">
               <CardBody>
                 <CardTitle>
-                  <h2>Login</h2>
+                  <h2>{t('auth.loginCardTitle')}</h2>
                 </CardTitle>
                 <CardSubtitle>
-                  <p className="text-muted">Sign In to your account</p>
+                  <p className="text-muted">{t('auth.loginCardSubtitle')}</p>
                 </CardSubtitle>
                 <Form className="form" onSubmit={this.handleSubmit}>
                   <FormGroup className={(submitted && !email ? ' has-error' : '')}>
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t('shared.email')}</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText className="card__form__input__prepend">
@@ -79,12 +80,14 @@ class LoginPage extends Component {
                               name="email" value={email} 
                               onChange={this.handleChange} />
                         {submitted && !email &&
-                            <div className="help-block">Email is required</div>
+                            <div className="help-block">
+                              {t('shared.email')} {t('shared.isRequired')}
+                            </div>
                         }
                       </InputGroup>
                   </FormGroup>
                   <FormGroup className={(submitted && !password ? ' has-error' : '')}>
-                      <Label htmlFor="password">Password</Label>
+                      <Label htmlFor="password">{t('shared.password')}</Label>
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText className="card__form__input__prepend">
@@ -97,18 +100,22 @@ class LoginPage extends Component {
                               value={password} 
                               onChange={this.handleChange} />
                         {submitted && !password &&
-                            <div className="help-block">Password is required</div>
+                            <div className="help-block">
+                              {t('shared.password')} {t('shared.isRequired')}
+                            </div>
                         }
                       </InputGroup>
                   </FormGroup>
                   <FormGroup className="form-group">
-                    <Button className="btn btn-primary button__default">Login</Button>
+                    <Button className="btn btn-primary button__default">
+                      {t('auth.loginButton')}
+                    </Button>
                       {loggingIn &&
                           <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                       }
                     <ButtonLink 
                       link='/login'
-                      linkText='Forgot Password?' 
+                      linkText={t('auth.forgotPassword')} 
                     />
                   </FormGroup>
                 </Form>
@@ -117,12 +124,14 @@ class LoginPage extends Component {
             <Card className={styles.card__signup}>
               <CardBody>
                 <CardTitle>
-                  <h2>Sign up</h2>
+                  <h2>{t('auth.signUpCardTitle')}</h2>
                 </CardTitle>
                 <CardSubtitle>
-                  Dont't have account yet? Register now!
+                  {t('auth.loginCardSubtitle')}
                 </CardSubtitle>
-                <Link to="/register" className={cx("btn", styles.card__signup__button)}>Register now</Link>
+                <Link to="/register" className={cx("btn", styles.card__signup__button)}>
+                  {t('auth.registerButton')}
+                </Link>
               </CardBody>
             </Card>
           </CardGroup>
@@ -140,4 +149,6 @@ function mapStateToProps(state) {
 }
 
 const connectedLoginPage = connect(mapStateToProps)(LoginPage);
-export { connectedLoginPage as LoginPage }; 
+const translatedLoginPage = withNamespaces()(connectedLoginPage)
+
+export { translatedLoginPage as LoginPage }; 

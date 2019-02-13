@@ -1,18 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { NavItem, NavLink } from 'reactstrap';
+import { withNamespaces } from 'react-i18next';
 
-function AdminLinks() {
+function AdminLinks({ t }) {
   return (
     <>
       <NavItem>
-        <NavLink tag={Link} to="/admin/dashboard">Dashboard</NavLink>
+        <NavLink tag={Link} to="/admin/dashboard">{t('navbar.dashboard')}</NavLink>
       </NavItem>
       <NavItem>
-        <NavLink tag={Link} to="/admin/users">Users</NavLink>
+        <NavLink tag={Link} to="/admin/users">{t('navbar.users')}</NavLink>
       </NavItem>
     </>
   )
 }
 
-export { AdminLinks }
+const translatedAdminLinks = withNamespaces()(AdminLinks)
+
+export { translatedAdminLinks as AdminLinks }

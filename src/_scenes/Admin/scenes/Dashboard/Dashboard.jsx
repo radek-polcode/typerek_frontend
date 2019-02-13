@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+import { withNamespaces } from 'react-i18next';
 
 class Dashboard extends Component {
   static propTypes = {}
 
   render() {
+    const { t } = this.props;
     return (
       <div>
-        <h2>Dashboard</h2>
+        <h2>{t('admin.dashboard.title')}</h2>
       </div>
     )
   }
@@ -19,4 +21,6 @@ function mapStateToProps(state) {
 }
 
 const connectedDashboard = connect(mapStateToProps)(Dashboard);
-export { connectedDashboard as Dashboard }; 
+const translatedDashboard = withNamespaces()(connectedDashboard)
+
+export { translatedDashboard as Dashboard }; 

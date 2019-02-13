@@ -1,0 +1,65 @@
+{
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "userForm": {
+      "addUserButton": "Add user",
+      "confirmationMessage": "Are you sure you want to delete this user?",
+      "title": "User form",
+      "updateUserButton": "Update user"
+    },
+    "usersTable": {
+      "addNewUser": "Add new user",
+      "registered": "Registered",
+      "takesPart": "Takes part",
+      "title": "Users list"
+    }
+  },
+  "alerts": {
+    "auth": {
+      "logout": "Logged out"
+    },
+    "users": {
+      "addedSuccessfully": "User added successfully",
+      "editedSuccessfully": "User edited successfully",
+      "registeredSuccessfully": "Registration successful",
+      "removedSuccessfully": "User removed successfully"
+    }
+  },
+  "auth": {
+    "forgotPassword": "Forgot Password?",
+    "loginButton": "Login",
+    "loginCardTitle": "Login",
+    "loginCardSubtitle": "Sign in to your account",
+    "registerButton": "Register now",
+    "registerButton2": "Register",
+    "registerTitle": "Register",
+    "registerSubtitle": "Create your account",
+    "signUpCardTitle": "Sign up",
+    "signUpCardSubtitle": "Dont't have account yet? Register now!"
+  },
+  "footer": {
+    "copyright": "Copyright"
+  },
+  "navbar": {
+    "brandName": "Typerek",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "logout": "Logout",
+    "rules": "Rules",
+    "tournaments": "Tournaments",
+    "users": "Users",
+    "yourGroups": "Your groups"
+  },
+  "shared": {
+    "action": "Action",
+    "cancelLink": "Cancel",
+    "email": "Email",
+    "isRequired": "is required",
+    "password": "Password",
+    "role": "Role",
+    "takesPart": "Takes part",
+    "username": "Username"
+  }
+}

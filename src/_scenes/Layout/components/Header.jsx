@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   Collapse,
@@ -10,15 +10,19 @@ import {
   Nav,
   NavItem,
   NavLink
-} from 'reactstrap';
+} from 'reactstrap'
+import { withNamespaces } from 'react-i18next'
 
-import { AdminLinks } from './AdminLinks';
+import { AdminLinks } from './AdminLinks'
+import i18n from '../../../i18n'
+import LanguageSwitcher from './LanguageSwitcher'
 import { userActions } from '../../../_actions'
 
 class Header extends Component {
   constructor(props) {
     super(props)
     this.toggle = this.toggle.bind(this);
+    this.changeLanguage = this.changeLanguage.bind(this);
   }
 
   state = {
@@ -27,16 +31,21 @@ class Header extends Component {
 
   static propTypes = {}
 
+  changeLanguage(lng){
+    console.log(lng)
+    i18n.changeLanguage(lng);
+  };
+
   handleDeleteUser(id) {
     return (e) => this.props.dispatch(userActions.delete(id));
   }
 
   setLinkText() {
-    const { user } = this.props
+    const { user, t } = this.props
     if (user) {
-      return 'Logout' 
+      return t('navbar.logout')
     } else {
-      return 'Login'
+      return t('navbar.login')
     }
   }
 
@@ -47,7 +56,20 @@ class Header extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const changeLanguage = this.changeLanguage
+    const countriesWithLanguages = {
+      "gb": {
+        "language": "en",
+        "flagCode": "gb"
+      },
+      "pl": {
+        "language": "pl",
+        "flagCode": "pl"
+      }
+    }
+    const size = 32
+    
+    const { user, t } = this.props;
 
     return (
       <header className="app-header">
@@ -56,7 +78,7 @@ class Header extends Component {
           color="dark"
           expand="md"
         >
-          <NavbarBrand tag={Link} to="/">Typerek</NavbarBrand>
+          <NavbarBrand tag={Link} to="/">{t('navbar.brandName')}</NavbarBrand>
           <NavbarToggler 
             onClick={this.toggle}
           >
@@ -65,16 +87,21 @@ class Header extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto">
               <NavItem active>
-                <NavLink href="#">Rules <span className="sr-only">(current)</span></NavLink>
+                <NavLink href="#">{t('navbar.rules')} <span className="sr-only">(current)</span></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Tournaments</NavLink>
+                <NavLink href="#">{t('navbar.tournaments')}</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Your groups</NavLink>
+                <NavLink href="#">{t('navbar.yourGroups')}</NavLink>
               </NavItem>
             </Nav>
             <Nav className="ml-auto">
+              <LanguageSwitcher
+                changeLanguage={changeLanguage}
+                countries={countriesWithLanguages} 
+                size={size}
+              />
               { user && user.data && user.data.role === 'admin' &&
                 <AdminLinks />
               }
@@ -103,6 +130,8 @@ function mapStateToProps(state) {
       users
   };
 }
-const connectedHeader = connect(mapStateToProps)(Header);
 
-export { connectedHeader as Header };
+const connectedHeader = connect(mapStateToProps)(Header);
+const translatedHeader = withNamespaces()(connectedHeader)
+
+export { translatedHeader as Header };

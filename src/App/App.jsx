@@ -31,31 +31,31 @@ class App extends Component {
   render() {
     const { alert } = this.props;
     return (
-        <div className="flex__container">
-            <Router history={history}>
-                <>
-                    <Header />
-                    <Container className="main">
-                        <div className="main__content">
-                            {alert.message &&
-                                <AppAlert 
-                                    message={alert.message}
-                                    alertType={alert.type} 
-                                />
-                            }
-                            <PrivateRoute exact path="/" component={HomePage} />
-                            <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
-                            <PrivateRoute exact path="/admin/users" component={Users} />
-                            <PrivateRoute exact path="/admin/users/new" component={AddUser} />
-                            <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
-                            <Route path="/login" component={LoginPage} />
-                            <Route path="/register" component={RegisterPage} />
-                        </div>
-                    </Container>
-                    <Footer />
-                </>
-            </Router>
-        </div>
+      <div className="flex__container">
+        <Router history={history}>
+          <>
+            <Header />
+            <Container className="main">
+              <div className="main__content">
+                {alert.message &&
+                  <AppAlert
+                    message={alert.message}
+                    alertType={alert.type}
+                  />
+                }
+                <PrivateRoute exact path="/" component={HomePage} />
+                <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
+                <PrivateRoute exact path="/admin/users" component={Users} />
+                <PrivateRoute exact path="/admin/users/new" component={AddUser} />
+                <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
+                <Route path="/login" component={LoginPage} />
+                <Route path="/register" component={RegisterPage} />
+              </div>
+            </Container>
+            <Footer />
+          </>
+        </Router>
+      </div>
     );
   }
 }
@@ -63,7 +63,7 @@ class App extends Component {
 function mapStateToProps(state) {
   const { alert } = state;
   return {
-      alert
+    alert
   };
 }
 
