@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   Collapse,
@@ -10,16 +10,19 @@ import {
   Nav,
   NavItem,
   NavLink
-} from 'reactstrap';
-import { withNamespaces } from 'react-i18next';
+} from 'reactstrap'
+import { withNamespaces } from 'react-i18next'
 
-import { AdminLinks } from './AdminLinks';
+import { AdminLinks } from './AdminLinks'
+import i18n from '../../../i18n'
+import LanguageSwitcher from './LanguageSwitcher'
 import { userActions } from '../../../_actions'
 
 class Header extends Component {
   constructor(props) {
     super(props)
     this.toggle = this.toggle.bind(this);
+    this.changeLanguage = this.changeLanguage.bind(this);
   }
 
   state = {
@@ -27,6 +30,11 @@ class Header extends Component {
   }
 
   static propTypes = {}
+
+  changeLanguage(lng){
+    console.log(lng)
+    i18n.changeLanguage(lng);
+  };
 
   handleDeleteUser(id) {
     return (e) => this.props.dispatch(userActions.delete(id));
@@ -48,6 +56,19 @@ class Header extends Component {
   }
 
   render() {
+    const changeLanguage = this.changeLanguage
+    const countriesWithLanguages = {
+      "gb": {
+        "language": "en",
+        "flagCode": "gb"
+      },
+      "pl": {
+        "language": "pl",
+        "flagCode": "pl"
+      }
+    }
+    const size = 32
+    
     const { user, t } = this.props;
 
     return (
@@ -76,6 +97,11 @@ class Header extends Component {
               </NavItem>
             </Nav>
             <Nav className="ml-auto">
+              <LanguageSwitcher
+                changeLanguage={changeLanguage}
+                countries={countriesWithLanguages} 
+                size={size}
+              />
               { user && user.data && user.data.role === 'admin' &&
                 <AdminLinks />
               }
