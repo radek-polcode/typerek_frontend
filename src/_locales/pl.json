@@ -44,6 +44,7 @@
   },
   "navbar": {
     "brandName": "Typerek",
+    "competitions": "Turnieje",
     "dashboard": "Dashboard",
     "login": "Zaloguj",
     "logout": "Wyloguj",

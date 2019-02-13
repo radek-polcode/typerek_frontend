@@ -45,6 +45,7 @@
   "navbar": {
     "brandName": "Typerek",
     "dashboard": "Dashboard",
+    "competitions": "Competitions",
     "login": "Login",
     "logout": "Logout",
     "rules": "Rules",
