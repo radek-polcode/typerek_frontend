@@ -76,9 +76,9 @@ class CompetitionForm extends Component {
 
   setButtonName(t) {
     if (this.props.isEditing) {
-      return t('admin.userForm.updateUserButton')
+      return t('admin.competitionForm.updateCompetitionButton')
     } else {
-      return t('admin.userForm.addUserButton')
+      return t('admin.competitionForm.addCompetitionButton')
     }
   }
 

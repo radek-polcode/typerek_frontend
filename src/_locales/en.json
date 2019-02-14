@@ -9,6 +9,10 @@
       "winner": "Winner",
       "year": "Year"
     },
+    "competitionForm": {
+      "title": "Competition",
+      "updateCompetitionButton": "Update competition"
+    },
     "dashboard": {
       "title": "Dashboard"
     },
@@ -28,6 +32,9 @@
   "alerts": {
     "auth": {
       "logout": "Logged out"
+    },
+    "competitions": {
+      "editedSuccessfully": "Competition edited successfully"
     },
     "users": {
       "addedSuccessfully": "User added successfully",
@@ -66,10 +73,16 @@
     "action": "Action",
     "cancelLink": "Cancel",
     "email": "Email",
+    "endDate": "End date",
     "isRequired": "is required",
+    "name": "Name",
     "password": "Password",
+    "place": "Place",
     "role": "Role",
+    "startDate": "Start date",
     "takesPart": "Takes part",
-    "username": "Username"
+    "username": "Username",
+    "year": "Year",
+    "winner": "Winner"
   }
 }

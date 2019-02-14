@@ -9,6 +9,10 @@
       "winner": "Zwycięzca",
       "year": "Rok"
     },
+    "competitionForm": {
+      "title": "Zawody",
+      "updateCompetitionButton": "Zaktualizuj zawody"
+    },
     "dashboard": {
       "title": "Dashboard"
     },
@@ -28,6 +32,9 @@
   "alerts": {
     "auth": {
       "logout": "Wylogowano"
+    },
+    "competitions": {
+      "editedSuccessfully": "Zawody zostały zaktualizowane"
     },
     "users": {
       "addedSuccessfully": "Użytkownik został dodany",
@@ -66,10 +73,16 @@
     "action": "Akcja",
     "cancelLink": "Anuluj",
     "email": "Email",
+    "endDate": "Data zakończenia",
     "isRequired": "jest wymagany/a",
+    "name": "Nazwa",
     "password": "Hasło",
+    "place": "Miejsce",
     "role": "Rola",
+    "startDate": "Data rozpoczęcia",
     "takesPart": "Bierze udział",
-    "username": "Nazwa użytkownika"
+    "username": "Nazwa użytkownika",
+    "year": "Rok",
+    "winner": "Zwycięzca"
   }
 }
