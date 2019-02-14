@@ -1,6 +1,7 @@
 {
   "admin": {
     "competitionsTable": {
+      "addNewCompetition": "Add new competition",
       "competitionName": "Name",
       "endDate": "End date",
       "place": "Place",
@@ -11,7 +12,8 @@
     },
     "competitionForm": {
       "title": "Competition",
-      "updateCompetitionButton": "Update competition"
+      "updateCompetitionButton": "Update competition",
+      "addCompetitionButton": "Add competition"
     },
     "dashboard": {
       "title": "Dashboard"

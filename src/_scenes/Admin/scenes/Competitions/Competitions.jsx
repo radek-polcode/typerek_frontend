@@ -17,10 +17,11 @@ export default class Competitions extends Component {
   }
 
   render() {
-    const { competitions } = this.props
+    const { competitions, t } = this.props
 
     return (
       <div>
+        <Link to='/admin/competitions/new'>{t('admin.competitionsTable.addNewCompetition')}</Link>
         <CompetitionsTable
           competitions={competitions} 
         />

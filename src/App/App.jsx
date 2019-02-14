@@ -10,6 +10,7 @@ import { AddUser } from '../_scenes/Admin'
 import { AppAlert } from '../_scenes/Layout/components';
 import { Competitions } from '../_scenes/Admin'
 import { Dashboard } from '../_scenes/Admin'
+import { AddCompetition } from '../_scenes/Admin'
 import { EditCompetition } from '../_scenes/Admin'
 import { EditUser } from '../_scenes/Admin'
 import { Header, Footer } from '../_scenes/Layout/components'
@@ -48,6 +49,7 @@ class App extends Component {
                 }
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/admin/competitions" component={Competitions} />
+                <PrivateRoute exact path="/admin/competitions/new" component={AddCompetition} />
                 <PrivateRoute exact path="/admin/competitions/:id/edit" component={EditCompetition} />
                 <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/admin/users" component={Users} />

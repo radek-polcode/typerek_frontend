@@ -70,7 +70,7 @@ class CompetitionForm extends Component {
     if (isEditing) {
       dispatch(competitionActions.updateCompetition(competition, competitionId))
     } else {
-      dispatch(competitionActions.addUser(competition))
+      dispatch(competitionActions.addCompetition(competition))
     }
   }
 

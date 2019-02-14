@@ -4,11 +4,22 @@ import config from '../_config';
 const namespace = 'admin/'
 
 export const competitionService = {
+  addCompetition,
   getAll,
   updateCompetition
 };
 
 const handleResponse = handlingResponse.handleResponse
+
+function addCompetition(competition) {
+  const requestOptions = {
+    method: 'POST',
+    headers: authenticationHeaders(),
+    body: JSON.stringify(competition)
+  }
+  return fetch(`${config.apiUrl}/${namespace}competitions`, requestOptions)
+          .then(handleResponse)
+}
 
 function getAll() {
   const requestOptions = {

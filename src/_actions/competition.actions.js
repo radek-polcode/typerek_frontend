@@ -5,9 +5,36 @@ import { history } from '../_helpers'
 import i18n from '../i18n';
 
 export const competitionActions = {
+  addCompetition,
   getAll,
   updateCompetition
 };
+
+function addCompetition(competition) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request());
+    competitionService.addCompetition(competition)
+      .then(
+        competition => {
+          dispatch(success(competition));
+          history.push('/admin/competitions');
+          dispatch(alertActions.success(
+            t('alerts.competitions.addedSuccessfully')
+          ));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        }
+    );
+  };
+
+  function request(competition) { return { type: competitionConstants.ADDCOMPETITION_REQUEST, competition } }
+  function success(competition) { return { type: competitionConstants.ADDCOMPETITION_SUCCESS, competition } }
+  function failure(error) { return { type: competitionConstants.ADDCOMPETITION_FAILURE, error } }
+}
 
 function getAll() {
   return dispatch => {
