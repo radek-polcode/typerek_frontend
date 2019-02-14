@@ -1,6 +1,7 @@
 {
   "admin": {
     "competitionsTable": {
+      "addNewCompetition": "Dodaj nowy turniej",
       "competitionName": "Nazwa",
       "endDate": "Data zakończenia",
       "place": "Miejsce",
@@ -10,8 +11,9 @@
       "year": "Rok"
     },
     "competitionForm": {
-      "title": "Zawody",
-      "updateCompetitionButton": "Zaktualizuj zawody"
+      "addUserButton": "Add user",
+      "title": "Formularz turnieju",
+      "updateCompetitionButton": "Zaktualizuj turniej"
     },
     "dashboard": {
       "title": "Dashboard"
@@ -34,7 +36,7 @@
       "logout": "Wylogowano"
     },
     "competitions": {
-      "editedSuccessfully": "Zawody zostały zaktualizowane"
+      "editedSuccessfully": "Turniej został zaktualizowany"
     },
     "users": {
       "addedSuccessfully": "Użytkownik został dodany",

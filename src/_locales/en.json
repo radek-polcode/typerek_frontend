@@ -11,7 +11,7 @@
       "year": "Year"
     },
     "competitionForm": {
-      "title": "Competition",
+      "title": "Competition form",
       "updateCompetitionButton": "Update competition",
       "addCompetitionButton": "Add competition"
     },
@@ -36,6 +36,7 @@
       "logout": "Logged out"
     },
     "competitions": {
+      "addedSuccessfully": "Competition added successfully",
       "editedSuccessfully": "Competition edited successfully"
     },
     "users": {
