@@ -1,6 +1,7 @@
 export { AddUser } from './scenes/Users'
 export { EditUser } from './scenes/Users'
 export { Competitions } from './scenes/Competitions'
+export { EditCompetition } from './scenes/Competitions'
 export { Dashboard } from './scenes/Dashboard'
 export { Users } from './scenes/Users'
 export { UserForm } from './scenes/Users'
