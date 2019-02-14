@@ -1,5 +1,4 @@
 import { competitionConstants } from '../_constants'
-import { alertActions } from '../_actions';
 
 export function competitions(state = {}, action) {
   switch(action.type) {
@@ -15,6 +14,25 @@ export function competitions(state = {}, action) {
       return {
         error: action.error
     };
+    case competitionConstants.UPDATE_COMPETITION_REQUEST:
+      return {
+        ...state,
+      }
+    case competitionConstants.UPDATE_COMPETITION_FAILURE:
+      return {
+        error: action.error
+      }
+    case competitionConstants.UPDATE_COMPETITION_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter(function(user) {
+          if (user.id === action.user.id) {
+            return user
+          } else {
+            return action.user
+          }
+        })          
+    }
     default: 
       return state
   }
