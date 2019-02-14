@@ -34,13 +34,13 @@ function CompetitionsTableRow({ competition, index, t }) {
         {competition.attributes.year}
       </td>
       <td>
-        {competition.attributes.startDate}
+        {competition.attributes.start_date}
       </td>
       <td>
-        {competition.attributes.endDate}
+        {competition.attributes.end_date}
       </td>
       <td>
-        {competition.attributes.winner}
+        {competition.attributes.winner_id}
       </td>
       <td>
         <Link to={`/admin/competitions/${competition.id}/edit`}>

@@ -20,16 +20,16 @@ class CompetitionForm extends Component {
   }
 
   static propTypes = {
-    isEditing: PropTypes.bool.isRequired,
-    competition: PropTypes.object.isRequired
+    competition: PropTypes.object.isRequired,
+    isEditing: PropTypes.bool.isRequired
   }
 
   state = {
     competitionId: this.props.competition.id,
-    endDate: this.props.competition.endDate,
+    endDate: this.props.competition.attributes.end_date,
     name: this.props.competition.attributes.name,
-    startDate: this.props.competition.attributes.startDate,
-    winnerId: this.props.competition.attributes.winnerId,
+    startDate: this.props.competition.attributes.start_date,
+    winnerId: this.props.competition.attributes.winner_id,
     year: this.props.competition.attributes.year,
     submitted: false
   }
@@ -83,7 +83,7 @@ class CompetitionForm extends Component {
   render() {
     const { endDate, name, startDate, submitted, winnerId, year } = this.state;
     const { t } = this.props
-
+    console.log(this.props)
     return (
       <Card className="card__form">
         <CardHeader tag="h2">
