@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import DateTime from 'react-datetime';
 import { withNamespaces } from 'react-i18next';
 
 import { Button,
@@ -10,6 +11,8 @@ import { Button,
          Label } from 'reactstrap';
 
 import '../../../../App/App.css'
+import '../../../../App/react-datetime.css'
+
 import { competitionActions } from '../../../../_actions';
 
 class CompetitionForm extends Component {
@@ -137,11 +140,15 @@ class CompetitionForm extends Component {
             <FormGroup className={(submitted && !startDate ? ' has-error' : '')}>
               <Label htmlFor="startDate">{t('shared.startDate')}</Label>
               <InputGroup>
-                <Input type="text" 
-                        className="form-control card__form__input" 
-                        name="startDate" 
-                        onChange={this.handleInputChange}
-                        value={startDate}
+                <DateTime
+                  inputProps={
+                    {
+                      className: "form-control card__form__input",
+                      name: "startDate"
+                    }
+                  } 
+                  onChange={this.handleInputChange}
+                  value={startDate}
                 />
                 {submitted && !startDate &&
                   <div className="help-block">
