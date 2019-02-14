@@ -12,18 +12,29 @@ export default class Competitions extends Component {
   static propTypes = {
   }
 
+  constructor(props) {
+    super(props)
+    this.handleDeleteCompetition = this.handleDeleteCompetition.bind(this)
+  }
+
   componentDidMount() {
     this.props.dispatch(competitionActions.getAll());
   }
 
+  handleDeleteCompetition(id) {
+    return this.props.dispatch(competitionActions.delete(id));
+  }
+
   render() {
     const { competitions, t } = this.props
+    const handleDeleteCompetition = this.handleDeleteCompetition
 
     return (
       <div>
         <Link to='/admin/competitions/new'>{t('admin.competitionsTable.addNewCompetition')}</Link>
         <CompetitionsTable
-          competitions={competitions} 
+          competitions={competitions}
+          handleDeleteCompetition={handleDeleteCompetition}
         />
       </div>
     )

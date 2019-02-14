@@ -11,9 +11,10 @@
       "year": "Year"
     },
     "competitionForm": {
+      "addCompetitionButton": "Add competition",
+      "confirmationMessage": "Are you sure you want to delete this competition?",
       "title": "Competition form",
-      "updateCompetitionButton": "Update competition",
-      "addCompetitionButton": "Add competition"
+      "updateCompetitionButton": "Update competition"
     },
     "dashboard": {
       "title": "Dashboard"
@@ -36,14 +37,15 @@
       "logout": "Logged out"
     },
     "competitions": {
-      "addedSuccessfully": "Competition added successfully",
-      "editedSuccessfully": "Competition edited successfully"
+      "addedSuccessfully": "Competition added successfully.",
+      "editedSuccessfully": "Competition edited successfully.",
+      "removedSuccessfully": "Competition removed successfully."
     },
     "users": {
-      "addedSuccessfully": "User added successfully",
-      "editedSuccessfully": "User edited successfully",
-      "registeredSuccessfully": "Registration successful",
-      "removedSuccessfully": "User removed successfully"
+      "addedSuccessfully": "User added successfully.",
+      "editedSuccessfully": "User edited successfully.",
+      "registeredSuccessfully": "Registration successful.",
+      "removedSuccessfully": "User removed successfully."
     }
   },
   "auth": {

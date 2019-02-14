@@ -12,6 +12,7 @@
     },
     "competitionForm": {
       "addUserButton": "Add user",
+      "confirmationMessage": "Czy na pewno chcesz usunąć ten turniej?",
       "title": "Formularz turnieju",
       "updateCompetitionButton": "Zaktualizuj turniej"
     },
@@ -36,13 +37,15 @@
       "logout": "Wylogowano"
     },
     "competitions": {
-      "editedSuccessfully": "Turniej został zaktualizowany"
+      "addedSuccessfully": "Turniej został dodany.",
+      "editedSuccessfully": "Turniej został zaktualizowany.",
+      "removedSuccessfully": "Turniej został usunięty."
     },
     "users": {
-      "addedSuccessfully": "Użytkownik został dodany",
-      "editedSuccessfully": "Użytkownik został edytowany",
-      "registeredSuccessfully": "Zostałeś/aś zarejestrowany/a",
-      "removedSuccessfully": "Użytkownik został usunięty"
+      "addedSuccessfully": "Użytkownik został dodany.",
+      "editedSuccessfully": "Użytkownik został edytowany.",
+      "registeredSuccessfully": "Zostałeś/aś zarejestrowany/a.",
+      "removedSuccessfully": "Użytkownik został usunięty."
     }
   },
   "auth": {

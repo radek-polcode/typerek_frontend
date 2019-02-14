@@ -15,7 +15,7 @@ CompetitionsTable.defaultProps = {
   competitions: {}
 }
 
-function CompetitionsTable({ competitions, t }) {
+function CompetitionsTable({ competitions, handleDeleteCompetition, t }) {
   return (
     <Card className="card__form">
       <CardHeader tag="h2">
@@ -42,9 +42,10 @@ function CompetitionsTable({ competitions, t }) {
               {competitions.items &&
                 competitions.items.map((competition, index) =>
                 <CompetitionsTableRow
-                  key={competition.id}
-                  index={index}
                   competition={competition}
+                  handleDeleteCompetition={handleDeleteCompetition}
+                  index={index}
+                  key={competition.id}
                 />
               )}
             </tbody>

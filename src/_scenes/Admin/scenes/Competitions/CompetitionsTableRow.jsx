@@ -18,7 +18,7 @@ CompetitionsTableRow.defaultProps = {
   index: 0
 }
 
-function CompetitionsTableRow({ competition, index, t }) {
+function CompetitionsTableRow({ competition, handleDeleteCompetition, index, t }) {
   return (
     <tr>
       <td>
@@ -47,7 +47,8 @@ function CompetitionsTableRow({ competition, index, t }) {
           <FaPencilAlt className={cx(styles.table__action__icon, styles.icon__edit)} />
         </Link>
         <FaTrashAlt 
-          className="table__action__icon icon__delete" 
+          className="table__action__icon icon__delete"
+          onClick={() => { if(window.confirm(t('admin.competitionForm.confirmationMessage'))) handleDeleteCompetition(competition.id)} }
         /> 
       </td>
     </tr>

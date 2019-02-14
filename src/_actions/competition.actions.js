@@ -6,6 +6,7 @@ import i18n from '../i18n';
 
 export const competitionActions = {
   addCompetition,
+  delete: _delete,
   getAll,
   updateCompetition
 };
@@ -34,6 +35,31 @@ function addCompetition(competition) {
   function request(competition) { return { type: competitionConstants.ADDCOMPETITION_REQUEST, competition } }
   function success(competition) { return { type: competitionConstants.ADDCOMPETITION_SUCCESS, competition } }
   function failure(error) { return { type: competitionConstants.ADDCOMPETITION_FAILURE, error } }
+}
+
+function _delete(id) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request(id));
+
+    competitionService.delete(id)
+      .then(
+        competition => {
+          dispatch(success(id));
+          dispatch(alertActions.success(
+            t('alerts.competitions.removedSuccessfully')
+          ));
+        },
+        error => {
+          dispatch(failure(id, error.toString()))
+        }
+      );
+  };
+
+  function request(id) { return { type: competitionConstants.DELETE_REQUEST, id } }
+  function success(id) { return { type: competitionConstants.DELETE_SUCCESS, id } }
+  function failure(id, error) { return { type: competitionConstants.DELETE_FAILURE, id, error } }
 }
 
 function getAll() {

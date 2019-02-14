@@ -5,6 +5,7 @@ const namespace = 'admin/'
 
 export const competitionService = {
   addCompetition,
+  delete: _delete,
   getAll,
   updateCompetition
 };
@@ -19,6 +20,16 @@ function addCompetition(competition) {
   }
   return fetch(`${config.apiUrl}/${namespace}competitions`, requestOptions)
           .then(handleResponse)
+}
+
+// prefixed function name with underscore because delete is a reserved word in javascript
+function _delete(id) {
+  const requestOptions = {
+      method: 'DELETE',
+      headers: authenticationHeaders()
+  };
+
+  return fetch(`${config.apiUrl}/${namespace}competitions/${id}`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
