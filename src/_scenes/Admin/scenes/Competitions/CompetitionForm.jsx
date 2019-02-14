@@ -28,6 +28,7 @@ class CompetitionForm extends Component {
     competitionId: this.props.competition.id,
     endDate: this.props.competition.attributes.end_date,
     name: this.props.competition.attributes.name,
+    place: this.props.competition.attributes.place,
     startDate: this.props.competition.attributes.start_date,
     winnerId: this.props.competition.attributes.winner_id,
     year: this.props.competition.attributes.year,
@@ -49,7 +50,7 @@ class CompetitionForm extends Component {
     const competitionId = this.state.competitionId
     const isEditing = this.props.isEditing
     
-    const { endDate, name, startDate, winnerId, year } = this.state
+    const { endDate, name, place, startDate, winnerId, year } = this.state
     const { dispatch } = this.props;
 
     let competition = {
@@ -58,6 +59,7 @@ class CompetitionForm extends Component {
         attributes: {
           endDate: endDate,
           name: name,
+          place: place,
           startDate: startDate,
           winnerId: winnerId,
           year: year
@@ -81,9 +83,18 @@ class CompetitionForm extends Component {
   }
 
   render() {
-    const { endDate, name, startDate, submitted, winnerId, year } = this.state;
+    const { 
+      endDate, 
+      name, 
+      place, 
+      startDate, 
+      submitted, 
+      winnerId, 
+      year 
+    } = this.state;
+
     const { t } = this.props
-    console.log(this.props)
+
     return (
       <Card className="card__form">
         <CardHeader tag="h2">
@@ -103,6 +114,22 @@ class CompetitionForm extends Component {
                 {submitted && !name &&
                     <div className="help-block">
                       {t('shared.name')} {t('shared.isRequired')}
+                    </div>
+                }
+              </InputGroup>
+            </FormGroup>
+            <FormGroup className={(submitted && !place ? ' has-error' : '')}>
+              <Label htmlFor="name">{t('shared.place')}</Label>
+              <InputGroup>
+                <Input type="text" 
+                        className="form-control card__form__input" 
+                        name="place" 
+                        onChange={this.handleInputChange}
+                        value={place}
+                />
+                {submitted && !name &&
+                    <div className="help-block">
+                      {t('shared.place')} {t('shared.isRequired')}
                     </div>
                 }
               </InputGroup>
