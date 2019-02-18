@@ -1,5 +1,21 @@
 {
   "admin": {
+    "competitionsTable": {
+      "addNewCompetition": "Dodaj nowy turniej",
+      "competitionName": "Nazwa",
+      "endDate": "Data zakończenia",
+      "place": "Miejsce",
+      "startDate": "Data rozpoczęcia",
+      "title": "Lista turniejów",
+      "winner": "Zwycięzca",
+      "year": "Rok"
+    },
+    "competitionForm": {
+      "addUserButton": "Add user",
+      "confirmationMessage": "Czy na pewno chcesz usunąć ten turniej?",
+      "title": "Formularz turnieju",
+      "updateCompetitionButton": "Zaktualizuj turniej"
+    },
     "dashboard": {
       "title": "Dashboard"
     },
@@ -20,11 +36,16 @@
     "auth": {
       "logout": "Wylogowano"
     },
+    "competitions": {
+      "addedSuccessfully": "Turniej został dodany.",
+      "editedSuccessfully": "Turniej został zaktualizowany.",
+      "removedSuccessfully": "Turniej został usunięty."
+    },
     "users": {
-      "addedSuccessfully": "Użytkownik został dodany",
-      "editedSuccessfully": "Użytkownik został edytowany",
-      "registeredSuccessfully": "Zostałeś/aś zarejestrowany/a",
-      "removedSuccessfully": "Użytkownik został usunięty"
+      "addedSuccessfully": "Użytkownik został dodany.",
+      "editedSuccessfully": "Użytkownik został edytowany.",
+      "registeredSuccessfully": "Zostałeś/aś zarejestrowany/a.",
+      "removedSuccessfully": "Użytkownik został usunięty."
     }
   },
   "auth": {
@@ -44,6 +65,7 @@
   },
   "navbar": {
     "brandName": "Typerek",
+    "competitions": "Turnieje",
     "dashboard": "Dashboard",
     "login": "Zaloguj",
     "logout": "Wyloguj",
@@ -56,10 +78,16 @@
     "action": "Akcja",
     "cancelLink": "Anuluj",
     "email": "Email",
+    "endDate": "Data zakończenia",
     "isRequired": "jest wymagany/a",
+    "name": "Nazwa",
     "password": "Hasło",
+    "place": "Miejsce",
     "role": "Rola",
+    "startDate": "Data rozpoczęcia",
     "takesPart": "Bierze udział",
-    "username": "Nazwa użytkownika"
+    "username": "Nazwa użytkownika",
+    "year": "Rok",
+    "winner": "Zwycięzca"
   }
 }

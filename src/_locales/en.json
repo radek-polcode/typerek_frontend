@@ -1,5 +1,21 @@
 {
   "admin": {
+    "competitionsTable": {
+      "addNewCompetition": "Add new competition",
+      "competitionName": "Name",
+      "endDate": "End date",
+      "place": "Place",
+      "startDate": "Start date",
+      "title": "Competitions list",
+      "winner": "Winner",
+      "year": "Year"
+    },
+    "competitionForm": {
+      "addCompetitionButton": "Add competition",
+      "confirmationMessage": "Are you sure you want to delete this competition?",
+      "title": "Competition form",
+      "updateCompetitionButton": "Update competition"
+    },
     "dashboard": {
       "title": "Dashboard"
     },
@@ -20,11 +36,16 @@
     "auth": {
       "logout": "Logged out"
     },
+    "competitions": {
+      "addedSuccessfully": "Competition added successfully.",
+      "editedSuccessfully": "Competition edited successfully.",
+      "removedSuccessfully": "Competition removed successfully."
+    },
     "users": {
-      "addedSuccessfully": "User added successfully",
-      "editedSuccessfully": "User edited successfully",
-      "registeredSuccessfully": "Registration successful",
-      "removedSuccessfully": "User removed successfully"
+      "addedSuccessfully": "User added successfully.",
+      "editedSuccessfully": "User edited successfully.",
+      "registeredSuccessfully": "Registration successful.",
+      "removedSuccessfully": "User removed successfully."
     }
   },
   "auth": {
@@ -45,6 +66,7 @@
   "navbar": {
     "brandName": "Typerek",
     "dashboard": "Dashboard",
+    "competitions": "Competitions",
     "login": "Login",
     "logout": "Logout",
     "rules": "Rules",
@@ -56,10 +78,16 @@
     "action": "Action",
     "cancelLink": "Cancel",
     "email": "Email",
+    "endDate": "End date",
     "isRequired": "is required",
+    "name": "Name",
     "password": "Password",
+    "place": "Place",
     "role": "Role",
+    "startDate": "Start date",
     "takesPart": "Takes part",
-    "username": "Username"
+    "username": "Username",
+    "year": "Year",
+    "winner": "Winner"
   }
 }

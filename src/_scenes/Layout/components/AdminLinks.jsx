@@ -10,6 +10,9 @@ function AdminLinks({ t }) {
         <NavLink tag={Link} to="/admin/dashboard">{t('navbar.dashboard')}</NavLink>
       </NavItem>
       <NavItem>
+        <NavLink tag={Link} to="/admin/competitions">{t('navbar.competitions')}</NavLink>
+      </NavItem>
+      <NavItem>
         <NavLink tag={Link} to="/admin/users">{t('navbar.users')}</NavLink>
       </NavItem>
     </>

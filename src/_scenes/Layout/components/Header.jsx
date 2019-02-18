@@ -32,7 +32,6 @@ class Header extends Component {
   static propTypes = {}
 
   changeLanguage(lng){
-    console.log(lng)
     i18n.changeLanguage(lng);
   };
 

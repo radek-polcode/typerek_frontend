@@ -42,8 +42,8 @@ function UsersTable({ users, handleDeleteUser, t }) {
                 users.items.map((user, index) =>
                 <UsersTableRow
                   key={user.id}
-                  index={index}
                   handleDeleteUser={handleDeleteUser}
+                  index={index}
                   user={user}
                 />
               )}

@@ -11,7 +11,7 @@ import { FaAt, FaLock, FaUser } from 'react-icons/fa';
 
 import { ButtonLink } from '../../components/'
 import '../../../../App/App.css'
-import { userActions } from '../../../../_actions';
+import { authenticationActions } from '../../../../_actions';
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -48,7 +48,7 @@ class RegisterPage extends Component {
     const { user } = this.state;
     const { dispatch } = this.props;
     if (user.email && user.username && user.password) {
-      dispatch(userActions.register(user));
+      dispatch(authenticationActions.register(user));
     }
   }
   render() {

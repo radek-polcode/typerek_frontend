@@ -7,75 +7,9 @@ import i18n from '../i18n';
 export const userActions = {
   addUser,
   updateUser,
-  login,
-  logout, 
-  register,
   getAll,
   delete: _delete
 };
-
-function login(email, password) {
-  return dispatch => {
-    dispatch(request({ email }));
-
-    userService.login(email, password)
-      .then(
-        user => {
-          dispatch(success(user));
-          history.push('/admin/dashboard');
-        },
-        error => {
-          dispatch(failure(error.toString()));
-        }
-      );
-  };
-
-  function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-  function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-  function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
-}
-
-function logout() {
-  let t = i18n.t.bind(i18n);
-
-  return dispatch => {
-    userService.logout();
-    dispatch(success());
-    dispatch(alertActions.success(
-      t('alerts.auth.logout')
-    ))
-    history.push('/login');
-  }
-
-  function success() { return { type: userConstants.LOGOUT } }
-}
-
-function register(user) {
-  let t = i18n.t.bind(i18n);
-
-  return dispatch => {
-    dispatch(request(user));
-
-    userService.register(user)
-      .then(
-        user => {
-          dispatch(success());
-          history.push('/login');
-          dispatch(alertActions.success(
-            t('alerts.users.registeredSuccessfully')
-          ));
-        },
-        error => {
-          dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
-        }
-      );
-  };
-
-  function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-  function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-  function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
-}
 
 function getAll() {
   return dispatch => {
