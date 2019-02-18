@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 
+import { teamActions } from '../../../../_actions/team.actions'
+
 import { TeamsTable } from  './TeamsTable'
 
 export default class Teams extends Component {
@@ -15,7 +17,9 @@ export default class Teams extends Component {
     this.handleDeleteTeam = this.handleDeleteTeam.bind(this)
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.dispatch(teamActions.getAll());
+  }
 
   handleDeleteTeam(id) {}
 
