@@ -14,6 +14,7 @@ import '../../../../App/App.css'
 import '../../../../App/react-datetime.css'
 
 import { competitionActions } from '../../../../_actions';
+import { formattingDateTime } from '../../../../_helpers'
 
 class CompetitionForm extends Component {
   constructor(props) {
@@ -47,6 +48,13 @@ class CompetitionForm extends Component {
     });
   }
 
+  handleDateTimePicker = (moment, name) => {
+    const value = formattingDateTime.toIsoFormat(moment._d);
+    this.setState({
+      [name]: value
+    })
+  }
+
   handleSubmit(e) {
     e.preventDefault()
 
@@ -60,10 +68,10 @@ class CompetitionForm extends Component {
       data: {
         type: 'competition',
         attributes: {
-          endDate: endDate,
+          end_date: endDate,
           name: name,
           place: place,
-          startDate: startDate,
+          start_date: startDate,
           winnerId: winnerId,
           year: year
         }
@@ -125,10 +133,10 @@ class CompetitionForm extends Component {
               <Label htmlFor="name">{t('shared.place')}</Label>
               <InputGroup>
                 <Input type="text" 
-                        className="form-control card__form__input" 
-                        name="place" 
-                        onChange={this.handleInputChange}
-                        value={place}
+                       className="form-control card__form__input" 
+                       name="place" 
+                       onChange={this.handleInputChange}
+                       value={place}
                 />
                 {submitted && !name &&
                     <div className="help-block">
@@ -141,14 +149,16 @@ class CompetitionForm extends Component {
               <Label htmlFor="startDate">{t('shared.startDate')}</Label>
               <InputGroup>
                 <DateTime
+                  closeOnSelect={true}
                   inputProps={
                     {
                       className: "form-control card__form__input",
                       name: "startDate"
                     }
                   } 
-                  onChange={this.handleInputChange}
-                  value={startDate}
+                  onChange={moment => this.handleDateTimePicker(moment, 'startDate')}
+                  timeFormat={false}
+                  value={formattingDateTime.formatDate(startDate)}
                 />
                 {submitted && !startDate &&
                   <div className="help-block">
@@ -160,11 +170,17 @@ class CompetitionForm extends Component {
             <FormGroup className={(submitted && !endDate ? ' has-error' : '')}>
               <Label htmlFor="endDate">{t('shared.endDate')}</Label>
               <InputGroup>
-                <Input type="text" 
-                        className="form-control card__form__input" 
-                        name="endDate" 
-                        onChange={this.handleInputChange}
-                        value={endDate}
+                <DateTime
+                  closeOnSelect={true}
+                  inputProps={
+                    { 
+                      className: "form-control card__form__input",
+                      name: "endDate"
+                    }
+                  } 
+                  onChange={moment => this.handleDateTimePicker(moment, 'endDate')}
+                  timeFormat={false}
+                  value={formattingDateTime.formatDate(endDate)}
                 />
                 {submitted && !endDate &&
                   <div className="help-block">
