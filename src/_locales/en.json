@@ -20,6 +20,7 @@
       "title": "Dashboard"
     },
     "teamForm": {
+      "addTeamButton": "Add team",
       "title": "Team form",
       "updateTeamButton": "Update team"
     },

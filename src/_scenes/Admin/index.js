@@ -1,4 +1,5 @@
 export { AddCompetition } from './scenes/Competitions'
+export { AddTeam } from './scenes/Teams'
 export { AddUser } from './scenes/Users'
 export { Competitions } from './scenes/Competitions'
 export { Dashboard } from './scenes/Dashboard'

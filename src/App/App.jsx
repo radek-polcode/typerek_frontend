@@ -7,6 +7,7 @@ import { alertActions } from '../_actions'
 import { history } from '../_helpers'
 
 import { AddCompetition } from '../_scenes/Admin'
+import { AddTeam } from '../_scenes/Admin'
 import { AddUser } from '../_scenes/Admin'
 import { AppAlert } from '../_scenes/Layout/components';
 import { Competitions } from '../_scenes/Admin'
@@ -58,6 +59,7 @@ class App extends Component {
                 <PrivateRoute exact path="/admin/users/new" component={AddUser} />
                 <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
                 <PrivateRoute exact path="/admin/teams" component={Teams} />
+                <PrivateRoute exact path="/admin/teams/new" component={AddTeam} />
                 <PrivateRoute exact path="/admin/teams/:id/edit" component={EditTeam} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
