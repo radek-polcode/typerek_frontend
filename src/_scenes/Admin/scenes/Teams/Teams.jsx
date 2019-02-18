@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 
+import { TeamsTable } from  './TeamsTable'
 
 export default class Teams extends Component {
   static propTypes = {
@@ -25,6 +26,9 @@ export default class Teams extends Component {
     return (
       <div>
         <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
+        <TeamsTable
+          teams={teams}
+        />
       </div>
     )
   }
