@@ -19,6 +19,20 @@
     "dashboard": {
       "title": "Dashboard"
     },
+    "teamForm": {
+      "addTeamButton": "Dodaj drużynę",
+      "title": "Formularz drużyny",
+      "updateTeamButton": "Zaktualizuj drużynę"
+    },
+    "teamsTable": {
+      "abbreviation": "Skrót",
+      "addNewTeam": "Dodaj nową drużynę",
+      "flag": "Flaga",
+      "photo": "Zdjęcie",
+      "teamName": "Nazwa drużyny",
+      "teamNameEn": "Nazwa drużyny ANG",
+      "title": "Lista drużyn"
+    },
     "userForm": {
       "addUserButton": "Dodaj użytkownika",
       "confirmationMessage": "Czy na pewno chcesz usunąć tego użytkownika?",
@@ -76,13 +90,17 @@
     "yourGroups": "Twoje grupy"
   },
   "shared": {
+    "abbreviation": "Skrót",
     "action": "Akcja",
     "cancelLink": "Anuluj",
     "email": "Email",
     "endDate": "Data zakończenia",
+    "flag": "Flaga",
     "isRequired": "jest wymagany/a",
     "name": "Nazwa",
+    "nameEn": "Nazwa ANG",
     "password": "Hasło",
+    "photo": "Zdjęcie",
     "place": "Miejsce",
     "role": "Rola",
     "startDate": "Data rozpoczęcia",
