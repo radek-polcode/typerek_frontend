@@ -4,6 +4,7 @@ import cx from 'classnames';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
+import Flag from "react-flags"
 
 import styles from '../../../../App/App.css'
 
@@ -42,7 +43,14 @@ function TeamsTableRow({ team, handleDeleteTeam, index, t }) {
         {abbreviation}
       </td>
       <td>
-        {flag}
+        <Flag
+            name={abbreviation}
+            format="png"
+            pngSize={24}
+            shiny={false}
+            alt=""
+            basePath='/img/flags'
+          />
       </td>
       <td>
         {photo.url}
