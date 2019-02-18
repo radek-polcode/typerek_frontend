@@ -10,5 +10,6 @@ function formatDate(date) {
 }
 
 function toIsoFormat(date) {
-  return moment(date).toISOString();
+  const isoDate = moment(date).toISOString(true)
+  return moment(isoDate).format("YYYY-MM-DDT00:00:00.000");
 }
