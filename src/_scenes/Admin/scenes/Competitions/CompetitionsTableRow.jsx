@@ -5,6 +5,8 @@ import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 
+import { formattingDateTime } from '../../../../_helpers'
+
 import styles from '../../../../App/App.css'
 
 CompetitionsTableRow.propTypes = {
@@ -19,28 +21,36 @@ CompetitionsTableRow.defaultProps = {
 }
 
 function CompetitionsTableRow({ competition, handleDeleteCompetition, index, t }) {
+  const { 
+    end_date,
+    name,
+    place,
+    start_date,
+    winner_id,
+    year
+  } = competition.attributes
   return (
     <tr>
       <td>
         {index + 1}
       </td>
       <td>
-        {competition.attributes.name}
+        {name}
       </td>
       <td>
-        {competition.attributes.place}
+        {place}
       </td>
       <td>
-        {competition.attributes.year}
+        {year}
       </td>
       <td>
-        {competition.attributes.start_date}
+        {formattingDateTime.formatDate(start_date)}
       </td>
       <td>
-        {competition.attributes.end_date}
+        {formattingDateTime.formatDate(end_date)}
       </td>
       <td>
-        {competition.attributes.winner_id}
+        {winner_id}
       </td>
       <td>
         <Link to={`/admin/competitions/${competition.id}/edit`}>
