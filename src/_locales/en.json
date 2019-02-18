@@ -19,6 +19,10 @@
     "dashboard": {
       "title": "Dashboard"
     },
+    "teamForm": {
+      "title": "Team form",
+      "updateTeamButton": "Update team"
+    },
     "teamsTable": {
       "abbreviation": "Abbreviation",
       "addNewTeam": "Add new team",
@@ -85,13 +89,17 @@
     "yourGroups": "Your groups"
   },
   "shared": {
+    "abbreviation": "Abbreviation",
     "action": "Action",
     "cancelLink": "Cancel",
     "email": "Email",
     "endDate": "End date",
+    "flag": "Flag",
     "isRequired": "is required",
     "name": "Name",
+    "nameEn": "Name EN",
     "password": "Password",
+    "photo": "Photo",
     "place": "Place",
     "role": "Role",
     "startDate": "Start date",
