@@ -1,9 +1,10 @@
 import React from 'react'
+import { FaBowlingBall } from 'react-icons/fa';
 
 function LoadingView() {
   return (
-    <div>
-      <p>Loading...</p>
+    <div className='spinner fadein'>
+      <FaBowlingBall />
     </div>
   )
 }
