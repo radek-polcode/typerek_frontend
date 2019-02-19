@@ -5,11 +5,12 @@ import { withNamespaces } from 'react-i18next';
 
 import { Button,
          Card, CardHeader, CardBody,
-         CustomInput, Form, FormGroup, 
-         Input, InputGroup, InputGroupAddon, InputGroupText, 
+         Form, FormGroup, 
+         Input, InputGroup, 
          Label } from 'reactstrap';
 
 import '../../../../App/App.css'
+import { imageConverting } from '../../../../_helpers'
 import { teamActions } from '../../../../_actions';
 
 class TeamForm extends Component {
@@ -67,15 +68,15 @@ class TeamForm extends Component {
           nameEn: nameEn,
           abbreviation: abbreviation,
           flag: flag,
-          photo: photo
+          photo: imageConverting.imageToBase64String(photo)
         }
       }
     }
-
+    console.log(team)
     if (isEditing) {
       dispatch(teamActions.updateTeam(team, teamId))
     } else {
-      if (name && nameEn && abbreviation && flag) {
+      if (name && nameEn && abbreviation) {
         dispatch(teamActions.addTeam(team))
       }
     }
@@ -99,12 +100,8 @@ class TeamForm extends Component {
       submitted
     } = this.state;
 
-    const ROLES = [
-        {value: 'registered'},
-        {value: 'admin'}
-    ]
     const { t } = this.props
-
+    console.log(photo)
     return (
       <Card className="card__form">
         <CardHeader tag="h2">
@@ -171,11 +168,11 @@ class TeamForm extends Component {
             <FormGroup className={(submitted && !photo ? ' has-error' : '')}>
               <Label htmlFor="flag">{t('shared.photo')}</Label>
               <InputGroup>
-                <Input type="text" 
-                        className="form-control card__form__input"
-                        name="photo" 
-                        onChange={this.handleInputChange}
-                        value={photo.url}
+                <Input type="file" 
+                       className="form-control card__form__input"
+                       name="photo" 
+                       onChange={this.handleInputChange}
+                       value={photo.url}
                 />
                 {submitted && !photo &&
                     <div className="help-block">{t('shared.photo')} {t('shared.isRequired')}</div>

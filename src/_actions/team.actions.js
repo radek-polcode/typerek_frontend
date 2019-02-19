@@ -6,6 +6,7 @@ import i18n from '../i18n';
 
 export const teamActions = {
   getAll,
+  updateTeam
 };
 
 function getAll() {
@@ -21,4 +22,30 @@ function getAll() {
   function request() { return { type: teamConstants.GETALL_REQUEST } }
   function success(teams) { return { type: teamConstants.GETALL_SUCCESS, teams } }
   function failure(error) { return { type: teamConstants.GETALL_FAILURE, error } }
+}
+
+function updateTeam(team, id) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request());
+    teamService.updateTeam(team, id)
+      .then(
+        team => {
+          dispatch(success(team));
+          history.push('/admin/teams');
+          dispatch(alertActions.success(
+            t('alerts.teams.editedSuccessfully')
+          ));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        }
+      )
+  };
+
+  function request(team) { return { type: teamConstants.UPDATETEAM_REQUEST, team } }
+  function success(team) { return { type: teamConstants.UPDATETEAM_SUCCESS, team } }
+  function failure(error) { return { type: teamConstants.UPDATETEAM_FAILURE, error } }
 }
