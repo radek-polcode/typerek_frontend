@@ -6,7 +6,8 @@ import i18n from '../i18n';
 
 export const teamActions = {
   getAll,
-  updateTeam
+  updateTeam,
+  updateTeamPhoto
 };
 
 function getAll() {
@@ -48,4 +49,29 @@ function updateTeam(team, id) {
   function request(team) { return { type: teamConstants.UPDATETEAM_REQUEST, team } }
   function success(team) { return { type: teamConstants.UPDATETEAM_SUCCESS, team } }
   function failure(error) { return { type: teamConstants.UPDATETEAM_FAILURE, error } }
+}
+
+function updateTeamPhoto(team, id) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request());
+    teamService.updateTeamPhoto(team, id)
+      .then(
+        team => {
+          dispatch(success(team));
+          dispatch(alertActions.success(
+            t('alerts.teams.photoChanged')
+          ));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        }
+      )
+  };
+
+  function request(team) { return { type: teamConstants.UPDATETEAMPHOTO_REQUEST, team } }
+  function success(team) { return { type: teamConstants.UPDATETEAMPHOTO_SUCCESS, team } }
+  function failure(error) { return { type: teamConstants.UPDATETEAMPHOTO_FAILURE, error } }
 }

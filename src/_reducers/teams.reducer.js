@@ -14,15 +14,34 @@ export function teams(state = {}, action) {
       return {
         error: action.error
     };
-    case teamConstants.UPDATE_COMPETITION_REQUEST:
+    case teamConstants.UPDATE_TEAM_REQUEST:
       return {
         ...state,
       }
-    case teamConstants.UPDATE_COMPETITION_FAILURE:
+    case teamConstants.UPDATE_TEAM_FAILURE:
       return {
         error: action.error
       }
-    case teamConstants.UPDATE_COMPETITION_SUCCESS:
+    case teamConstants.UPDATE_TEAM_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter(function(team) {
+          if (team.id === action.team.id) {
+            return team
+          } else {
+            return action.team
+          }
+        })          
+    }
+    case teamConstants.UPDATE_TEAMPHOTO_REQUEST:
+      return {
+        ...state,
+      }
+    case teamConstants.UPDATE_TEAMPHOTO_FAILURE:
+      return {
+        error: action.error
+      }
+    case teamConstants.UPDATE_TEAMPHOTO_SUCCESS:
       return {
         ...state,
         items: state.items.filter(function(team) {
