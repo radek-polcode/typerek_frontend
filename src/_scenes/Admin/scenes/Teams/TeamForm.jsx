@@ -26,10 +26,11 @@ class TeamForm extends Component {
   }
 
   state = {
-    abbreviation: this.props.team.abbreviation,
+    abbreviation: this.props.team.attributes.abbreviation,
     flag: this.props.team.attributes.flag,
     name: this.props.team.attributes.name,
     nameEn: this.props.team.attributes.name_en,
+    newPhoto: '',
     photo: this.props.team.attributes.photo,
     teamId: this.props.team.id,
     submitted: false
@@ -55,7 +56,6 @@ class TeamForm extends Component {
       flag, 
       name, 
       nameEn, 
-      photo
     } = this.state
 
     const { dispatch } = this.props;
@@ -68,11 +68,10 @@ class TeamForm extends Component {
           nameEn: nameEn,
           abbreviation: abbreviation,
           flag: flag,
-          photo: imageConverting.imageToBase64String(photo)
         }
       }
     }
-    console.log(team)
+
     if (isEditing) {
       dispatch(teamActions.updateTeam(team, teamId))
     } else {
@@ -166,18 +165,7 @@ class TeamForm extends Component {
               </InputGroup>
             </FormGroup>
             <FormGroup className={(submitted && !photo ? ' has-error' : '')}>
-              <Label htmlFor="flag">{t('shared.photo')}</Label>
-              <InputGroup>
-                <Input type="file" 
-                       className="form-control card__form__input"
-                       name="photo" 
-                       onChange={this.handleInputChange}
-                       value={photo.url}
-                />
-                {submitted && !photo &&
-                    <div className="help-block">{t('shared.photo')} {t('shared.isRequired')}</div>
-                }
-              </InputGroup>
+
             </FormGroup>
             <FormGroup>
               <Button>
