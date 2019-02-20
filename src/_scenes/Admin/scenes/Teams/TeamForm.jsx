@@ -10,9 +10,8 @@ import { Button,
          Label } from 'reactstrap';
 
 import '../../../../App/App.css'
-import { imageHelper } from '../../../../_helpers'
 import { teamActions } from '../../../../_actions';
-import { teamService } from '../../../../_services';
+import { UploadPhoto } from './UploadPhoto';
 
 class TeamForm extends Component {
   constructor(props) {
@@ -30,7 +29,6 @@ class TeamForm extends Component {
   state = {
     abbreviation: this.props.team.attributes.abbreviation,
     flag: this.props.team.attributes.flag,
-    loaded: 0,
     name: this.props.team.attributes.name,
     nameEn: this.props.team.attributes.name_en,
     newPhoto: null,
@@ -48,7 +46,7 @@ class TeamForm extends Component {
     });
   }
 
-  handleSelectedFile(event) {
+  handleSelectedFile = (event) => {
     const scope = this
     const file = event.target.files[0]
 
@@ -65,8 +63,11 @@ class TeamForm extends Component {
 
   handleUpload = (e) => {
     e.preventDefault()
+
+    const { dispatch } = this.props;
     const teamId = this.state.teamId
     const newPhoto = this.state.newPhoto
+
     let teamWithNewPhoto = {
       data: {
         type: 'teams',
@@ -76,7 +77,7 @@ class TeamForm extends Component {
       }
     }
 
-    teamService.updatePhoto(teamWithNewPhoto, teamId)
+    dispatch(teamActions.updateTeamPhoto(teamWithNewPhoto, teamId))
   }
 
   handleSubmit(e) {
@@ -129,9 +130,13 @@ class TeamForm extends Component {
       nameEn, 
       abbreviation, 
       flag,
+      newPhoto,
       photo,
       submitted
     } = this.state;
+
+    const handleSelectedFile = this.handleSelectedFile
+    const handleUpload = this.handleUpload
 
     const { t } = this.props
 
@@ -198,26 +203,13 @@ class TeamForm extends Component {
                 }
               </InputGroup>
             </FormGroup>
-            <FormGroup className={(submitted && !photo ? ' has-error' : '')}>
-              <img
-                alt="Team"
-                src={imageHelper.createImageLink(photo.medium.url)}
-              />
-              <input 
-                type="file" 
-                name="" 
-                id="" 
-                onChange={this.handleSelectedFile} 
-              />
-              <button 
-                onClick={this.handleUpload}
-              >
-                Upload
-              </button>
-              <div> 
-                {Math.round(this.state.loaded,2) } %
-              </div>
-            </FormGroup>
+            <UploadPhoto
+              handleSelectedFile={handleSelectedFile}
+              handleUpload={handleUpload}
+              imgSrc={newPhoto}
+              photo={photo}
+
+            />
             <FormGroup>
               <Button>
                 {this.setButtonName(t)}
