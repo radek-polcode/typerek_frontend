@@ -10,14 +10,16 @@ import { Button,
          Label } from 'reactstrap';
 
 import '../../../../App/App.css'
-import { imageConverting } from '../../../../_helpers'
+import { imageHelper } from '../../../../_helpers'
 import { teamActions } from '../../../../_actions';
+import { teamService } from '../../../../_services';
 
 class TeamForm extends Component {
   constructor(props) {
     super(props)
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelectedFile = this.handleSelectedFile.bind(this);
   }
 
   static propTypes = {
@@ -28,9 +30,10 @@ class TeamForm extends Component {
   state = {
     abbreviation: this.props.team.attributes.abbreviation,
     flag: this.props.team.attributes.flag,
+    loaded: 0,
     name: this.props.team.attributes.name,
     nameEn: this.props.team.attributes.name_en,
-    newPhoto: '',
+    newPhoto: null,
     photo: this.props.team.attributes.photo,
     teamId: this.props.team.id,
     submitted: false
@@ -43,6 +46,37 @@ class TeamForm extends Component {
     this.setState({
       [name]: value
     });
+  }
+
+  handleSelectedFile(event) {
+    const scope = this
+    const file = event.target.files[0]
+
+    let reader = new FileReader()
+
+    reader.onload = function(event) {
+      let dataURL = reader.result
+      scope.setState({
+        newPhoto: dataURL
+      })
+    }
+    reader.readAsDataURL(file);
+  }
+
+  handleUpload = (e) => {
+    e.preventDefault()
+    const teamId = this.state.teamId
+    const newPhoto = this.state.newPhoto
+    let teamWithNewPhoto = {
+      data: {
+        type: 'teams',
+        attributes: {
+          photo: newPhoto,
+        }
+      }
+    }
+
+    teamService.updatePhoto(teamWithNewPhoto, teamId)
   }
 
   handleSubmit(e) {
@@ -94,13 +128,13 @@ class TeamForm extends Component {
       name, 
       nameEn, 
       abbreviation, 
-      flag, 
+      flag,
       photo,
       submitted
     } = this.state;
 
     const { t } = this.props
-    console.log(photo)
+
     return (
       <Card className="card__form">
         <CardHeader tag="h2">
@@ -165,7 +199,24 @@ class TeamForm extends Component {
               </InputGroup>
             </FormGroup>
             <FormGroup className={(submitted && !photo ? ' has-error' : '')}>
-
+              <img
+                alt="Team"
+                src={imageHelper.createImageLink(photo.medium.url)}
+              />
+              <input 
+                type="file" 
+                name="" 
+                id="" 
+                onChange={this.handleSelectedFile} 
+              />
+              <button 
+                onClick={this.handleUpload}
+              >
+                Upload
+              </button>
+              <div> 
+                {Math.round(this.state.loaded,2) } %
+              </div>
             </FormGroup>
             <FormGroup>
               <Button>

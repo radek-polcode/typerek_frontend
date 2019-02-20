@@ -5,6 +5,7 @@ const namespace = 'admin/'
 
 export const teamService = {
   getAll,
+  updatePhoto,
   updateTeam
 };
 
@@ -26,6 +27,17 @@ function updateTeam(team, id) {
     headers: authenticationHeaders(),
     body: JSON.stringify(team)
   }
+  return fetch(`${config.apiUrl}/${namespace}teams/${id}`, requestOptions)
+          .then(handleResponse)
+}
+
+function updatePhoto(team, id) {
+  const requestOptions = {
+    method: 'PATCH',
+    headers: authenticationHeaders(),
+    body: JSON.stringify(team)
+  }
+
   return fetch(`${config.apiUrl}/${namespace}teams/${id}`, requestOptions)
           .then(handleResponse)
 }
