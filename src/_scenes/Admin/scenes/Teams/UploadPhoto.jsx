@@ -1,45 +1,59 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { imageHelper } from '../../../../_helpers'
 import { withNamespaces } from 'react-i18next';
+import { Button, Input } from 'reactstrap';
+import cx from 'classnames';
+
+import { imageHelper } from '../../../../_helpers'
+
+import '../../../../App/App.css'
+import styles from './UploadPhoto.module.css'
 
 UploadPhoto.propTypes = {
   handleUpload: PropTypes.func.isRequired,
   handleSelectedFile: PropTypes.func.isRequired,
   imgSrc: PropTypes.string,
+  newPhotoLabel: PropTypes.string,
   photoUrl: PropTypes.string
 }
 
 function UploadPhoto({
   handleUpload,
   handleSelectedFile,
-  loaded = 0,
   imgSrc = undefined,
+  newPhotoLabel,
   photo,
   t
 }) {
 
   return (
-    <div>
+    <div className={styles.uploadBox}>
       <img
-        id="team__photo__thumb"
         alt="Team"
+        className={cx(styles.team__photo__thumb)}
+        id="team__photo__thumb"
         src={imgSrc ? imgSrc : imageHelper.createImageLink(photo.medium.url)}
-        style={{width: '100px', height: '100px'}}
       />
-      <input 
-        type="file" 
-        name={t('shared.changePhoto')} 
-        id="" 
-        onChange={handleSelectedFile} 
-      />
-      <button 
-        onClick={handleUpload}
-      >
-        Upload
-      </button>
-      <div> 
-        {Math.round(loaded,2) } %
+      <div>
+        <Input 
+          className=""
+          id="photoUpload"
+          label={newPhotoLabel}
+          name={t('shared.changePhoto')} 
+          onChange={handleSelectedFile}
+          type="file" 
+        />
+        <Button
+          className={styles.photo__uploadButton}
+          color="secondary"
+          onClick={handleUpload}
+          size="sm"
+        >
+          Upload
+        </Button>
+        <div className="uploadBox__alert">
+          <span>Here should be alert hehe</span>
+        </div>
       </div>
     </div>
   )

@@ -32,6 +32,7 @@ class TeamForm extends Component {
     name: this.props.team.attributes.name,
     nameEn: this.props.team.attributes.name_en,
     newPhoto: null,
+    newPhotoLabel: 'Choose new photo',
     photo: this.props.team.attributes.photo,
     teamId: this.props.team.id,
     submitted: false
@@ -47,18 +48,24 @@ class TeamForm extends Component {
   }
 
   handleSelectedFile = (event) => {
-    const scope = this
-    const file = event.target.files[0]
+    if (event.target.files.length > 0) {
+      const scope = this
+      const file = event.target.files[0]
+      const fileName = event.target.files[0].name
 
-    let reader = new FileReader()
+      let reader = new FileReader()
 
-    reader.onload = function(event) {
-      let dataURL = reader.result
-      scope.setState({
-        newPhoto: dataURL
-      })
+      reader.onload = function(event) {
+        let dataURL = reader.result
+        scope.setState({
+          newPhoto: dataURL,
+          newPhotoLabel: fileName
+        })
+      }
+      reader.readAsDataURL(file);
+    } else {
+      return undefined
     }
-    reader.readAsDataURL(file);
   }
 
   handleUpload = (e) => {
@@ -76,7 +83,6 @@ class TeamForm extends Component {
         }
       }
     }
-
     dispatch(teamActions.updateTeamPhoto(teamWithNewPhoto, teamId))
   }
 
@@ -131,6 +137,7 @@ class TeamForm extends Component {
       abbreviation, 
       flag,
       newPhoto,
+      newPhotoLabel,
       photo,
       submitted
     } = this.state;
@@ -138,7 +145,7 @@ class TeamForm extends Component {
     const handleSelectedFile = this.handleSelectedFile
     const handleUpload = this.handleUpload
 
-    const { t } = this.props
+    const { alert, t } = this.props
 
     return (
       <Card className="card__form">
@@ -207,8 +214,8 @@ class TeamForm extends Component {
               handleSelectedFile={handleSelectedFile}
               handleUpload={handleUpload}
               imgSrc={newPhoto}
+              newPhotoLabel={newPhotoLabel}
               photo={photo}
-
             />
             <FormGroup>
               <Button>
