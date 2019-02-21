@@ -8,7 +8,8 @@ export function teams(state = {}, action) {
       }
     case teamConstants.GETALL_SUCCESS:
       return {
-        items: action.teams.data
+        items: action.teams.data,
+        links: action.teams.links
       }
     case teamConstants.GETALL_FAILURE:
       return {
