@@ -37,7 +37,6 @@ function updateTeamPhoto(team, id) {
     headers: authenticationHeaders(),
     body: JSON.stringify(team)
   }
-  console.log(team)
   return fetch(`${config.apiUrl}/${namespace}teams/${id}`, requestOptions)
           .then(handleResponse)
 }

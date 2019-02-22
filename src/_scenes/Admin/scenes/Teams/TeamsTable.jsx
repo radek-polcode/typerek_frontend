@@ -2,8 +2,10 @@ import React from 'react'
 import { Table } from 'reactstrap';
 import PropTypes from 'prop-types'
 import { Card, CardHeader, CardBody } from 'reactstrap';
-import { TeamsTableRow } from './TeamsTableRow'
 import { withNamespaces } from 'react-i18next';
+
+import { TeamsTableRow } from './TeamsTableRow'
+import { Pagination } from '../../../../_components';
 
 TeamsTable.propTypes = {
   teams: PropTypes.object.isRequired,
