@@ -16,7 +16,8 @@ TeamsTable.defaultProps = {
   teams: {}
 }
 
-function TeamsTable({ teams, handleDeleteTeam, t }) {
+function TeamsTable({ teams, handleDeleteTeam, onPageChanged, t }) {
+  const meta = teams.meta
   return (
     <Card className="card__form">
       <CardHeader tag="h2">
@@ -50,6 +51,10 @@ function TeamsTable({ teams, handleDeleteTeam, t }) {
             </tbody>
         </Table>
       </CardBody>
+      <Pagination
+        meta={meta}
+        onPageChanged={onPageChanged}
+      />
     </Card>
   )
 }

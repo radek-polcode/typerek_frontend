@@ -14,24 +14,37 @@ export default class Teams extends Component {
 
   constructor(props) {
     super(props)
+    this.initialPage = props.teams.meta.current_page
+    this.initialPerPage = 20
+
     this.handleDeleteTeam = this.handleDeleteTeam.bind(this)
+    this.onPageChanged = this.onPageChanged.bind(this)
   }
 
   componentDidMount() {
-    this.props.dispatch(teamActions.getAll());
+    const page = this.initialPage
+    const perPage = this.initialPerPage
+    this.props.dispatch(teamActions.getAll(page, perPage));
   }
 
   handleDeleteTeam(id) {}
 
+  onPageChanged = data => {
+    const { currentPage, totalPages, pageLimit } = data;
+    this.props.dispatch(teamActions.getAll(currentPage, pageLimit));
+   }
+
   render() {
     const { teams, t } = this.props
     const handleDeleteTeam = this.handleDeleteTeam
+    const onPageChanged = this.onPageChanged
 
     return (
       <div>
         <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
         <TeamsTable
           teams={teams}
+          onPageChanged={onPageChanged}
         />
       </div>
     )

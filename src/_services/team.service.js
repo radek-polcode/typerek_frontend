@@ -11,13 +11,19 @@ export const teamService = {
 
 const handleResponse = handlingResponse.handleResponse
 
-function getAll() {
+const initialPage = 1
+const initialLimitPerPage = 20
+
+function getAll(page, perPage) {
+  const currentPage = page ? page : initialPage
+  const limitPerPage = perPage ? perPage : initialLimitPerPage
+
   const requestOptions = {
     method: 'GET',
     headers: authenticationHeaders()
   };
 
-  return fetch(`${config.apiUrl}/${namespace}teams`, requestOptions)
+  return fetch(`${config.apiUrl}/${namespace}teams?page=${currentPage}&per_page=${limitPerPage}`, requestOptions)
           .then(handleResponse);
 }
 

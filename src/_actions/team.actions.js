@@ -10,10 +10,10 @@ export const teamActions = {
   updateTeamPhoto
 };
 
-function getAll() {
+function getAll(page, perPage) {
   return dispatch => {
     dispatch(request());
-    teamService.getAll()
+    teamService.getAll(page, perPage)
       .then(
         teams => dispatch(success(teams)),
         error => dispatch(failure(error.toString()))
