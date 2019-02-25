@@ -30,8 +30,8 @@ export default class Teams extends Component {
   handleDeleteTeam(id) {}
 
   onPageChanged = data => {
-    const { currentPage, totalPages, pageLimit } = data;
-    this.props.dispatch(teamActions.getAll(currentPage, pageLimit));
+    const { currentPage, perPage } = data;
+    this.props.dispatch(teamActions.getAll(currentPage, perPage));
    }
 
   render() {

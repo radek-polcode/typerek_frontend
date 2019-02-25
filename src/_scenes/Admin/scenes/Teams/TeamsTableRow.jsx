@@ -7,6 +7,7 @@ import { withNamespaces } from 'react-i18next';
 import Flag from "react-flags"
 
 import styles from '../../../../App/App.css'
+import { listPosition } from '../../../../_helpers'
 
 TeamsTableRow.propTypes = {
   team: PropTypes.object.isRequired,
@@ -19,7 +20,13 @@ TeamsTableRow.defaultProps = {
   index: 0
 }
 
-function TeamsTableRow({ team, handleDeleteTeam, index, t }) {
+function TeamsTableRow({
+   handleDeleteTeam, 
+   index, 
+   page, 
+   t, 
+   team, 
+  }) {
   const { 
     abbreviation,
     flag,
@@ -27,11 +34,10 @@ function TeamsTableRow({ team, handleDeleteTeam, index, t }) {
     name_en,
     photo
   } = team.attributes
-
   return (
     <tr>
       <td>
-        {index + 1}
+        {listPosition.count(index, page)}
       </td>
       <td>
         {name}

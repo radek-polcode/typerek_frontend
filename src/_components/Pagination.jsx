@@ -22,24 +22,27 @@ const range = (from, to, step = 1) => {
 
 class Pagination extends Component {
   static propTypes = {
-    totalRecords: PropTypes.number.isRequired,
-    pageLimit: PropTypes.number,
-    pageNeighbours: PropTypes.number,
-    onPageChanged: PropTypes.func,
     links: PropTypes.object,
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    onPageChanged: PropTypes.func,
+    pageNeighbours: PropTypes.number,
+    perPage: PropTypes.number,
+    totalRecords: PropTypes.number.isRequired
+  }
+
+  state = {
+    currentPage: this.props.meta.current_page
   }
 
   constructor(props) {
     super(props);
-    const pageLimit = 20
-    const pageNeighbours = 0
+    const perPage = 20
+    const pageNeighbours = 1
 
-    const currentPage = props.meta.current_page
     const totalPages = props.meta.total_pages
     const totalRecords = props.meta.total_records
 
-    this.pageLimit = typeof pageLimit === 'number' ? pageLimit : 30;
+    this.perPage = typeof perPage === 'number' ? perPage : 30;
     this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
 
     // pageNeighbours can be: 0, 1 or 2
@@ -48,12 +51,10 @@ class Pagination extends Component {
       : 0;
 
     this.totalPages = totalPages;
-
-    this.state = { currentPage: currentPage };
   }
 
   componentDidMount() {
-    // this.gotoPage(1);
+    this.gotoPage(1);
   }
 
   gotoPage = page => {
@@ -64,7 +65,7 @@ class Pagination extends Component {
     const paginationData = {
       currentPage,
       totalPages: this.totalPages,
-      pageLimit: this.pageLimit,
+      perPage: this.perPage,
       totalRecords: this.totalRecords
     };
 

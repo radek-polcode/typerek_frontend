@@ -8,8 +8,10 @@ import { TeamsTableRow } from './TeamsTableRow'
 import { Pagination } from '../../../../_components';
 
 TeamsTable.propTypes = {
-  teams: PropTypes.object.isRequired,
-  handleDeleteTeam: PropTypes.func.isRequired
+  handleDeleteTeam: PropTypes.func.isRequired,
+  onPageChanged: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
+  teams: PropTypes.object.isRequired
 }
 
 TeamsTable.defaultProps = {
@@ -42,10 +44,11 @@ function TeamsTable({ teams, handleDeleteTeam, onPageChanged, t }) {
               {teams.items &&
                 teams.items.map((team, index) =>
                 <TeamsTableRow
-                  team={team}
                   handleDeleteTeam={handleDeleteTeam}
                   index={index}
                   key={team.id}
+                  page={meta.current_page}
+                  team={team}
                 />
               )}
             </tbody>
