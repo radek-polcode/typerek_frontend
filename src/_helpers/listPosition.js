@@ -2,11 +2,11 @@ export const listPosition = {
   count
 }
 
-function count(index, page) {
+function count(index, page, perPage) {
   if (page <= 1) {
     return index + 1
   }
   else {
-    return index + (20 * (page - 1)) + 1
+    return index + (perPage * (page - 1)) + 1
   }
 }

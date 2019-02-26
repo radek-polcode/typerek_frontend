@@ -29,7 +29,9 @@ class ItemsPerPageDropdown extends Component {
   }
 
   handleOnClick(e) {
-    const perPage = e.target.textContent
+    const btnContent = e.target.textContent
+    const perPage = parseInt(btnContent, 10)
+    
     this.setState({perPage: perPage})
     this.props.onPerPageChanged(perPage)
   }

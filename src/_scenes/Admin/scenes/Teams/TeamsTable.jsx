@@ -65,6 +65,7 @@ function TeamsTable({
                   index={index}
                   key={team.id}
                   page={currentPage}
+                  perPage={perPage}
                   team={team}
                 />
               )}

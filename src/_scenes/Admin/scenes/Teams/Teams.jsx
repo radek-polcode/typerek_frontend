@@ -34,6 +34,16 @@ export default class Teams extends Component {
     this.props.dispatch(teamActions.getAll(currentPage, perPage));
   }
 
+  static getDerivedStateFromProps(nextProps, prevState){
+    if (nextProps.teams.meta && 
+        nextProps.teams.meta.total_pages !== prevState.totalPages) {
+      return { 
+        totalPages: nextProps.teams.meta.total_pages
+      };
+    }
+    else return null;
+  }
+
   handleDeleteTeam(id) {}
 
   onPageChanged = data => {
@@ -47,12 +57,13 @@ export default class Teams extends Component {
 
   onPerPageChanged = (perPage) => {
     const currentPage = 1
+    this.props.dispatch(teamActions.getAll(currentPage, perPage));
 
     this.setState({
       currentPage: currentPage,
-      perPage: perPage
+      perPage: perPage,
+      totalPages: 22
     })
-    this.props.dispatch(teamActions.getAll(currentPage, perPage));
   }
 
   render() {

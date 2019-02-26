@@ -23,7 +23,8 @@ TeamsTableRow.defaultProps = {
 function TeamsTableRow({
    handleDeleteTeam, 
    index, 
-   page, 
+   page,
+   perPage,
    t, 
    team, 
   }) {
@@ -36,7 +37,7 @@ function TeamsTableRow({
   return (
     <tr>
       <td>
-        {listPosition.count(index, page)}
+        {listPosition.count(index, page, perPage)}
       </td>
       <td>
         {name}

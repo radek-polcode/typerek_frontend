@@ -34,18 +34,23 @@ class Pagination extends Component {
 
   state = {
     currentPage: this.props.currentPage,
-    totalPages: this.props.totalPages
+    perPage: this.props.perPage,
+    totalPages: this.props.totalPages,
+    totalRecords: this.props.totalRecords
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
-    console.log('props derived')
     if (
         nextProps.currentPage !== prevState.currentPage ||
-        nextProps.totalPages !== prevState.totalPages
+        nextProps.perPage !== prevState.perPage ||
+        nextProps.totalPages !== prevState.totalPages ||
+        nextProps.totalRecords !== prevState.totalRecords
       ) {
       return { 
         currentPage: nextProps.currentPage,
-        totalPages: nextProps.totalPages
+        perPage: nextProps.perPage,
+        totalPages: nextProps.totalPages,
+        totalRecords: nextProps.totalRecords
       };
     }
     else return null;
@@ -53,10 +58,8 @@ class Pagination extends Component {
 
   constructor(props) {
     super(props);
-    const perPage = props.perPage
+    const { perPage, totalRecords } = this.state
     const pageNeighbours = 1
-
-    const totalRecords = props.totalRecords
 
     this.perPage = typeof perPage === 'number' ? perPage : 20;
     this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
@@ -79,9 +82,9 @@ class Pagination extends Component {
 
     const paginationData = {
       currentPage,
-      perPage: this.perPage,
+      perPage: this.state.perPage,
       totalPages: this.state.totalPages,
-      totalRecords: this.totalRecords
+      totalRecords: this.state.totalRecords
     };
 
     this.setState({ currentPage }, () => onPageChanged(paginationData));
@@ -118,7 +121,6 @@ class Pagination extends Component {
     const totalPages = this.state.totalPages;
     const currentPage = this.state.currentPage;
     const pageNeighbours = this.pageNeighbours;
-
     /**
      * totalNumbers: the total page numbers to show on the control
      * totalBlocks: totalNumbers + 2 to cover for the left(<) and right(>) controls
@@ -173,11 +175,12 @@ class Pagination extends Component {
   }
 
   render() {
-    if (!this.totalRecords || this.totalPages === 1) return null;
+    console.log(this.state)
+
+    if (!this.state.totalRecords || this.state.totalPages === 1) return null;
 
     const { currentPage } = this.state;
     const pages = this.fetchPageNumbers();
-
     return (
       <Fragment>
         <nav aria-label="Countries Pagination">
