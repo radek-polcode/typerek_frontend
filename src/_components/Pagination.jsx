@@ -38,11 +38,18 @@ class Pagination extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
-    if(nextProps.currentPage !== prevState.currentPage){
-      return { currentPage: nextProps.currentPage};
-   }
-   else return null;
- }
+    console.log('props derived')
+    if (
+        nextProps.currentPage !== prevState.currentPage ||
+        nextProps.totalPages !== prevState.totalPages
+      ) {
+      return { 
+        currentPage: nextProps.currentPage,
+        totalPages: nextProps.totalPages
+      };
+    }
+    else return null;
+  }
 
   constructor(props) {
     super(props);
