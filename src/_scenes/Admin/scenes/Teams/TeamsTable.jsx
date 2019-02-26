@@ -5,25 +5,42 @@ import { Card, CardHeader, CardBody } from 'reactstrap';
 import { withNamespaces } from 'react-i18next';
 
 import { TeamsTableRow } from './TeamsTableRow'
-import { Pagination } from '../../../../_components';
+import { Pagination, ItemsPerPageDropdown } from '../../../../_components';
 
 TeamsTable.propTypes = {
+  currentPage: PropTypes.number.isRequired,
   handleDeleteTeam: PropTypes.func.isRequired,
   onPageChanged: PropTypes.func.isRequired,
+  onPerPageChanged: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
-  teams: PropTypes.object.isRequired
+  teams: PropTypes.object.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  totalRecords: PropTypes.number.isRequired
 }
 
 TeamsTable.defaultProps = {
   teams: {}
 }
 
-function TeamsTable({ teams, handleDeleteTeam, onPageChanged, t }) {
-  const meta = teams.meta
+function TeamsTable({
+  currentPage,
+  handleDeleteTeam, 
+  onPageChanged, 
+  onPerPageChanged,
+  perPage,
+  t,
+  teams, 
+  totalPages,
+  totalRecords
+}) {
   return (
     <Card className="card__form">
       <CardHeader tag="h2">
         {t('admin.teamsTable.title')}
+        <ItemsPerPageDropdown
+          perPage={perPage}
+          onPerPageChanged={onPerPageChanged}
+        />
       </CardHeader>
       <CardBody>
         <Table
@@ -47,7 +64,7 @@ function TeamsTable({ teams, handleDeleteTeam, onPageChanged, t }) {
                   handleDeleteTeam={handleDeleteTeam}
                   index={index}
                   key={team.id}
-                  page={meta.current_page}
+                  page={currentPage}
                   team={team}
                 />
               )}
@@ -55,8 +72,11 @@ function TeamsTable({ teams, handleDeleteTeam, onPageChanged, t }) {
         </Table>
       </CardBody>
       <Pagination
-        meta={meta}
+        currentPage={currentPage}
         onPageChanged={onPageChanged}
+        perPage={perPage}
+        totalPages={totalPages}
+        totalRecords={totalRecords}
       />
     </Card>
   )

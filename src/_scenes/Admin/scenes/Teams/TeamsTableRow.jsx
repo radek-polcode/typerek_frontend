@@ -29,7 +29,6 @@ function TeamsTableRow({
   }) {
   const { 
     abbreviation,
-    flag,
     name,
     name_en,
     photo

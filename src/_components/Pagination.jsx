@@ -22,27 +22,36 @@ const range = (from, to, step = 1) => {
 
 class Pagination extends Component {
   static propTypes = {
+    currentPage: PropTypes.number,
     links: PropTypes.object,
     meta: PropTypes.object,
     onPageChanged: PropTypes.func,
     pageNeighbours: PropTypes.number,
     perPage: PropTypes.number,
-    totalRecords: PropTypes.number.isRequired
+    totalRecords: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired
   }
 
   state = {
-    currentPage: this.props.meta.current_page
+    currentPage: this.props.currentPage,
+    totalPages: this.props.totalPages
   }
+
+  static getDerivedStateFromProps(nextProps, prevState){
+    if(nextProps.currentPage !== prevState.currentPage){
+      return { currentPage: nextProps.currentPage};
+   }
+   else return null;
+ }
 
   constructor(props) {
     super(props);
-    const perPage = 20
+    const perPage = props.perPage
     const pageNeighbours = 1
 
-    const totalPages = props.meta.total_pages
-    const totalRecords = props.meta.total_records
+    const totalRecords = props.totalRecords
 
-    this.perPage = typeof perPage === 'number' ? perPage : 30;
+    this.perPage = typeof perPage === 'number' ? perPage : 20;
     this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
 
     // pageNeighbours can be: 0, 1 or 2
@@ -50,7 +59,6 @@ class Pagination extends Component {
       ? Math.max(0, Math.min(pageNeighbours, 2))
       : 0;
 
-    this.totalPages = totalPages;
   }
 
   componentDidMount() {
@@ -64,8 +72,8 @@ class Pagination extends Component {
 
     const paginationData = {
       currentPage,
-      totalPages: this.totalPages,
       perPage: this.perPage,
+      totalPages: this.state.totalPages,
       totalRecords: this.totalRecords
     };
 
@@ -100,7 +108,7 @@ class Pagination extends Component {
    */
   fetchPageNumbers = () => {
 
-    const totalPages = this.totalPages;
+    const totalPages = this.state.totalPages;
     const currentPage = this.state.currentPage;
     const pageNeighbours = this.pageNeighbours;
 

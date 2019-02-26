@@ -12,39 +12,67 @@ export default class Teams extends Component {
   static propTypes = {
   }
 
+  state = {
+    currentPage: this.props.teams.meta.current_page,
+    perPage: 20,
+    totalPages: this.props.teams.meta.total_pages,
+    totalRecords: this.props.teams.meta.total_records
+  }
+
   constructor(props) {
     super(props)
-    this.initialPage = props.teams.meta.current_page
-    this.initialPerPage = 20
 
     this.handleDeleteTeam = this.handleDeleteTeam.bind(this)
     this.onPageChanged = this.onPageChanged.bind(this)
+    this.onPerPageChanged = this.onPerPageChanged.bind(this)
   }
 
   componentDidMount() {
-    const page = this.initialPage
-    const perPage = this.initialPerPage
-    this.props.dispatch(teamActions.getAll(page, perPage));
+    const currentPage = this.state.currentPage
+    const perPage = this.state.perPage
+
+    this.props.dispatch(teamActions.getAll(currentPage, perPage));
   }
 
   handleDeleteTeam(id) {}
 
   onPageChanged = data => {
     const { currentPage, perPage } = data;
+    this.setState({
+      currentPage: currentPage,
+      perPage: perPage
+    })
     this.props.dispatch(teamActions.getAll(currentPage, perPage));
-   }
+  }
+
+  onPerPageChanged = (perPage) => {
+    const currentPage = 1
+
+    this.setState({
+      currentPage: currentPage,
+      perPage: perPage
+    })
+    this.props.dispatch(teamActions.getAll(currentPage, perPage));
+  }
 
   render() {
     const { teams, t } = this.props
+    const { currentPage, perPage, totalPages, totalRecords } = this.state
     const handleDeleteTeam = this.handleDeleteTeam
     const onPageChanged = this.onPageChanged
+    const onPerPageChanged = this.onPerPageChanged
 
     return (
       <div>
         <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
         <TeamsTable
-          teams={teams}
+          currentPage={currentPage}
           onPageChanged={onPageChanged}
+          onPerPageChanged={onPerPageChanged}
+          perPage={perPage}
+          teams={teams}
+          totalPages={totalPages}
+          totalRecords={totalRecords}
         />
       </div>
     )
