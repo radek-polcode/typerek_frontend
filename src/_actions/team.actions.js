@@ -15,7 +15,10 @@ function getAll(page, perPage) {
     dispatch(request());
     teamService.getAll(page, perPage)
       .then(
-        teams => dispatch(success(teams)),
+        teams => {
+          dispatch(success(teams));
+          history.push(`/admin/teams?current_page=${page}&per_page=${perPage}`);
+        },
         error => dispatch(failure(error.toString()))
       );
   };
