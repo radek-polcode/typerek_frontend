@@ -35,8 +35,10 @@ function TeamsTable({
 }) {
   return (
     <Card className="card__form">
-      <CardHeader tag="h2">
-        {t('admin.teamsTable.title')}
+      <CardHeader 
+        className="card__form__header"
+      >
+        <h2 className="card__form__title">{t('admin.teamsTable.title')}</h2>
         <ItemsPerPageDropdown
           perPage={perPage}
           onPerPageChanged={onPerPageChanged}

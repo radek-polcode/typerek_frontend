@@ -7,6 +7,8 @@ import {
   DropdownToggle 
 } from 'reactstrap'
 
+import styles from './ItemsPerPageDropdown.module.css'
+
 class ItemsPerPageDropdown extends Component {
   static propTypes = {
     perPage: PropTypes.string.isRequired,
@@ -46,11 +48,12 @@ class ItemsPerPageDropdown extends Component {
   render() {
     return (
       <Fragment>
-        <Dropdown 
+        <Dropdown
+          className={styles.dropdown__itemsPerPage}
           isOpen={this.state.dropdownOpen}
+          setActiveFromChild
           size="sm"
           toggle={this.toggle}
-          setActiveFromChild
         >
         <DropdownToggle caret>
           Per page: {this.state.perPage}

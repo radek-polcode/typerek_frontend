@@ -88,6 +88,11 @@ body {
   color: #e4e7ea;
 }
 
+.card__form__header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card__form__input:focus {
   color: #e4e7ea;
 }
@@ -102,6 +107,10 @@ body {
   background-color: #343b41;
   border: 1px solid #23282c;
   color: #d9dce0;
+}
+
+.card__form__title {
+  display: inline-block;
 }
 
 /* Tables */
