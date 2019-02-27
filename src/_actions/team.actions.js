@@ -17,7 +17,7 @@ function getAll(page, perPage) {
       .then(
         teams => {
           dispatch(success(teams));
-          history.push(`/admin/teams?current_page=${page}&per_page=${perPage}`);
+          history.push(`/admin/teams?currentPage=${page}&perPage=${perPage}`);
         },
         error => dispatch(failure(error.toString()))
       );

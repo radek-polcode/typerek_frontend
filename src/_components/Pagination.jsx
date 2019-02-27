@@ -75,6 +75,7 @@ class Pagination extends Component {
     this.gotoPage(1);
   }
 
+
   gotoPage = page => {
     const { onPageChanged = f => f } = this.props;
 

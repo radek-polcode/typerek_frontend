@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 import { withNamespaces } from 'react-i18next';
 
 import { teamActions } from '../../../../_actions/team.actions'
@@ -12,11 +13,9 @@ export default class Teams extends Component {
   static propTypes = {
   }
 
-  state = {
-    currentPage: this.props.teams.meta.current_page,
-    perPage: 20,
-    totalPages: this.props.teams.meta.total_pages,
-    totalRecords: this.props.teams.meta.total_records
+  static defaultState = {
+    currentPage: 1,
+    perPage: 20
   }
 
   constructor(props) {
@@ -25,6 +24,13 @@ export default class Teams extends Component {
     this.handleDeleteTeam = this.handleDeleteTeam.bind(this)
     this.onPageChanged = this.onPageChanged.bind(this)
     this.onPerPageChanged = this.onPerPageChanged.bind(this)
+  }
+
+  state = {
+    currentPage: 1,
+    perPage: 20,
+    totalPages: 1,
+    totalRecords: 1
   }
 
   componentDidMount() {
@@ -42,6 +48,23 @@ export default class Teams extends Component {
       };
     }
     else return null;
+  }
+
+  componentDidUpdate(){
+    console.log('componentDidUpdate')
+    const scope = this
+    window.onpopstate  = (e) => {
+      const queryParams = queryString.parse(this.props.location.search)
+      const currentPage = parseInt(queryParams.currentPage)
+      const perPage = parseInt(queryParams.perPage)
+
+      this.props.dispatch(teamActions.getAll(currentPage, perPage));
+      scope.setState({
+        currentPage: currentPage,
+        perPage: perPage
+      })
+    }
+  
   }
 
   handleDeleteTeam(id) {}
