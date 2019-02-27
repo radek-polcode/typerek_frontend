@@ -23,13 +23,10 @@ const range = (from, to, step = 1) => {
 class Pagination extends Component {
   static propTypes = {
     currentPage: PropTypes.number,
-    links: PropTypes.object,
-    meta: PropTypes.object,
     onPageChanged: PropTypes.func,
-    pageNeighbours: PropTypes.number,
     perPage: PropTypes.number,
-    totalRecords: PropTypes.number.isRequired,
-    totalPages: PropTypes.number.isRequired
+    totalPages: PropTypes.number.isRequired,
+    totalRecords: PropTypes.number.isRequired
   }
 
   state = {
@@ -37,6 +34,29 @@ class Pagination extends Component {
     perPage: this.props.perPage,
     totalPages: this.props.totalPages,
     totalRecords: this.props.totalRecords
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPage: this.props.currentPage,
+      perPage: this.props.perPage,
+      totalPages: this.props.totalPages,
+      totalRecords: this.props.totalRecords
+    }
+
+    const pageNeighbours = 1
+    const perPage = this.state.perPage
+    const totalRecords = this.state.totalRecords
+
+    this.perPage = typeof perPage === 'number' ? perPage : 20;
+    this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
+
+    // pageNeighbours can be: 0, 1 or 2
+    this.pageNeighbours = typeof pageNeighbours === 'number'
+      ? Math.max(0, Math.min(pageNeighbours, 2))
+      : 0;
+
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
@@ -56,25 +76,9 @@ class Pagination extends Component {
     else return null;
   }
 
-  constructor(props) {
-    super(props);
-    const { perPage, totalRecords } = this.state
-    const pageNeighbours = 1
-
-    this.perPage = typeof perPage === 'number' ? perPage : 20;
-    this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
-
-    // pageNeighbours can be: 0, 1 or 2
-    this.pageNeighbours = typeof pageNeighbours === 'number'
-      ? Math.max(0, Math.min(pageNeighbours, 2))
-      : 0;
-
-  }
-
   componentDidMount() {
     this.gotoPage(1);
   }
-
 
   gotoPage = page => {
     const { onPageChanged = f => f } = this.props;
@@ -176,8 +180,6 @@ class Pagination extends Component {
   }
 
   render() {
-    console.log(this.state)
-
     if (!this.state.totalRecords || this.state.totalPages === 1) return null;
 
     const { currentPage } = this.state;

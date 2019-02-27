@@ -4,40 +4,33 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import { withNamespaces } from 'react-i18next';
+import { Card, CardHeader, CardBody, Table } from 'reactstrap';
 
+import { Pagination, ItemsPerPageDropdown } from '../../../../_components';
 import { teamActions } from '../../../../_actions/team.actions'
 
-import { TeamsTable } from  './TeamsTable'
+import { TeamsTableRow } from  './TeamsTableRow'
 
 export default class Teams extends Component {
   static propTypes = {
   }
 
-  static defaultState = {
-    currentPage: 1,
-    perPage: 20
-  }
-
   constructor(props) {
     super(props)
+
+    this.state = { 
+      perPage: props.teams.meta.per_page,
+      totalPages: props.teams.meta.total_pages,
+      totalRecords: props.teams.meta.total_records
+    }
 
     this.handleDeleteTeam = this.handleDeleteTeam.bind(this)
     this.onPageChanged = this.onPageChanged.bind(this)
     this.onPerPageChanged = this.onPerPageChanged.bind(this)
   }
 
-  state = {
-    currentPage: 1,
-    perPage: 20,
-    totalPages: 1,
-    totalRecords: 1
-  }
-
   componentDidMount() {
-    const currentPage = this.state.currentPage
-    const perPage = this.state.perPage
-
-    this.props.dispatch(teamActions.getAll(currentPage, perPage));
+    this.props.dispatch(teamActions.getAll());
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
@@ -51,7 +44,6 @@ export default class Teams extends Component {
   }
 
   componentDidUpdate(){
-    console.log('componentDidUpdate')
     const scope = this
     window.onpopstate  = (e) => {
       const queryParams = queryString.parse(this.props.location.search)
@@ -59,6 +51,7 @@ export default class Teams extends Component {
       const perPage = parseInt(queryParams.perPage)
 
       this.props.dispatch(teamActions.getAll(currentPage, perPage));
+
       scope.setState({
         currentPage: currentPage,
         perPage: perPage
@@ -71,21 +64,23 @@ export default class Teams extends Component {
 
   onPageChanged = data => {
     const { currentPage, perPage } = data;
+
     this.setState({
       currentPage: currentPage,
       perPage: perPage
     })
+
     this.props.dispatch(teamActions.getAll(currentPage, perPage));
   }
 
   onPerPageChanged = (perPage) => {
     const currentPage = 1
+
     this.props.dispatch(teamActions.getAll(currentPage, perPage));
 
     this.setState({
       currentPage: currentPage,
       perPage: perPage,
-      totalPages: 22
     })
   }
 
@@ -99,15 +94,54 @@ export default class Teams extends Component {
     return (
       <div>
         <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
-        <TeamsTable
-          currentPage={currentPage}
-          onPageChanged={onPageChanged}
-          onPerPageChanged={onPerPageChanged}
-          perPage={perPage}
-          teams={teams}
-          totalPages={totalPages}
-          totalRecords={totalRecords}
-        />
+        <Card className="card__form">
+          <CardHeader 
+            className="card__form__header"
+          >
+            <h2 className="card__form__title">{t('admin.teamsTable.title')}</h2>
+            <ItemsPerPageDropdown
+              perPage={perPage}
+              onPerPageChanged={onPerPageChanged}
+            />
+          </CardHeader>
+          <CardBody>
+            <Table
+                responsive
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>{t('admin.teamsTable.teamName')}</th>
+                    <th>{t('admin.teamsTable.teamNameEn')}</th>
+                    <th>{t('admin.teamsTable.abbreviation')}</th>
+                    <th>{t('admin.teamsTable.flag')}</th>
+                    <th>{t('admin.teamsTable.photo')}</th>
+                    <th>{t('shared.action')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teams.items &&
+                    teams.items.map((team, index) =>
+                    <TeamsTableRow
+                      handleDeleteTeam={handleDeleteTeam}
+                      index={index}
+                      key={team.id}
+                      page={currentPage}
+                      perPage={perPage}
+                      team={team}
+                    />
+                  )}
+                </tbody>
+            </Table>
+          </CardBody>
+          <Pagination
+            currentPage={currentPage}
+            onPageChanged={onPageChanged}
+            perPage={perPage}
+            totalPages={totalPages}
+            totalRecords={totalRecords}
+          />
+        </Card>
       </div>
     )
   }
