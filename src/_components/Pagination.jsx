@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
@@ -22,9 +23,9 @@ const range = (from, to, step = 1) => {
 
 class Pagination extends Component {
   static propTypes = {
-    currentPage: PropTypes.number,
-    onPageChanged: PropTypes.func,
-    perPage: PropTypes.number,
+    currentPage: PropTypes.number.isRequired,
+    onPageChanged: PropTypes.func.isRequired,
+    perPage: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
     totalRecords: PropTypes.number.isRequired
   }
@@ -80,6 +81,14 @@ class Pagination extends Component {
     this.gotoPage(1);
   }
 
+  countNextPage() {
+    return this.state.currentPage + (this.pageNeighbours * 2) + 1
+  }
+
+  countPreviousPage() {
+    return this.state.currentPage - (this.pageNeighbours * 2) - 1
+  }
+
   gotoPage = page => {
     const { onPageChanged = f => f } = this.props;
 
@@ -100,14 +109,14 @@ class Pagination extends Component {
     this.gotoPage(page);
   }
 
-  handleMoveLeft = evt => {
+  handleMoveLeft = previousPage => evt => {
     evt.preventDefault();
-    this.gotoPage(this.state.currentPage - (this.pageNeighbours * 2) - 1);
+    this.gotoPage(previousPage);
   }
 
-  handleMoveRight = evt => {
+  handleMoveRight = nextPage => evt => {
     evt.preventDefault();
-    this.gotoPage(this.state.currentPage + (this.pageNeighbours * 2) + 1);
+    this.gotoPage(nextPage);
   }
 
    /**
@@ -182,50 +191,58 @@ class Pagination extends Component {
   render() {
     if (!this.state.totalRecords || this.state.totalPages === 1) return null;
 
-    const { currentPage } = this.state;
+    const { currentPage, perPage } = this.state;
+    const nextPage = this.countNextPage()
+    const previousPage = this.countPreviousPage()
     const pages = this.fetchPageNumbers();
+
     return (
       <Fragment>
-        <nav aria-label="Countries Pagination">
+        <nav aria-label="Pagination">
           <ul className="pagination">
             { pages.map((page, index) => {
 
               if (page === LEFT_PAGE) return (
                 <li key={index} className="page-item">
-                  <a 
+                  <Link
                     className="page-link" 
                     href="#" 
                     aria-label="Previous" 
-                    onClick={this.handleMoveLeft}
+                    onClick={this.handleMoveLeft(previousPage)}
+                    to={`/admin/teams?currentPage=${previousPage}&perPage=${perPage}`}
                   >
                     <span aria-hidden="true">&laquo;</span>
                     <span className="sr-only">Previous</span>
-                  </a>
+                  </Link>
                 </li>
               );
 
               if (page === RIGHT_PAGE) return (
                 <li key={index} className="page-item">
-                  <a 
+                  <Link
+                    aria-label="Next" 
                     className="page-link" 
                     href="#" 
-                    aria-label="Next" 
-                    onClick={this.handleMoveRight}
+                    onClick={this.handleMoveRight(nextPage)}
+                    to={`/admin/teams?currentPage=${nextPage}&perPage=${perPage}`}
                   >
                     <span aria-hidden="true">&raquo;</span>
                     <span className="sr-only">Next</span>
-                  </a>
+                  </Link>
                 </li>
               );
 
               return (
                 <li key={index} className={`page-item${ currentPage === page ? ' active' : ''}`}>
-                  <a 
+
+                  <Link
                     className="page-link" 
-                    href="#" 
-                    onClick={ this.handleClick(page) }>
-                    { page }
-                  </a>
+                    href="#"
+                    onClick={ this.handleClick(page) }
+                    to={`/admin/teams?currentPage=${page}&perPage=${perPage}`}
+                  >
+                  { page }
+                  </Link>
                 </li>
               );
 
