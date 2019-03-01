@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
+import styles from './Pagination.module.css'
+
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
 
@@ -192,7 +194,7 @@ class Pagination extends Component {
 
     return (
       <Fragment>
-        <nav aria-label="Pagination">
+        <nav className={styles.pagination__container} aria-label="Pagination">
           <ul className="pagination">
             { pages.map((page, index) => {
 
