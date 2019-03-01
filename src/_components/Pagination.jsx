@@ -30,15 +30,9 @@ class Pagination extends Component {
     totalRecords: PropTypes.number.isRequired
   }
 
-  state = {
-    currentPage: this.props.currentPage,
-    perPage: this.props.perPage,
-    totalPages: this.props.totalPages,
-    totalRecords: this.props.totalRecords
-  }
-
   constructor(props) {
     super(props);
+    
     this.state = {
       currentPage: this.props.currentPage,
       perPage: this.props.perPage,

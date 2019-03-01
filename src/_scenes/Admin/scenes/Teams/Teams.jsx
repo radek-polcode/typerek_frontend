@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import { withNamespaces } from 'react-i18next';
 import { Card, CardHeader, CardBody, Table } from 'reactstrap';
 
-import { Pagination, ItemsPerPageDropdown } from '../../../../_components';
+import { ItemsPerPageDropdown, LoadingView, Pagination } from '../../../../_components';
 import { teamActions } from '../../../../_actions/team.actions'
 
 import { TeamsTableRow } from  './TeamsTableRow'
@@ -18,10 +18,11 @@ export default class Teams extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { 
-      perPage: props.teams.meta.per_page,
-      totalPages: props.teams.meta.total_pages,
-      totalRecords: props.teams.meta.total_records
+    this.state = {
+      currentPage: 1,
+      perPage: 20,
+      totalPages: undefined,
+      totalRecords: undefined
     }
 
     this.handleDeleteTeam = this.handleDeleteTeam.bind(this)
@@ -30,14 +31,22 @@ export default class Teams extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(teamActions.getAll());
+    const { currentPage, perPage } = this.state
+    this.props.dispatch(teamActions.getAll(currentPage, perPage));
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
     if (nextProps.teams.meta && 
-        nextProps.teams.meta.total_pages !== prevState.totalPages) {
+        (nextProps.teams.meta.current_page !== prevState.currentPage ||
+        nextProps.teams.meta.per_page !== prevState.perPage ||
+        nextProps.teams.meta.total_pages !== prevState.totalPages ||
+        nextProps.teams.meta.total_records !== prevState.totalRecords)
+        ) {
       return { 
-        totalPages: nextProps.teams.meta.total_pages
+        currentPage: nextProps.teams.meta.current_page,
+        perPage: nextProps.teams.meta.per_page,
+        totalPages: nextProps.teams.meta.total_pages,
+        totalRecords: nextProps.teams.meta.total_records
       };
     }
     else return null;
@@ -85,65 +94,69 @@ export default class Teams extends Component {
   }
 
   render() {
-    const { teams, t } = this.props
-    const { currentPage, perPage, totalPages, totalRecords } = this.state
-    const handleDeleteTeam = this.handleDeleteTeam
-    const onPageChanged = this.onPageChanged
-    const onPerPageChanged = this.onPerPageChanged
-
-    return (
-      <div>
-        <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
-        <Card className="card__form">
-          <CardHeader 
-            className="card__form__header"
-          >
-            <h2 className="card__form__title">{t('admin.teamsTable.title')}</h2>
-            <ItemsPerPageDropdown
+    if (this.props.loading === true) {
+      return <LoadingView />
+    } else {
+      const { teams, t } = this.props
+      const { currentPage, perPage, totalPages, totalRecords } = this.state
+      const handleDeleteTeam = this.handleDeleteTeam
+      const onPageChanged = this.onPageChanged
+      const onPerPageChanged = this.onPerPageChanged
+  
+      return (
+        <div>
+          <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
+          <Card className="card__form">
+            <CardHeader 
+              className="card__form__header"
+            >
+              <h2 className="card__form__title">{t('admin.teamsTable.title')}</h2>
+              <ItemsPerPageDropdown
+                perPage={perPage}
+                onPerPageChanged={onPerPageChanged}
+              />
+            </CardHeader>
+            <CardBody>
+              <Table
+                  responsive
+                >
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>{t('admin.teamsTable.teamName')}</th>
+                      <th>{t('admin.teamsTable.teamNameEn')}</th>
+                      <th>{t('admin.teamsTable.abbreviation')}</th>
+                      <th>{t('admin.teamsTable.flag')}</th>
+                      <th>{t('admin.teamsTable.photo')}</th>
+                      <th>{t('shared.action')}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {teams.items &&
+                      teams.items.map((team, index) =>
+                      <TeamsTableRow
+                        handleDeleteTeam={handleDeleteTeam}
+                        index={index}
+                        key={team.id}
+                        page={currentPage}
+                        perPage={perPage}
+                        team={team}
+                      />
+                    )}
+                  </tbody>
+              </Table>
+            </CardBody>
+            <Pagination
+              currentPage={currentPage}
+              onPageChanged={onPageChanged}
               perPage={perPage}
-              onPerPageChanged={onPerPageChanged}
+              totalPages={totalPages}
+              totalRecords={totalRecords}
             />
-          </CardHeader>
-          <CardBody>
-            <Table
-                responsive
-              >
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>{t('admin.teamsTable.teamName')}</th>
-                    <th>{t('admin.teamsTable.teamNameEn')}</th>
-                    <th>{t('admin.teamsTable.abbreviation')}</th>
-                    <th>{t('admin.teamsTable.flag')}</th>
-                    <th>{t('admin.teamsTable.photo')}</th>
-                    <th>{t('shared.action')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teams.items &&
-                    teams.items.map((team, index) =>
-                    <TeamsTableRow
-                      handleDeleteTeam={handleDeleteTeam}
-                      index={index}
-                      key={team.id}
-                      page={currentPage}
-                      perPage={perPage}
-                      team={team}
-                    />
-                  )}
-                </tbody>
-            </Table>
-          </CardBody>
-          <Pagination
-            currentPage={currentPage}
-            onPageChanged={onPageChanged}
-            perPage={perPage}
-            totalPages={totalPages}
-            totalRecords={totalRecords}
-          />
-        </Card>
-      </div>
-    )
+          </Card>
+        </div>
+      )
+    }
   }
 }
 
