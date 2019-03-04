@@ -36,6 +36,8 @@ export default class Teams extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
+    console.log('getDerivedStateFromProps')
+    console.log(nextProps)
     if (nextProps.teams.meta && 
         (nextProps.teams.meta.current_page !== prevState.currentPage ||
         nextProps.teams.meta.per_page !== prevState.perPage ||
@@ -53,11 +55,13 @@ export default class Teams extends Component {
   }
 
   componentDidUpdate(){
+    console.log('componentDidUpdate')
     const scope = this
     window.onpopstate  = (e) => {
       const queryParams = queryString.parse(this.props.location.search)
       const currentPage = parseInt(queryParams.currentPage)
       const perPage = parseInt(queryParams.perPage)
+      console.log(queryParams)
 
       this.props.dispatch(teamActions.getAll(currentPage, perPage));
 
@@ -72,6 +76,7 @@ export default class Teams extends Component {
   handleDeleteTeam(id) {}
 
   onPageChanged = data => {
+    console.log('onPageChanged')
     const { currentPage, perPage } = data;
 
     this.setState({
