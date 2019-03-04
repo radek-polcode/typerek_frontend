@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-
 import styles from './Pagination.module.css'
 
 const LEFT_PAGE = 'LEFT';

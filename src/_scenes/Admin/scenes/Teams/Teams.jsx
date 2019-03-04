@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import queryString from 'query-string';
 import { withNamespaces } from 'react-i18next';
 import { Card, CardHeader, CardBody, Table } from 'reactstrap';
 
+import { history } from '../../../../_helpers'
 import { ItemsPerPageDropdown, LoadingView, Pagination } from '../../../../_components';
 import { teamActions } from '../../../../_actions/team.actions'
 
@@ -37,7 +37,9 @@ export default class Teams extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState){
     console.log('getDerivedStateFromProps')
+    console.log(prevState)
     console.log(nextProps)
+    console.log('/getDerivedStateFromProps')
     if (nextProps.teams.meta && 
         (nextProps.teams.meta.current_page !== prevState.currentPage ||
         nextProps.teams.meta.per_page !== prevState.perPage ||
@@ -55,20 +57,20 @@ export default class Teams extends Component {
   }
 
   componentDidUpdate(){
-    console.log('componentDidUpdate')
     const scope = this
-    window.onpopstate  = (e) => {
-      const queryParams = queryString.parse(this.props.location.search)
-      const currentPage = parseInt(queryParams.currentPage)
-      const perPage = parseInt(queryParams.perPage)
-      console.log(queryParams)
+    if (scope.props.teams.meta) {
+      window.onpopstate  = (e) => {
+        const currentPage = parseInt(scope.props.match.params.page)
+        console.log('componentDidUpdate')
+        console.log(currentPage)
+        console.log('/componentDidUpdate')
+        scope.setState({
+          currentPage: currentPage
+        })
 
-      this.props.dispatch(teamActions.getAll(currentPage, perPage));
-
-      scope.setState({
-        currentPage: currentPage,
-        perPage: perPage
-      })
+      }
+    } else {
+      return null
     }
   
   }
@@ -76,7 +78,6 @@ export default class Teams extends Component {
   handleDeleteTeam(id) {}
 
   onPageChanged = data => {
-    console.log('onPageChanged')
     const { currentPage, perPage } = data;
 
     this.setState({
