@@ -202,10 +202,10 @@ class Pagination extends Component {
                 <li key={index} className="page-item">
                   <Link
                     className="page-link" 
-                    href="#" 
+                    href={`/admin/teams/${previousPage}`}
                     aria-label="Previous" 
                     onClick={this.handleMoveLeft(previousPage)}
-                    to={`/admin/teams?currentPage=${previousPage}&perPage=${perPage}`}
+                    to={`/admin/teams/${previousPage}`}
                   >
                     <span aria-hidden="true">&laquo;</span>
                     <span className="sr-only">Previous</span>
@@ -218,9 +218,9 @@ class Pagination extends Component {
                   <Link
                     aria-label="Next" 
                     className="page-link" 
-                    href="#" 
+                    href={`/admin/teams/${nextPage}`}
                     onClick={this.handleMoveRight(nextPage)}
-                    to={`/admin/teams?currentPage=${nextPage}&perPage=${perPage}`}
+                    to={`/admin/teams/${nextPage}`}
                   >
                     <span aria-hidden="true">&raquo;</span>
                     <span className="sr-only">Next</span>
@@ -233,9 +233,9 @@ class Pagination extends Component {
 
                   <Link
                     className="page-link" 
-                    href="#"
+                    href={`/admin/teams/${page}`}
                     onClick={ this.handleClick(page) }
-                    to={`/admin/teams?currentPage=${page}&perPage=${perPage}`}
+                    to={`/admin/teams/${page}`}
                   >
                   { page }
                   </Link>
