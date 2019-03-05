@@ -73,10 +73,6 @@ export default class Teams extends Component {
       currentPage: currentPage,
       perPage: perPage
     })
-    console.log('onPageChanged')
-    console.log(currentPage)
-    console.log(perPage)
-    console.log('/onPageChanged')
     this.props.dispatch(teamActions.getAll(currentPage, perPage));
   }
 
