@@ -55,7 +55,7 @@ export default class Teams extends Component {
         const parsedLink = queryString.parse(scope.props.match.url)
         const currentPage = parseInt(scope.props.match.params.page)
         const perPage = parseInt(parsedLink.perPage)
-        
+
         scope.setState({
           currentPage: currentPage,
           perPage: perPage
@@ -92,69 +92,71 @@ export default class Teams extends Component {
   }
 
   render() {
-    if (this.props.loading === true) {
-      return <LoadingView />
-    } else {
-      const { teams, t } = this.props
-      const { currentPage, perPage, totalPages, totalRecords } = this.state
-      const handleDeleteTeam = this.handleDeleteTeam
-      const onPageChanged = this.onPageChanged
-      const onPerPageChanged = this.onPerPageChanged
-  
-      return (
-        <div>
-          <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
-          <Card className="card__form">
-            <CardHeader 
-              className="card__form__header"
-            >
-              <h2 className="card__form__title">{t('admin.teamsTable.title')}</h2>
-              <ItemsPerPageDropdown
-                perPage={perPage}
-                onPerPageChanged={onPerPageChanged}
-              />
-            </CardHeader>
-            <CardBody>
-              <Table
-                  responsive
-                >
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>{t('admin.teamsTable.teamName')}</th>
-                      <th>{t('admin.teamsTable.teamNameEn')}</th>
-                      <th>{t('admin.teamsTable.abbreviation')}</th>
-                      <th>{t('admin.teamsTable.flag')}</th>
-                      <th>{t('admin.teamsTable.photo')}</th>
-                      <th>{t('shared.action')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {teams.items &&
-                      teams.items.map((team, index) =>
-                      <TeamsTableRow
-                        handleDeleteTeam={handleDeleteTeam}
-                        index={index}
-                        key={team.id}
-                        page={currentPage}
-                        perPage={perPage}
-                        team={team}
-                      />
-                    )}
-                  </tbody>
-              </Table>
-            </CardBody>
-            <Pagination
-              currentPage={currentPage}
-              onPageChanged={onPageChanged}
+    const { teams, t } = this.props
+    const { currentPage, perPage, totalPages, totalRecords } = this.state
+    const handleDeleteTeam = this.handleDeleteTeam
+    const isLoading = this.props.teams.loading
+    const onPageChanged = this.onPageChanged
+    const onPerPageChanged = this.onPerPageChanged
+
+    return (
+      <div>
+        <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
+        <Card className="card__form">
+          <CardHeader 
+            className="card__form__header"
+          >
+            <h2 className="card__form__title">{t('admin.teamsTable.title')}</h2>
+            <ItemsPerPageDropdown
               perPage={perPage}
-              totalPages={totalPages}
-              totalRecords={totalRecords}
+              onPerPageChanged={onPerPageChanged}
             />
-          </Card>
-        </div>
-      )
-    }
+          </CardHeader>
+          <CardBody>
+            {isLoading 
+            ? <LoadingView
+                perPage={perPage}
+             />
+            : <Table
+                responsive
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>{t('admin.teamsTable.teamName')}</th>
+                    <th>{t('admin.teamsTable.teamNameEn')}</th>
+                    <th>{t('admin.teamsTable.abbreviation')}</th>
+                    <th>{t('admin.teamsTable.flag')}</th>
+                    <th>{t('admin.teamsTable.photo')}</th>
+                    <th>{t('shared.action')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teams.items &&
+                    teams.items.map((team, index) =>
+                    <TeamsTableRow
+                      handleDeleteTeam={handleDeleteTeam}
+                      index={index}
+                      key={team.id}
+                      page={currentPage}
+                      perPage={perPage}
+                      team={team}
+                    />
+                  )}
+                </tbody>
+            </Table>
+            }           
+          </CardBody>
+          <Pagination
+            currentPage={currentPage}
+            onPageChanged={onPageChanged}
+            perPage={perPage}
+            totalPages={totalPages}
+            totalRecords={totalRecords}
+          />
+        </Card>
+      </div>
+    )
   }
 }
 
