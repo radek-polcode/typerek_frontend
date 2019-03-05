@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import { Card, CardHeader, CardBody, Table } from 'reactstrap';
+import queryString from 'query-string'
 
 import { ItemsPerPageDropdown, LoadingView, Pagination } from '../../../../_components';
 import { teamActions } from '../../../../_actions/team.actions'
@@ -49,12 +50,15 @@ export default class Teams extends Component {
 
   componentDidUpdate(){
     const scope = this
-    const perPage = this.state.perPage
     if (scope.props.teams.meta) {
       window.onpopstate  = (e) => {
+        const parsedLink = queryString.parse(scope.props.match.url)
         const currentPage = parseInt(scope.props.match.params.page)
+        const perPage = parseInt(parsedLink.perPage)
+        
         scope.setState({
-          currentPage: currentPage
+          currentPage: currentPage,
+          perPage: perPage
         })
       this.props.dispatch(teamActions.getAll(currentPage, perPage));
       }

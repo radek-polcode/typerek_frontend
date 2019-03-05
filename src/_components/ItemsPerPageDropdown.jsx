@@ -21,6 +21,14 @@ class ItemsPerPageDropdown extends Component {
     perPage: 20
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if(prevState.perPage !== nextProps.perPage) {
+      return {
+        perPage: nextProps.perPage
+      }
+    }
+  }
+
   state = {
     dropdownOpen: false,
     perPage: this.props.perPage
