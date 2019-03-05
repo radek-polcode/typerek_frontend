@@ -15,7 +15,7 @@ function AdminLinks({ t }) {
       <NavItem>
         <NavLink
           tag={Link} 
-          to="/admin/teams"
+          to="/admin/teams/1"
         >
           {t('navbar.teams')}
         </NavLink>

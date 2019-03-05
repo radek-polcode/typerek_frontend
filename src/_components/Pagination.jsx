@@ -84,7 +84,7 @@ class Pagination extends Component {
     return this.state.currentPage - (this.pageNeighbours * 2) - 1
   }
 
-  gotoPage = page => {
+  gotoPage = page => evt => {
     const { onPageChanged = f => f } = this.props;
 
     const currentPage = page;
@@ -96,22 +96,8 @@ class Pagination extends Component {
       totalRecords: this.state.totalRecords
     };
 
-    this.setState({ currentPage }, () => onPageChanged(paginationData));
-  }
-
-  handleClick = page => evt => {
-    evt.preventDefault();
-    this.gotoPage(page);
-  }
-
-  handleMoveLeft = previousPage => evt => {
-    evt.preventDefault();
-    this.gotoPage(previousPage);
-  }
-
-  handleMoveRight = nextPage => evt => {
-    evt.preventDefault();
-    this.gotoPage(nextPage);
+    this.setState({ currentPage });
+    onPageChanged(paginationData)
   }
 
    /**
@@ -203,7 +189,7 @@ class Pagination extends Component {
                     className="page-link" 
                     href={`/admin/teams/${previousPage}`}
                     aria-label="Previous" 
-                    onClick={this.handleMoveLeft(previousPage)}
+                    onClick={this.gotoPage(previousPage)}
                     to={`/admin/teams/${previousPage}`}
                   >
                     <span aria-hidden="true">&laquo;</span>
@@ -218,7 +204,7 @@ class Pagination extends Component {
                     aria-label="Next" 
                     className="page-link" 
                     href={`/admin/teams/${nextPage}`}
-                    onClick={this.handleMoveRight(nextPage)}
+                    onClick={this.gotoPage(nextPage)}
                     to={`/admin/teams/${nextPage}`}
                   >
                     <span aria-hidden="true">&raquo;</span>
@@ -233,7 +219,7 @@ class Pagination extends Component {
                   <Link
                     className="page-link" 
                     href={`/admin/teams/${page}`}
-                    onClick={ this.handleClick(page) }
+                    onClick={ this.gotoPage(page) }
                     to={`/admin/teams/${page}`}
                   >
                   { page }

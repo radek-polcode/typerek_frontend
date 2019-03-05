@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import { Card, CardHeader, CardBody, Table } from 'reactstrap';
 
-import { history } from '../../../../_helpers'
 import { ItemsPerPageDropdown, LoadingView, Pagination } from '../../../../_components';
 import { teamActions } from '../../../../_actions/team.actions'
 
@@ -36,19 +35,11 @@ export default class Teams extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
-    console.log('getDerivedStateFromProps')
-    console.log(prevState)
-    console.log(nextProps)
-    console.log('/getDerivedStateFromProps')
     if (nextProps.teams.meta && 
-        (nextProps.teams.meta.current_page !== prevState.currentPage ||
-        nextProps.teams.meta.per_page !== prevState.perPage ||
-        nextProps.teams.meta.total_pages !== prevState.totalPages ||
-        nextProps.teams.meta.total_records !== prevState.totalRecords)
+        (nextProps.teams.meta.total_pages !== prevState.totalPages ||
+         nextProps.teams.meta.total_records !== prevState.totalRecords)
         ) {
       return { 
-        currentPage: nextProps.teams.meta.current_page,
-        perPage: nextProps.teams.meta.per_page,
         totalPages: nextProps.teams.meta.total_pages,
         totalRecords: nextProps.teams.meta.total_records
       };
@@ -58,16 +49,14 @@ export default class Teams extends Component {
 
   componentDidUpdate(){
     const scope = this
+    const perPage = this.state.perPage
     if (scope.props.teams.meta) {
       window.onpopstate  = (e) => {
         const currentPage = parseInt(scope.props.match.params.page)
-        console.log('componentDidUpdate')
-        console.log(currentPage)
-        console.log('/componentDidUpdate')
         scope.setState({
           currentPage: currentPage
         })
-
+      this.props.dispatch(teamActions.getAll(currentPage, perPage));
       }
     } else {
       return null
@@ -84,7 +73,10 @@ export default class Teams extends Component {
       currentPage: currentPage,
       perPage: perPage
     })
-
+    console.log('onPageChanged')
+    console.log(currentPage)
+    console.log(perPage)
+    console.log('/onPageChanged')
     this.props.dispatch(teamActions.getAll(currentPage, perPage));
   }
 
