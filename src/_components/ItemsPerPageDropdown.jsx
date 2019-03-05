@@ -11,7 +11,7 @@ import styles from './ItemsPerPageDropdown.module.css'
 
 class ItemsPerPageDropdown extends Component {
   static propTypes = {
-    perPage: PropTypes.string.isRequired,
+    perPage: PropTypes.number.isRequired,
     onPerPageChanged: PropTypes.func.isRequired
   }
 
