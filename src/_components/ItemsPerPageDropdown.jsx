@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+
+import { Link } from 'react-router-dom';
 import { 
   Dropdown, 
   DropdownItem, 
@@ -61,9 +63,23 @@ class ItemsPerPageDropdown extends Component {
         <DropdownMenu>
           <DropdownItem 
             onClick={this.handleOnClick}
-          >10</DropdownItem>
-          <DropdownItem onClick={this.handleOnClick}>20</DropdownItem>
-          <DropdownItem onClick={this.handleOnClick}>50</DropdownItem>
+            tag={Link}
+            to={`1&perPage=10`}
+          >10
+          </DropdownItem>
+          <DropdownItem
+            to={`1&perPage=20`}
+            onClick={this.handleOnClick}
+            tag={Link}
+          >20
+          </DropdownItem>
+          <DropdownItem
+            to={`1&perPage=50`}
+            onClick={this.handleOnClick}
+            tag={Link}
+          >
+            50
+          </DropdownItem>
         </DropdownMenu>
         </Dropdown>
       </Fragment>
