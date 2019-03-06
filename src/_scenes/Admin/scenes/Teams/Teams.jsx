@@ -51,19 +51,32 @@ export default class Teams extends Component {
     } else return null;
   }
 
-  componentDidUpdate(){      
+  componentDidUpdate(nextProps, prevState){
+    // REFACTOR
+    const parsedUrl = queryString.parse(this.props.location.search)
+    const currentPageFromUrl = parseInt(parsedUrl.currentPage)
+    const perPageFromUrl = parseInt(parsedUrl.perPage) 
     const scope = this
-    if (scope.props.teams.meta) {
-      const parsedUrl = queryString.parse(scope.props.location.search)
-      const currentPage = parseInt(parsedUrl.currentPage)
-      const perPage = parseInt(parsedUrl.perPage)
 
+    if (
+      prevState.currentPage !== currentPageFromUrl ||
+      prevState.perPage !== perPageFromUrl
+    ) {
+      scope.setState({
+        currentPage: currentPageFromUrl,
+        perPage: perPageFromUrl
+      })
+      scope.props.dispatch(teamActions.getAll(currentPageFromUrl, perPageFromUrl));
+    } else if (
+      scope.props.teams.meta && 
+      scope.props.teams.meta.current_page !== currentPageFromUrl
+    ) {
       window.onpopstate  = (e) => {
         scope.setState({
-          currentPage: currentPage,
-          perPage: perPage
+          currentPage: currentPageFromUrl,
+          perPage: perPageFromUrl
         })
-        this.props.dispatch(teamActions.getAll(currentPage, perPage));
+        scope.props.dispatch(teamActions.getAll(currentPageFromUrl, perPageFromUrl));
       }
     } else {
       return null
