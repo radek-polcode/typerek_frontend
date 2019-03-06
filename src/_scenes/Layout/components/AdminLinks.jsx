@@ -15,7 +15,7 @@ function AdminLinks({ t }) {
       <NavItem>
         <NavLink
           tag={Link} 
-          to="/admin/teams/1"
+          to="/admin/teams?currentPage=1&perPage=20"
         >
           {t('navbar.teams')}
         </NavLink>

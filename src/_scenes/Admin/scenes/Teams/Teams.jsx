@@ -52,10 +52,10 @@ export default class Teams extends Component {
     const scope = this
     if (scope.props.teams.meta) {
       window.onpopstate  = (e) => {
-        const parsedLink = queryString.parse(scope.props.match.url)
-        const currentPage = parseInt(scope.props.match.params.page)
+        const parsedLink = queryString.parse(scope.props.location.search)
+        const currentPage = parseInt(parsedLink.currentPage)
         const perPage = parseInt(parsedLink.perPage)
-
+        console.log(currentPage, perPage)
         scope.setState({
           currentPage: currentPage,
           perPage: perPage

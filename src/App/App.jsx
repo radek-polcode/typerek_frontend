@@ -59,7 +59,6 @@ class App extends Component {
                 <PrivateRoute exact path="/admin/users/new" component={AddUser} />
                 <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
                 <PrivateRoute exact path="/admin/teams" component={Teams} />
-                <PrivateRoute exact path="/admin/teams/:page(\d)" component={Teams} />
                 <PrivateRoute exact path="/admin/teams/new" component={AddTeam} />
                 <PrivateRoute exact path="/admin/teams/:id/edit" component={EditTeam} />
                 <Route path="/login" component={LoginPage} />

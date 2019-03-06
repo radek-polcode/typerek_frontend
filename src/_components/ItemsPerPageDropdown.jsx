@@ -72,17 +72,17 @@ class ItemsPerPageDropdown extends Component {
           <DropdownItem 
             onClick={this.handleOnClick}
             tag={Link}
-            to={`1&perPage=10`}
+            to={`?currentPage=1&perPage=10`}
           >10
           </DropdownItem>
           <DropdownItem
-            to={`1&perPage=20`}
+            to={`?currentPage=1&perPage=20`}
             onClick={this.handleOnClick}
             tag={Link}
           >20
           </DropdownItem>
           <DropdownItem
-            to={`1&perPage=50`}
+            to={`?currentPage=1&perPage=50`}
             onClick={this.handleOnClick}
             tag={Link}
           >

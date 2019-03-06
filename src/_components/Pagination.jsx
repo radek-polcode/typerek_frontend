@@ -189,7 +189,7 @@ class Pagination extends Component {
                     className="page-link" 
                     aria-label="Previous" 
                     onClick={this.gotoPage(previousPage)}
-                    to={`/admin/teams/${previousPage}&perPage=${perPage}`}
+                    to={`/admin/teams?currentPage=${previousPage}&perPage=${perPage}`}
                   >
                     <span aria-hidden="true">&laquo;</span>
                     <span className="sr-only">Previous</span>
@@ -203,7 +203,7 @@ class Pagination extends Component {
                     aria-label="Next" 
                     className="page-link" 
                     onClick={this.gotoPage(nextPage)}
-                    to={`/admin/teams/${nextPage}&perPage=${perPage}`}
+                    to={`/admin/teams?currentPage=${nextPage}&perPage=${perPage}`}
                   >
                     <span aria-hidden="true">&raquo;</span>
                     <span className="sr-only">Next</span>
@@ -217,7 +217,7 @@ class Pagination extends Component {
                   <Link
                     className="page-link" 
                     onClick={ this.gotoPage(page) }
-                    to={`/admin/teams/${page}&perPage=${perPage}`}
+                    to={`/admin/teams?currentPage=${page}&perPage=${perPage}`}
                   >
                   { page }
                   </Link>
