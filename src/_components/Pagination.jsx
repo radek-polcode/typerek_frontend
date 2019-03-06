@@ -26,6 +26,7 @@ class Pagination extends Component {
   static propTypes = {
     currentPage: PropTypes.number.isRequired,
     onPageChanged: PropTypes.func.isRequired,
+    path: PropTypes.string.isRequired,
     perPage: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
     totalRecords: PropTypes.number.isRequired
@@ -36,6 +37,7 @@ class Pagination extends Component {
     
     this.state = {
       currentPage: this.props.currentPage,
+      path: this.props.path,
       perPage: this.props.perPage,
       totalPages: this.props.totalPages,
       totalRecords: this.props.totalRecords
@@ -172,7 +174,7 @@ class Pagination extends Component {
   render() {
     if (!this.state.totalRecords || this.state.totalPages === 1) return null;
 
-    const { currentPage, perPage } = this.state;
+    const { currentPage, path, perPage } = this.state;
     const nextPage = this.countNextPage()
     const previousPage = this.countPreviousPage()
     const pages = this.fetchPageNumbers();
@@ -189,7 +191,7 @@ class Pagination extends Component {
                     className="page-link" 
                     aria-label="Previous" 
                     onClick={this.gotoPage(previousPage)}
-                    to={`/admin/teams?currentPage=${previousPage}&perPage=${perPage}`}
+                    to={`${path}?currentPage=${previousPage}&perPage=${perPage}`}
                   >
                     <span aria-hidden="true">&laquo;</span>
                     <span className="sr-only">Previous</span>
@@ -203,7 +205,7 @@ class Pagination extends Component {
                     aria-label="Next" 
                     className="page-link" 
                     onClick={this.gotoPage(nextPage)}
-                    to={`/admin/teams?currentPage=${nextPage}&perPage=${perPage}`}
+                    to={`${path}?currentPage=${nextPage}&perPage=${perPage}`}
                   >
                     <span aria-hidden="true">&raquo;</span>
                     <span className="sr-only">Next</span>
@@ -217,7 +219,7 @@ class Pagination extends Component {
                   <Link
                     className="page-link" 
                     onClick={ this.gotoPage(page) }
-                    to={`/admin/teams?currentPage=${page}&perPage=${perPage}`}
+                    to={`${path}?currentPage=${page}&perPage=${perPage}`}
                   >
                   { page }
                   </Link>

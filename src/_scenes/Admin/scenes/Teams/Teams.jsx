@@ -17,9 +17,9 @@ export default class Teams extends Component {
 
   constructor(props) {
     super(props)
-
     this.state = {
       currentPage: 1,
+      path: '/admin/teams',
       perPage: 20,
       totalPages: undefined,
       totalRecords: undefined
@@ -37,30 +37,33 @@ export default class Teams extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState){
     if (nextProps.teams.meta && 
-        (nextProps.teams.meta.total_pages !== prevState.totalPages ||
+        (nextProps.teams.meta.current_page !== prevState.currentPage ||
+         nextProps.teams.meta.per_page !== prevState.perPage ||
+         nextProps.teams.meta.total_pages !== prevState.totalPages ||
          nextProps.teams.meta.total_records !== prevState.totalRecords)
         ) {
-      return { 
+      return {
+        currentPage: nextProps.teams.meta.current_page,
+        perPage: nextProps.teams.meta.per_page,
         totalPages: nextProps.teams.meta.total_pages,
         totalRecords: nextProps.teams.meta.total_records
       };
-    }
-    else return null;
+    } else return null;
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(){      
     const scope = this
     if (scope.props.teams.meta) {
+      const parsedUrl = queryString.parse(scope.props.location.search)
+      const currentPage = parseInt(parsedUrl.currentPage)
+      const perPage = parseInt(parsedUrl.perPage)
+
       window.onpopstate  = (e) => {
-        const parsedLink = queryString.parse(scope.props.location.search)
-        const currentPage = parseInt(parsedLink.currentPage)
-        const perPage = parseInt(parsedLink.perPage)
-        console.log(currentPage, perPage)
         scope.setState({
           currentPage: currentPage,
           perPage: perPage
         })
-      this.props.dispatch(teamActions.getAll(currentPage, perPage));
+        this.props.dispatch(teamActions.getAll(currentPage, perPage));
       }
     } else {
       return null
@@ -93,7 +96,7 @@ export default class Teams extends Component {
 
   render() {
     const { teams, t } = this.props
-    const { currentPage, perPage, totalPages, totalRecords } = this.state
+    const { currentPage, path, perPage, totalPages, totalRecords } = this.state
     const handleDeleteTeam = this.handleDeleteTeam
     const isLoading = this.props.teams.loading
     const onPageChanged = this.onPageChanged
@@ -150,6 +153,7 @@ export default class Teams extends Component {
           <Pagination
             currentPage={currentPage}
             onPageChanged={onPageChanged}
+            path={path}
             perPage={perPage}
             totalPages={totalPages}
             totalRecords={totalRecords}
