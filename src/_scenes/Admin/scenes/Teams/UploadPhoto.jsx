@@ -13,6 +13,7 @@ UploadPhoto.propTypes = {
   handleUpload: PropTypes.func.isRequired,
   handleSelectedFile: PropTypes.func.isRequired,
   imgSrc: PropTypes.string,
+  isEditing: PropTypes.bool.isRequired,
   newPhotoLabel: PropTypes.string,
   photoUrl: PropTypes.string
 }
@@ -20,6 +21,7 @@ UploadPhoto.propTypes = {
 function UploadPhoto({
   handleUpload,
   handleSelectedFile,
+  isEditing,
   imgSrc = undefined,
   newPhotoLabel,
   photo,
@@ -45,17 +47,21 @@ function UploadPhoto({
           onChange={handleSelectedFile}
           type="file" 
         />
-        <Button
-          className={styles.photo__uploadButton}
-          color="secondary"
-          onClick={handleUpload}
-          size="sm"
-        >
-          Upload
-        </Button>
-        <div className="uploadBox__alert">
-          <span>Here should be alert hehe</span>
-        </div>
+        { isEditing &&
+          <>
+            <Button
+              className={styles.photo__uploadButton}
+              color="secondary"
+              onClick={handleUpload}
+              size="sm"
+            >
+              Upload
+            </Button>
+            <div className="uploadBox__alert">
+              <span>Here should be alert hehe</span>
+            </div>
+          </>
+        }
       </div>
     </div>
   )

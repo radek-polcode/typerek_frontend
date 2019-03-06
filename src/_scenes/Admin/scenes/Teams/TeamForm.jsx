@@ -26,9 +26,11 @@ class TeamForm extends Component {
     team: PropTypes.object.isRequired
   }
 
+  // state should be initialized only, and then fill in getDerivedStateFromProps() i guess
   state = {
     abbreviation: this.props.team.attributes.abbreviation,
     flag: this.props.team.attributes.flag,
+    isEditing: undefined,
     name: this.props.team.attributes.name,
     nameEn: this.props.team.attributes.name_en,
     newPhoto: null,
@@ -36,6 +38,11 @@ class TeamForm extends Component {
     photo: this.props.team.attributes.photo,
     teamId: this.props.team.id,
     submitted: false
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      isEditing: nextProps.isEditing
+    }
   }
 
   handleInputChange(e) {
@@ -132,10 +139,11 @@ class TeamForm extends Component {
 
   render() {
     const { 
-      name, 
-      nameEn, 
       abbreviation, 
       flag,
+      isEditing,
+      name, 
+      nameEn, 
       newPhoto,
       newPhotoLabel,
       photo,
@@ -214,6 +222,7 @@ class TeamForm extends Component {
               handleSelectedFile={handleSelectedFile}
               handleUpload={handleUpload}
               imgSrc={newPhoto}
+              isEditing={isEditing}
               newPhotoLabel={newPhotoLabel}
               photo={photo}
             />
