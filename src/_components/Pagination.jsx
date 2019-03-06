@@ -86,7 +86,7 @@ class Pagination extends Component {
     return this.state.currentPage - (this.pageNeighbours * 2) - 1
   }
 
-  gotoPage = page => evt => {
+  gotoPage = page => {
     const { onPageChanged = f => f } = this.props;
 
     const currentPage = page;
@@ -98,8 +98,19 @@ class Pagination extends Component {
       totalRecords: this.state.totalRecords
     };
 
-    this.setState({ currentPage });
-    onPageChanged(paginationData)
+    this.setState({ currentPage }, onPageChanged(paginationData));
+  }
+
+  handleClick = page => evt => {
+    this.gotoPage(page);
+  }
+
+  handleMoveLeft = previousPage => evt => {
+    this.gotoPage(previousPage);
+  }
+
+  handleMoveRight = nextPage => evt => {
+    this.gotoPage(nextPage);
   }
 
    /**
@@ -190,7 +201,7 @@ class Pagination extends Component {
                   <Link
                     className="page-link" 
                     aria-label="Previous" 
-                    onClick={this.gotoPage(previousPage)}
+                    onClick={this.handleMoveLeft(previousPage)}
                     to={`${path}?currentPage=${previousPage}&perPage=${perPage}`}
                   >
                     <span aria-hidden="true">&laquo;</span>
@@ -204,7 +215,7 @@ class Pagination extends Component {
                   <Link
                     aria-label="Next" 
                     className="page-link" 
-                    onClick={this.gotoPage(nextPage)}
+                    onClick={this.handleMoveRight(nextPage)}
                     to={`${path}?currentPage=${nextPage}&perPage=${perPage}`}
                   >
                     <span aria-hidden="true">&raquo;</span>
@@ -218,7 +229,7 @@ class Pagination extends Component {
 
                   <Link
                     className="page-link" 
-                    onClick={ this.gotoPage(page) }
+                    onClick={ this.handleClick(page) }
                     to={`${path}?currentPage=${page}&perPage=${perPage}`}
                   >
                   { page }
