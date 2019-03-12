@@ -143,7 +143,6 @@ export default class Teams extends Component {
                     <th>{t('admin.teamsTable.teamNameEn')}</th>
                     <th>{t('admin.teamsTable.abbreviation')}</th>
                     <th>{t('admin.teamsTable.flag')}</th>
-                    <th>{t('admin.teamsTable.photo')}</th>
                     <th>{t('shared.action')}</th>
                   </tr>
                 </thead>

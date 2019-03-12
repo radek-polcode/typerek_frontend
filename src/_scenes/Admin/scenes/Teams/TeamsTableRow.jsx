@@ -59,9 +59,6 @@ function TeamsTableRow({
           />
       </td>
       <td>
-        {photo.url}
-      </td>
-      <td>
         <Link to={`/admin/teams/${team.id}/edit`}>
           <FaPencilAlt className={cx(styles.table__action__icon, styles.icon__edit)} />
         </Link>
