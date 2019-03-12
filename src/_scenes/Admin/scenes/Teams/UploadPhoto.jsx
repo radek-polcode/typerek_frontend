@@ -27,15 +27,14 @@ function UploadPhoto({
   photo,
   t
 }) {
-  console.log(imgSrc)
   return (
     <div className={styles.uploadBox}>
-      { imgSrc &&
+      { (imgSrc || photo.medium.url) &&
           <img
             alt="Team"
             className={cx(styles.team__photo__thumb)}
             id="team__photo__thumb"
-            src={imgSrc ? imgSrc : imageHelper.createImageLink(photo.medium.url)}
+            src={imgSrc ? imgSrc : photo.medium.url}
           />
       }
       <div>
