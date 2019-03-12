@@ -57,10 +57,9 @@ export default class Teams extends Component {
     const currentPageFromUrl = parseInt(parsedUrl.currentPage)
     const perPageFromUrl = parseInt(parsedUrl.perPage) 
     const scope = this
-
     if (
-      prevState.currentPage !== currentPageFromUrl ||
-      prevState.perPage !== perPageFromUrl
+      (currentPageFromUrl && prevState.currentPage !== currentPageFromUrl) ||
+      (perPageFromUrl && prevState.perPage !== perPageFromUrl)
     ) {
       scope.setState({
         currentPage: currentPageFromUrl,
@@ -129,7 +128,7 @@ export default class Teams extends Component {
             />
           </CardHeader>
           <CardBody>
-            {isLoading 
+            {isLoading && perPage
             ? <LoadingView
                 perPage={perPage}
              />
