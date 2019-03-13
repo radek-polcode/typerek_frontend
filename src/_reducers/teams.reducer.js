@@ -14,14 +14,14 @@ export function teams(state = {}, action) {
       return {
         items: state.items.concat(action.team.data)
       }
-      case teamConstants.DELETE_REQUEST:
-      return {
-        ...state,
-        items: state.items.map(team =>
-          team.id === action.id
-          ? { ...team, deleting: true }
-          :team
-        )
+    case teamConstants.DELETE_REQUEST:
+    return {
+      ...state,
+      items: state.items.map(team =>
+        team.id === action.id
+        ? { ...team, deleting: true }
+        :team
+      )
     };
     case teamConstants.DELETE_SUCCESS:
       return {
@@ -38,6 +38,25 @@ export function teams(state = {}, action) {
           return team;
       })
     };
+    case teamConstants.DELETETEAMPHOTO_REQUEST:
+      return {
+        ...state,
+      }
+    case teamConstants.DELETETEAMPHOTO_FAILURE:
+      return {
+        error: action.error
+      }
+    case teamConstants.DELETETEAMPHOTO_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter(function(team) {
+          if (team.id === action.team.data.id) {
+            return action.team
+          } else {
+            return team
+          }
+        })          
+      }
     case teamConstants.GETALL_REQUEST:
       return {
         loading: true
@@ -89,7 +108,7 @@ export function teams(state = {}, action) {
             return team
           }
         })          
-    }
+      }
     default: 
       return state  
   }

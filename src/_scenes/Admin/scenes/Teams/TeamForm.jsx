@@ -47,7 +47,18 @@ class TeamForm extends Component {
   }
 
   handleDeleteThumb(e) {
-    console.log('deletethumb')
+    const teamId = this.state.teamId
+    const { dispatch } = this.props;
+
+    let deletePhotoData = {
+      data: {
+        type: 'teams',
+        attributes: {
+          remove_photo: true,
+        }
+      }
+    }
+    dispatch(teamActions.deleteTeamPhoto(deletePhotoData, teamId))
   }
 
   handleInputChange(e) {

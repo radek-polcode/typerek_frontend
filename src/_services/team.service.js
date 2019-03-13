@@ -6,6 +6,7 @@ const namespace = 'admin/'
 export const teamService = {
   addTeam,
   delete: _delete,
+  deleteTeamPhoto,
   getAll,
   updateTeam,
   updateTeamPhoto
@@ -34,6 +35,16 @@ function _delete(id) {
   };
 
   return fetch(`${config.apiUrl}/${namespace}teams/${id}`, requestOptions).then(handleResponse);
+}
+
+function deleteTeamPhoto(data, id) {
+  const requestOptions = {
+    method: 'PATCH',
+    headers: authenticationHeaders(),
+    body: JSON.stringify(data)
+  }
+  return fetch(`${config.apiUrl}/${namespace}teams/${id}`, requestOptions)
+          .then(handleResponse)
 }
 
 function getAll(page, perPage) {

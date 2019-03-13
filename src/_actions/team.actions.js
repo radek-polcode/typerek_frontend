@@ -7,6 +7,7 @@ import i18n from '../i18n';
 export const teamActions = {
   addTeam,
   delete: _delete,
+  deleteTeamPhoto,
   getAll,
   updateTeam,
   updateTeamPhoto
@@ -61,6 +62,31 @@ function _delete(id) {
   function request(id) { return { type: teamConstants.DELETE_REQUEST, id } }
   function success(id) { return { type: teamConstants.DELETE_SUCCESS, id } }
   function failure(id, error) { return { type: teamConstants.DELETE_FAILURE, id, error } }
+}
+
+function deleteTeamPhoto(payload, id) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request());
+    teamService.deleteTeamPhoto(payload, id)
+      .then(
+        team => {
+          dispatch(success(team));
+          dispatch(alertActions.success(
+            t('alerts.teams.photoDeleted')
+          ));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        }
+      )
+  };
+
+  function request(team) { return { type: teamConstants.DELETETEAMPHOTO_REQUEST, team } }
+  function success(team) { return { type: teamConstants.DELETETEAMPHOTO_SUCCESS, team } }
+  function failure(error) { return { type: teamConstants.DELETETEAMPHOTO_FAILURE, error } }
 }
 
 function getAll(page, perPage) {
