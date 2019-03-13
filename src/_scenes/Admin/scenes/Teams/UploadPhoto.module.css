@@ -12,6 +12,11 @@
   width: 200px;
 }
 
+.team__photo__thumb__remove {
+  vertical-align: top;
+  cursor: pointer;
+}
+
 .uploadBox {
   margin-bottom: 20px;
 }

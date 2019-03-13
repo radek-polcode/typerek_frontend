@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next';
 import { Button, Input } from 'reactstrap';
 import cx from 'classnames';
+import { FaTimes } from 'react-icons/fa';
 
 import { imageHelper } from '../../../../_helpers'
 
@@ -10,6 +11,7 @@ import '../../../../App/App.css'
 import styles from './UploadPhoto.module.css'
 
 UploadPhoto.propTypes = {
+  handleDeleteThumb: PropTypes.func.isRequired,
   handleUpload: PropTypes.func.isRequired,
   handleSelectedFile: PropTypes.func.isRequired,
   imgSrc: PropTypes.string,
@@ -19,6 +21,7 @@ UploadPhoto.propTypes = {
 }
 
 function UploadPhoto({
+  handleDeleteThumb,
   handleUpload,
   handleSelectedFile,
   isEditing,
@@ -30,12 +33,18 @@ function UploadPhoto({
   return (
     <div className={styles.uploadBox}>
       { (imgSrc || (photo && photo.medium.url)) &&
+        <div>
           <img
             alt="Team"
             className={cx(styles.team__photo__thumb)}
             id="team__photo__thumb"
             src={imgSrc ? imgSrc : photo.medium.url}
           />
+          <FaTimes
+            className={cx(styles.team__photo__thumb__remove)}
+            onClick={handleDeleteThumb}
+          />
+        </div>
       }
       <div>
         <Input 

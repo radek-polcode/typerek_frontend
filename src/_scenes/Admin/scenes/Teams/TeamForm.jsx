@@ -16,6 +16,7 @@ import { UploadPhoto } from './UploadPhoto';
 class TeamForm extends Component {
   constructor(props) {
     super(props)
+    this.handleDeleteThumb = this.handleDeleteThumb.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSelectedFile = this.handleSelectedFile.bind(this);
@@ -43,6 +44,10 @@ class TeamForm extends Component {
     return {
       isEditing: nextProps.isEditing
     }
+  }
+
+  handleDeleteThumb(e) {
+    console.log('deletethumb')
   }
 
   handleInputChange(e) {
@@ -150,6 +155,7 @@ class TeamForm extends Component {
       submitted
     } = this.state;
 
+    const handleDeleteThumb = this.handleDeleteThumb
     const handleSelectedFile = this.handleSelectedFile
     const handleUpload = this.handleUpload
 
@@ -219,6 +225,7 @@ class TeamForm extends Component {
               </InputGroup>
             </FormGroup>
             <UploadPhoto
+              handleDeleteThumb={handleDeleteThumb}
               handleSelectedFile={handleSelectedFile}
               handleUpload={handleUpload}
               imgSrc={newPhoto}
