@@ -35,22 +35,22 @@ export function teams(state = {}, action) {
           }
         })          
     }
-    case teamConstants.UPDATE_TEAMPHOTO_REQUEST:
+    case teamConstants.UPDATETEAMPHOTO_REQUEST:
       return {
         ...state,
       }
-    case teamConstants.UPDATE_TEAMPHOTO_FAILURE:
+    case teamConstants.UPDATETEAMPHOTO_FAILURE:
       return {
         error: action.error
       }
-    case teamConstants.UPDATE_TEAMPHOTO_SUCCESS:
+    case teamConstants.UPDATETEAMPHOTO_SUCCESS:
       return {
         ...state,
         items: state.items.filter(function(team) {
-          if (team.id === action.team.id) {
-            return team
-          } else {
+          if (team.id === action.team.data.id) {
             return action.team
+          } else {
+            return team
           }
         })          
     }
