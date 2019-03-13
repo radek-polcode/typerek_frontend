@@ -4,6 +4,7 @@ import config from '../_config';
 const namespace = 'admin/'
 
 export const teamService = {
+  addTeam,
   getAll,
   updateTeam,
   updateTeamPhoto
@@ -13,6 +14,16 @@ const handleResponse = handlingResponse.handleResponse
 
 const initialPage = 1
 const initialLimitPerPage = 20
+
+function addTeam(team) {
+  const requestOptions = {
+    method: 'POST',
+    headers: authenticationHeaders(),
+    body: JSON.stringify(team)
+  }
+  return fetch(`${config.apiUrl}/${namespace}teams`, requestOptions)
+          .then(handleResponse)
+}
 
 function getAll(page, perPage) {
   const currentPage = page ? page : initialPage

@@ -113,7 +113,7 @@ class TeamForm extends Component {
         type: 'teams',
         attributes: {
           name: name,
-          nameEn: nameEn,
+          name_en: nameEn,
           abbreviation: abbreviation,
           flag: flag,
         }

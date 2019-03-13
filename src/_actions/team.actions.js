@@ -5,10 +5,37 @@ import { history } from '../_helpers'
 import i18n from '../i18n';
 
 export const teamActions = {
+  addTeam,
   getAll,
   updateTeam,
   updateTeamPhoto
 };
+
+function addTeam(team) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request());
+    teamService.addTeam(team)
+      .then(
+        team => {
+          dispatch(success(team));
+          history.push('/admin/teams');
+          dispatch(alertActions.success(
+            t('alerts.teams.addedSuccessfully')
+          ));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        }
+    );
+  };
+
+  function request(team) { return { type: teamConstants.ADDTEAM_REQUEST, team } }
+  function success(team) { return { type: teamConstants.ADDTEAM_SUCCESS, team } }
+  function failure(error) { return { type: teamConstants.ADDTEAM_FAILURE, error } }
+}
 
 function getAll(page, perPage) {
   return dispatch => {

@@ -29,7 +29,7 @@ function UploadPhoto({
 }) {
   return (
     <div className={styles.uploadBox}>
-      { (imgSrc || photo.medium.url) &&
+      { (imgSrc || (photo && photo.medium.url)) &&
           <img
             alt="Team"
             className={cx(styles.team__photo__thumb)}

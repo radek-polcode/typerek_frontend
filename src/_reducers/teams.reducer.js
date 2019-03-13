@@ -2,6 +2,18 @@ import { teamConstants } from '../_constants'
 
 export function teams(state = {}, action) {
   switch(action.type) {
+    case teamConstants.ADDUSER_REQUEST:
+    return {
+      ...state,
+    }
+    case teamConstants.ADDUSER_FAILURE:
+      return {
+        error: action.error
+      }
+    case teamConstants.ADDUSER_SUCCESS:
+      return {
+        items: state.items.concat(action.team.data)
+      }
     case teamConstants.GETALL_REQUEST:
       return {
         loading: true
