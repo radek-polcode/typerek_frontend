@@ -83,7 +83,9 @@ export default class Teams extends Component {
   
   }
 
-  handleDeleteTeam(id) {}
+  handleDeleteTeam(id) {
+    return this.props.dispatch(teamActions.delete(id));
+  }
 
   onPageChanged = data => {
     const { currentPage, perPage } = data;

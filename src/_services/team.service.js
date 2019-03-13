@@ -5,6 +5,7 @@ const namespace = 'admin/'
 
 export const teamService = {
   addTeam,
+  delete: _delete,
   getAll,
   updateTeam,
   updateTeamPhoto
@@ -23,6 +24,16 @@ function addTeam(team) {
   }
   return fetch(`${config.apiUrl}/${namespace}teams`, requestOptions)
           .then(handleResponse)
+}
+
+// prefixed function name with underscore because delete is a reserved word in javascript
+function _delete(id) {
+  const requestOptions = {
+      method: 'DELETE',
+      headers: authenticationHeaders()
+  };
+
+  return fetch(`${config.apiUrl}/${namespace}teams/${id}`, requestOptions).then(handleResponse);
 }
 
 function getAll(page, perPage) {

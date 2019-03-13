@@ -14,6 +14,30 @@ export function teams(state = {}, action) {
       return {
         items: state.items.concat(action.team.data)
       }
+      case teamConstants.DELETE_REQUEST:
+      return {
+        ...state,
+        items: state.items.map(team =>
+          team.id === action.id
+          ? { ...team, deleting: true }
+          :team
+        )
+    };
+    case teamConstants.DELETE_SUCCESS:
+      return {
+        items: state.items.filter(team => team.id !== action.id)
+      };
+    case teamConstants.DELETE_FAILURE:
+      return {
+        ...state,
+        items: state.items.map(team => {
+          if (team.id === action.id) {
+            const { deleting, ...teamCopy } = team;
+            return { ...teamCopy, deleteError: action.error };
+        }
+          return team;
+      })
+    };
     case teamConstants.GETALL_REQUEST:
       return {
         loading: true
