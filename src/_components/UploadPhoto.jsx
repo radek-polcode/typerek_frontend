@@ -5,9 +5,6 @@ import { Button, Input } from 'reactstrap';
 import cx from 'classnames';
 import { FaTimes } from 'react-icons/fa';
 
-import { imageHelper } from '../../../../_helpers'
-
-import '../../../../App/App.css'
 import styles from './UploadPhoto.module.css'
 
 UploadPhoto.propTypes = {

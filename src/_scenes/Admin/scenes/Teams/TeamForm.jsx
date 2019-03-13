@@ -11,7 +11,7 @@ import { Button,
 
 import '../../../../App/App.css'
 import { teamActions } from '../../../../_actions';
-import { UploadPhoto } from './UploadPhoto';
+import { UploadPhoto } from '../../../../_components';
 
 class TeamForm extends Component {
   constructor(props) {
