@@ -49,9 +49,9 @@ export function teams(state = {}, action) {
     case teamConstants.DELETETEAMPHOTO_SUCCESS:
       return {
         ...state,
-        items: state.items.filter(function(team) {
+        items: state.items.map(function(team) {
           if (team.id === action.team.data.id) {
-            return action.team
+            return action.team.data
           } else {
             return team
           }
@@ -101,9 +101,9 @@ export function teams(state = {}, action) {
     case teamConstants.UPDATETEAMPHOTO_SUCCESS:
       return {
         ...state,
-        items: state.items.filter(function(team) {
+        items: state.items.map(function(team) {
           if (team.id === action.team.data.id) {
-            return action.team
+            return action.team.data
           } else {
             return team
           }

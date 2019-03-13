@@ -41,8 +41,10 @@ class TeamForm extends Component {
     submitted: false
   }
   static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(nextProps.team)
     return {
-      isEditing: nextProps.isEditing
+      isEditing: nextProps.isEditing,
+      photo: nextProps.team.attributes.photo
     }
   }
 
@@ -58,6 +60,9 @@ class TeamForm extends Component {
         }
       }
     }
+    this.setState({
+      newPhoto: null
+    })
     dispatch(teamActions.deleteTeamPhoto(deletePhotoData, teamId))
   }
 
@@ -257,7 +262,9 @@ class TeamForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    state
+  };
 }
 
 const connectedTeamForm = connect(mapStateToProps)(TeamForm);
