@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
 import ReactModal from 'react-modal';
 import { withNamespaces } from 'react-i18next';
+
+import { FormModal } from '../../_components/Modals'
 
 class ModalContainer extends Component {
   constructor(props) {
@@ -27,7 +30,6 @@ class ModalContainer extends Component {
   }
 
   render() {
-
     if (!this.props.modalType) {
       return null
     }
@@ -39,18 +41,14 @@ class ModalContainer extends Component {
           onRequestClose={this.closeModal}
           contentLabel="Example Modal"
           ariaHideApp={false}
+          overlayClassName="fade show"
+          bodyOpenClassName="modal-open"
+          className="modal-dialog modal-dialog-centered"
         >
-
-          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
+          <FormModal
+            closeModal={this.closeModal}
+            {...this.props.modalProps}
+          />
         </ReactModal>
       </div>
     )

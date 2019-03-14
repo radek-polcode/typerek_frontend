@@ -30,12 +30,17 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props)
-    const { dispatch } = this.props;
     this.openFormModal = this.openFormModal.bind(this)
+    this.closeModal = this.closeModal.bind(this);
+
     history.listen((location, action) => {
       // clear alert on location change
-      dispatch(alertActions.clear());
+      this.props.clearAlerts();
     });
+  }
+
+  closeModal(event) {
+    this.props.hideModal()
   }
 
   openFormModal(event) {
@@ -99,6 +104,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => ({
+  clearAlerts: () => dispatch(alertActions.clear()),
   hideModal: () => dispatch(modalActions.hideModal()),
   showModal: (modalProps, modalType) => {
     dispatch(modalActions.showModal(modalProps, modalType ))

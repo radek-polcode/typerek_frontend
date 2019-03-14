@@ -15,7 +15,7 @@ export function modal(state = initialState, action) {
       }
     case modalConstants.HIDE_MODAL:
       return {
-        initialState
+        ...initialState
       }
     default: 
       return state
