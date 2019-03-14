@@ -1,8 +1,8 @@
 import { modalConstants } from '../_constants'
 
 export const modalActions = {
-  showModal,
   hideModal,
+  showModal
 }
 
 function showModal(modalProps, modalType) {

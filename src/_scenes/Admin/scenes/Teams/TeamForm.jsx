@@ -41,7 +41,6 @@ class TeamForm extends Component {
     submitted: false
   }
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps.team)
     return {
       isEditing: nextProps.isEditing,
       photo: nextProps.team.attributes.photo

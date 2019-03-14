@@ -10,7 +10,7 @@ export function modal(state = initialState, action) {
     case modalConstants.SHOW_MODAL:
       return {
         modalProps: action.modalProps,
-        modalType: action.modalProps,
+        modalType: action.modalType,
         type: action.type
       }
     case modalConstants.HIDE_MODAL:
