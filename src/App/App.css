@@ -114,6 +114,10 @@ body {
 }
 
 /* Tables */
+.table {
+  color: #e4e7ea;
+}
+
 .table__action__icon {
   cursor: pointer;
   margin: 0 5px 0 5px;
