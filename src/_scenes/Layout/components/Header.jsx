@@ -26,10 +26,19 @@ class Header extends Component {
   }
 
   state = {
+    loggedIn: false,
     isOpen: false,
   }
 
   static propTypes = {}
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.loggedIn) {
+      return {
+        loggedIn: true
+      }
+    }
+  }
 
   changeLanguage(lng){
     i18n.changeLanguage(lng);
@@ -40,8 +49,8 @@ class Header extends Component {
   }
 
   setLinkText() {
-    const { user, t } = this.props
-    if (user) {
+    const {  t } = this.props
+    if (this.state.loggedIn) {
       return t('navbar.logout')
     } else {
       return t('navbar.login')
@@ -68,7 +77,7 @@ class Header extends Component {
     }
     const size = 32
     
-    const { user, t } = this.props;
+    const { authentication, t } = this.props;
 
     return (
       <header className="app-header">
@@ -101,7 +110,7 @@ class Header extends Component {
                 countries={countriesWithLanguages} 
                 size={size}
               />
-              { user && user.data && user.data.role === 'admin' &&
+              { authentication && authentication.user && authentication.user.role === 'admin' &&
                 <AdminLinks />
               }
               <NavItem>
@@ -110,7 +119,7 @@ class Header extends Component {
                   to="/login"
                   onClick={this.handleLogout}
                 >
-                  {this.setLinkText()}
+                  {authentication.loggedIn ? 'Logout' : 'Login'}
                 </NavLink>
               </NavItem>
             </Nav>
@@ -123,9 +132,8 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   const { users, authentication } = state;
-  const { user } = authentication;
   return {
-      user,
+      authentication,
       users
   };
 }
