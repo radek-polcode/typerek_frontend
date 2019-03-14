@@ -2,7 +2,6 @@ import React from 'react'
 import { Table } from 'reactstrap';
 import PropTypes from 'prop-types'
 import { Card, CardHeader, CardBody } from 'reactstrap';
-import styles from './Competitions.module.css'
 import { CompetitionsTableRow } from './CompetitionsTableRow'
 import { withNamespaces } from 'react-i18next';
 
@@ -23,7 +22,6 @@ function CompetitionsTable({ competitions, handleDeleteCompetition, t }) {
       </CardHeader>
       <CardBody>
         <Table
-            className={styles.table__competitions}
             responsive
           >
             <thead>

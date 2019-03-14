@@ -5,6 +5,7 @@ import { alert } from './alert.reducer';
 import { authentication } from './authentication.reducer';
 import { competitions } from './competitions.reducer';
 import { registration } from './registration.reducer';
+import { teams } from './teams.reducer';
 import { users } from './users.reducer';
 
 const appReducer = combineReducers({
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   competitions,
   authentication,
   registration,
+  teams,
   users
 });
 

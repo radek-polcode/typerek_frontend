@@ -1,0 +1,26 @@
+#photoUpload {
+  margin-top: 20px;
+  width: 300px !important;
+}
+
+.photo__uploadButton {
+  margin-top: 1px;
+}
+
+.team__photo__thumb {
+  height: 200px;
+  width: 200px;
+}
+
+.team__photo__thumb__remove {
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.uploadBox {
+  margin-bottom: 20px;
+}
+.uploadBox__alert {
+  display: inline-block !important;
+  margin-left: 10px !important;
+}

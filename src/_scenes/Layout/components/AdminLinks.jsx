@@ -13,6 +13,14 @@ function AdminLinks({ t }) {
         <NavLink tag={Link} to="/admin/competitions">{t('navbar.competitions')}</NavLink>
       </NavItem>
       <NavItem>
+        <NavLink
+          tag={Link} 
+          to="/admin/teams?currentPage=1&perPage=20"
+        >
+          {t('navbar.teams')}
+        </NavLink>
+      </NavItem>
+      <NavItem>
         <NavLink tag={Link} to="/admin/users">{t('navbar.users')}</NavLink>
       </NavItem>
     </>

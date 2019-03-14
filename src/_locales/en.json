@@ -19,6 +19,20 @@
     "dashboard": {
       "title": "Dashboard"
     },
+    "teamForm": {
+      "addTeamButton": "Add team",
+      "title": "Team form",
+      "updateTeamButton": "Update team"
+    },
+    "teamsTable": {
+      "abbreviation": "Abbreviation",
+      "addNewTeam": "Add new team",
+      "flag": "Flag",
+      "photo": "Photo",
+      "teamName": "Team name",
+      "teamNameEn": "Team name EN",
+      "title": "Teams list"
+    },
     "userForm": {
       "addUserButton": "Add user",
       "confirmationMessage": "Are you sure you want to delete this user?",
@@ -70,18 +84,23 @@
     "login": "Login",
     "logout": "Logout",
     "rules": "Rules",
+    "teams": "Teams",
     "tournaments": "Tournaments",
     "users": "Users",
     "yourGroups": "Your groups"
   },
   "shared": {
+    "abbreviation": "Abbreviation",
     "action": "Action",
     "cancelLink": "Cancel",
     "email": "Email",
     "endDate": "End date",
+    "flag": "Flag",
     "isRequired": "is required",
     "name": "Name",
+    "nameEn": "Name EN",
     "password": "Password",
+    "photo": "Photo",
     "place": "Place",
     "role": "Role",
     "startDate": "Start date",
