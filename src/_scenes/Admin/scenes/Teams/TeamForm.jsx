@@ -178,9 +178,6 @@ class TeamForm extends Component {
 
     return (
       <Card className="card__form">
-        <CardHeader tag="h2">
-          {t('admin.teamForm.title')}
-        </CardHeader>
         <CardBody>
           <Form name="form" onSubmit={this.handleSubmit}>
             <FormGroup className={(submitted && !name ? ' has-error' : '')}>

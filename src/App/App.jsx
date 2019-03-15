@@ -61,11 +61,6 @@ class App extends Component {
             <Header />
             <Container className="main">
               <div className="main__content">
-                <button
-                  className="btn btn-outline-primary btn-block"
-                  onClick={this.openFormModal}
-                  >alert
-                </button>
                 {alert.message &&
                   <AppAlert
                     message={alert.message}

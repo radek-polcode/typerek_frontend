@@ -1,0 +1,15 @@
+.form__modal__content {
+  background-color: #3a4149 !important;
+  color: #fff !important;
+}
+
+.form__modal__header {
+}
+
+.form__modal__body {
+  padding: 0 !important;
+}
+
+.button__modal__close {
+  color: #fff !important;
+}

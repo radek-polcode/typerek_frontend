@@ -118,7 +118,7 @@ export default class Teams extends Component {
       message: 'MESSAGE',
       open: true,
       team: team,
-      title: 'Form Modal',
+      title: 'Team form',
     }, 'form')
   }
 

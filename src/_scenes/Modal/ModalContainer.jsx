@@ -36,14 +36,12 @@ class ModalContainer extends Component {
     return (
       <div>
         <ReactModal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          contentLabel="Example Modal"
           ariaHideApp={false}
-          overlayClassName="fade show"
           bodyOpenClassName="modal-open"
           className="modal-dialog modal-dialog-centered"
+          contentLabel="Example Modal"
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
         >
           <FormModal
             closeModal={this.closeModal}
