@@ -109,7 +109,7 @@ const mapDispatchToProps = dispatch => ({
   showModal: (modalProps, modalType) => {
     dispatch(modalActions.showModal(modalProps, modalType ))
   }
- })
+})
 
 const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 export { connectedApp as App }; 

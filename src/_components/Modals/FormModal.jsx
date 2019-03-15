@@ -1,6 +1,7 @@
 import React from 'react'
+import { TeamForm } from '../../_scenes/Admin/scenes/Teams/TeamForm'
 
-const FormModal = ({ closeModal, title, message }) => {
+const FormModal = ({ closeModal, isEditing, title, team }) => {
   return (
     <div className="modal-content">
       <div className="modal-header">
@@ -12,7 +13,12 @@ const FormModal = ({ closeModal, title, message }) => {
         </button>
       </div>
       <div className="modal-body">
-        <p>{message}</p>
+        { team &&
+          <TeamForm
+            isEditing={isEditing}
+            team={team}
+          />
+        }
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>

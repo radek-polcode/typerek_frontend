@@ -7,6 +7,7 @@ import { Card, CardHeader, CardBody, Table } from 'reactstrap';
 import queryString from 'query-string'
 
 import { ItemsPerPageDropdown, LoadingView, Pagination } from '../../../../_components';
+import { modalActions } from '../../../../_actions/modal.actions'
 import { teamActions } from '../../../../_actions/team.actions'
 
 import { TeamsTableRow } from  './TeamsTableRow'
@@ -32,7 +33,7 @@ export default class Teams extends Component {
 
   componentDidMount() {
     const { currentPage, perPage } = this.state
-    this.props.dispatch(teamActions.getAll(currentPage, perPage));
+    this.props.getAllTeams(currentPage, perPage);
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
@@ -65,7 +66,7 @@ export default class Teams extends Component {
         currentPage: currentPageFromUrl,
         perPage: perPageFromUrl
       })
-      scope.props.dispatch(teamActions.getAll(currentPageFromUrl, perPageFromUrl));
+      scope.props.getAllTeams(currentPageFromUrl, perPageFromUrl);
     } else if (
       scope.props.teams.meta && 
       scope.props.teams.meta.current_page !== currentPageFromUrl
@@ -75,7 +76,7 @@ export default class Teams extends Component {
           currentPage: currentPageFromUrl,
           perPage: perPageFromUrl
         })
-        scope.props.dispatch(teamActions.getAll(currentPageFromUrl, perPageFromUrl));
+        scope.props.getAllTeams(currentPageFromUrl, perPageFromUrl);
       }
     } else {
       return null
@@ -94,18 +95,33 @@ export default class Teams extends Component {
       currentPage: currentPage,
       perPage: perPage
     })
-    this.props.dispatch(teamActions.getAll(currentPage, perPage));
+    this.props.getAllTeams(currentPage, perPage);
   }
 
   onPerPageChanged = (perPage) => {
     const currentPage = 1
 
-    this.props.dispatch(teamActions.getAll(currentPage, perPage));
+    this.props.getAllTeams(currentPage, perPage);
 
     this.setState({
       currentPage: currentPage,
       perPage: perPage,
     })
+  }
+
+  openFormModal = ({team, isEditing}) => {
+    this.props.showModal({
+      closeModal: this.closeModal,
+      isEditing: isEditing,
+      message: 'MESSAGE',
+      open: true,
+      team: team,
+      title: 'Form Modal',
+    }, 'form')
+  }
+
+  closeModal = event => {
+    this.props.hideModal()
   }
 
   render() {
@@ -115,6 +131,7 @@ export default class Teams extends Component {
     const isLoading = this.props.teams.loading
     const onPageChanged = this.onPageChanged
     const onPerPageChanged = this.onPerPageChanged
+    const openFormModal = this.openFormModal
 
     return (
       <div>
@@ -156,6 +173,7 @@ export default class Teams extends Component {
                       key={team.id}
                       page={currentPage}
                       perPage={perPage}
+                      openFormModal={openFormModal}
                       team={team}
                     />
                   )}
@@ -184,7 +202,15 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedTeams = connect(mapStateToProps)(Teams);
+const mapDispatchToProps = dispatch => ({
+  getAllTeams: (currentPage, perPage) => dispatch(teamActions.getAll(currentPage, perPage)),
+  hideModal: () => dispatch(modalActions.hideModal()),
+  showModal: (modalProps, modalType) => {
+    dispatch(modalActions.showModal(modalProps, modalType ))
+  }
+})
+
+const connectedTeams = connect(mapStateToProps, mapDispatchToProps)(Teams);
 const translatedTeams = withNamespaces()(connectedTeams)
 
 export { translatedTeams as Teams }; 

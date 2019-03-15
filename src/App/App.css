@@ -83,9 +83,9 @@ body {
 }
 
 .card__form {
-  background-color: #3a4149;
+  background-color: #3a4149 !important;
   padding: 15px;
-  color: #e4e7ea;
+  color: #e4e7ea !important;
 }
 
 .card__form__header {
@@ -115,7 +115,7 @@ body {
 
 /* Tables */
 .table {
-  color: #e4e7ea;
+  color: #e4e7ea !important;
 }
 
 .table__action__icon {
