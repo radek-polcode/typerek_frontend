@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
-import { Card, CardHeader, CardBody, Table } from 'reactstrap';
+import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
 import queryString from 'query-string'
 
 import { ItemsPerPageDropdown, LoadingView, Pagination } from '../../../../_components';
@@ -110,6 +110,8 @@ export default class Teams extends Component {
   }
 
   openFormModal = ({team, isEditing}) => {
+    console.log(team)
+    console.log(isEditing)
     this.props.showModal({
       closeModal: this.closeModal,
       isEditing: isEditing,
@@ -132,10 +134,23 @@ export default class Teams extends Component {
     const onPageChanged = this.onPageChanged
     const onPerPageChanged = this.onPerPageChanged
     const openFormModal = this.openFormModal
+    const newTeam = {
+      attributes: {
+        name: '',
+        nameEn: '',
+        abbreviation: '',
+        flag: '',
+        photo: ''
+      }
+    }
 
     return (
       <div>
-        <Link to='/admin/teams/new'>{t('admin.teamsTable.addNewTeam')}</Link>
+        <Button
+          onClick={() => openFormModal({team: newTeam, isEditing: false})}
+        > 
+          {t('admin.teamsTable.addNewTeam')}
+        </Button>
         <Card className="card__form">
           <CardHeader 
             className="card__form__header"
