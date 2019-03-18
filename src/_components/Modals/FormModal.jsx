@@ -23,6 +23,7 @@ const FormModal = ({ closeModal, isEditing, title, team }) => {
           <TeamForm
             isEditing={isEditing}
             team={team}
+            closeModal={closeModal}
           />
         }
       </div>

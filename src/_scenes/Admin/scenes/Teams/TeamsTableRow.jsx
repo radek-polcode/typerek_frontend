@@ -64,7 +64,7 @@ function TeamsTableRow({
       </td>
       <td>
         <FaPencilAlt 
-          className={cx(styles.table__action__icon, styles.icon__edit)}
+          className="table__action__icon icon__edit"
           onClick={() => openFormModal({team, isEditing: true})}
         />
         <FaTrashAlt 

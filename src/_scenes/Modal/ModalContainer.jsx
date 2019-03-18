@@ -6,6 +6,11 @@ import { withNamespaces } from 'react-i18next';
 
 import { FormModal } from '../../_components/Modals'
 
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(58, 65, 73, 0.75)"
+  }
+}
 class ModalContainer extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +47,7 @@ class ModalContainer extends Component {
           contentLabel="Example Modal"
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
+          style={customStyles}
         >
           <FormModal
             closeModal={this.closeModal}
