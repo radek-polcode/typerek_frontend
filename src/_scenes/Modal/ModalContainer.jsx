@@ -33,7 +33,6 @@ class ModalContainer extends Component {
 
   modalToRender() {
     const modalType =  this.props.modalType
-    console.log(modalType)
     switch (modalType) {
       case 'form':
         return <FormModal

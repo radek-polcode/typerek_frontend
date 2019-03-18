@@ -24,12 +24,18 @@ function addTeam(team) {
           dispatch(success(team));
           history.push('/admin/teams');
           dispatch(alertActions.success(
+            teamConstants.ADDTEAM_SUCCESS,
             t('alerts.teams.addedSuccessfully')
           ));
         },
         error => {
           dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
+          dispatch(
+            alertActions.error(
+              teamConstants.ADDTEAM_FAILURE,
+              error.toString()
+            )
+          );
         }
     );
   };
@@ -50,6 +56,7 @@ function _delete(id) {
         team => {
           dispatch(success(id));
           dispatch(alertActions.success(
+            teamConstants.DELETE_SUCCESS,
             t('alerts.teams.removedSuccessfully')
           ));
         },
@@ -74,12 +81,20 @@ function deleteTeamPhoto(payload, id) {
         team => {
           dispatch(success(team));
           dispatch(alertActions.success(
-            t('alerts.teams.photoDeleted')
+            teamConstants.DELETETEAMPHOTO_SUCCESS,
+            t('alerts.teams.photoDeleted'),
+            false
           ));
         },
         error => {
           dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
+          dispatch(
+            alertActions.error(
+              teamConstants.DELETETEAMPHOTO_FAILURE,
+              error.toString(),
+              false
+            )
+          );
         }
       )
   };
@@ -117,12 +132,18 @@ function updateTeam(team, id) {
           dispatch(success(team));
           history.push('/admin/teams');
           dispatch(alertActions.success(
+            teamConstants.UPDATETEAM_SUCCESS,
             t('alerts.teams.editedSuccessfully')
           ));
         },
         error => {
           dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
+          dispatch(
+            alertActions.error(
+              teamConstants.UPDATETEAM_FAILURE,
+              error.toString()
+            )
+          );
         }
       )
   };
@@ -142,12 +163,20 @@ function updateTeamPhoto(team, id) {
         team => {
           dispatch(success(team));
           dispatch(alertActions.success(
-            t('alerts.teams.photoChanged')
+            teamConstants.UPDATETEAMPHOTO_SUCCESS,
+            t('alerts.teams.photoChanged'),
+            false
           ));
         },
         error => {
           dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
+          dispatch(
+            alertActions.error(
+              teamConstants.UPDATETEAMPHOTO_FAILURE,
+              error.toString(),
+              false
+            )
+          );
         }
       )
   };

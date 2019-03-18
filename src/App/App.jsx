@@ -58,13 +58,15 @@ class App extends Component {
     }, 'form')
   }
 
-  openAlertModal(alertMessage) {
-    this.props.showModal({
-      open: true,
-      title: 'Alert Modal',
-      message: alertMessage,
-      closeModal: this.closeAlertModal
-    }, 'alert')
+  openAlertModal(alert) {
+    if (alert.modal && alert.message) {
+      this.props.showModal({
+        open: true,
+        title: 'Alert Modal',
+        message: alert.message,
+        closeModal: this.closeAlertModal
+      }, 'alert')
+    }
   }
 
   render() {
@@ -76,7 +78,7 @@ class App extends Component {
             <Header />
             <Container className="main">
               <div className="main__content">
-                { alert.message && this.openAlertModal(alert.message) }
+                { alert.message && this.openAlertModal(alert) }
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/admin/competitions" component={Competitions} />
                 <PrivateRoute exact path="/admin/competitions/new" component={AddCompetition} />
