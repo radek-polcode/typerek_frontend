@@ -31,6 +31,7 @@ class TeamForm extends Component {
   // state should be initialized only, and then fill in getDerivedStateFromProps() i guess
   state = {
     abbreviation: this.props.team.attributes.abbreviation,
+    alert: this.props.alert,
     flag: this.props.team.attributes.flag,
     isEditing: undefined,
     name: this.props.team.attributes.name,
@@ -44,6 +45,7 @@ class TeamForm extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
+      alert: nextProps.alert,
       closeModal: nextProps.closeModal,
       isEditing: nextProps.isEditing,
       photo: nextProps.team.attributes.photo
@@ -166,7 +168,8 @@ class TeamForm extends Component {
 
   render() {
     const { 
-      abbreviation, 
+      abbreviation,
+      alert,
       flag,
       isEditing,
       name, 
@@ -181,8 +184,7 @@ class TeamForm extends Component {
     const handleSelectedFile = this.handleSelectedFile
     const handleUpload = this.handleUpload
 
-    const { alert, closeModal, t } = this.props
-
+    const { t } = this.props
     return (
       <Card className="card__form">
         <CardBody>
@@ -244,6 +246,7 @@ class TeamForm extends Component {
               </InputGroup>
             </FormGroup>
             <UploadPhoto
+              alert={alert}
               handleDeleteThumb={handleDeleteThumb}
               handleSelectedFile={handleSelectedFile}
               handleUpload={handleUpload}
@@ -265,8 +268,9 @@ class TeamForm extends Component {
 }
 
 function mapStateToProps(state) {
+  const { alert } = state
   return {
-    state
+    alert
   };
 }
 

@@ -18,6 +18,7 @@ UploadPhoto.propTypes = {
 }
 
 function UploadPhoto({
+  alert,
   handleDeleteThumb,
   handleUpload,
   handleSelectedFile,
@@ -62,9 +63,11 @@ function UploadPhoto({
             >
               Upload
             </Button>
-            <div className="uploadBox__alert">
-              <span>Here should be alert hehe</span>
-            </div>
+            { alert.message &&
+              <div className="uploadBox__alert">
+                <span>{alert.message}</span>
+              </div>
+            }
           </>
         }
       </div>
