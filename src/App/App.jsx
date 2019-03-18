@@ -31,7 +31,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.openFormModal = this.openFormModal.bind(this)
-    this.closeModal = this.closeModal.bind(this);
+    this.closeAlertModal = this.closeAlertModal.bind(this);
+    this.closeFormModal = this.closeFormModal.bind(this);
 
     history.listen((location, action) => {
       // clear alert on location change
@@ -39,17 +40,31 @@ class App extends Component {
     });
   }
 
-  closeModal(event) {
+  closeAlertModal() {
     this.props.hideModal()
+    this.props.clearAlerts();
   }
 
-  openFormModal(event) {
+  closeFormModal() {
+    this.props.hideModal();
+  }
+
+  openFormModal() {
     this.props.showModal({
       open: true,
       title: 'Form Modal',
       message: 'MESSAGE',
-      closeModal: this.closeModal
+      closeModal: this.closeFormModal
     }, 'form')
+  }
+
+  openAlertModal(alertMessage) {
+    this.props.showModal({
+      open: true,
+      title: 'Alert Modal',
+      message: alertMessage,
+      closeModal: this.closeAlertModal
+    }, 'alert')
   }
 
   render() {
@@ -61,12 +76,7 @@ class App extends Component {
             <Header />
             <Container className="main">
               <div className="main__content">
-                {alert.message &&
-                  <AppAlert
-                    message={alert.message}
-                    alertType={alert.type}
-                  />
-                }
+                { alert.message && this.openAlertModal(alert.message) }
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/admin/competitions" component={Competitions} />
                 <PrivateRoute exact path="/admin/competitions/new" component={AddCompetition} />

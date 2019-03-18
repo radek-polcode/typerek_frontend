@@ -54,12 +54,12 @@ function TeamsTableRow({
       </td>
       <td>
         <Flag
-            name={abbreviation}
-            format="png"
-            pngSize={24}
-            shiny={false}
-            alt=""
-            basePath='/img/flags'
+          name={abbreviation}
+          format="png"
+          pngSize={24}
+          shiny={false}
+          alt=""
+          basePath='/img/flags'
           />
       </td>
       <td>

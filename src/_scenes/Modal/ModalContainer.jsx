@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import ReactModal from 'react-modal';
 import { withNamespaces } from 'react-i18next';
 
+import { AlertModal } from '../../_components/Modals'
 import { FormModal } from '../../_components/Modals'
 
 const customStyles = {
@@ -30,6 +31,25 @@ class ModalContainer extends Component {
     }
   }
 
+  modalToRender() {
+    const modalType =  this.props.modalType
+    console.log(modalType)
+    switch (modalType) {
+      case 'form':
+        return <FormModal
+                  closeModal={this.closeModal}
+                  {...this.props.modalProps}
+                />
+      case 'alert':
+        return <AlertModal
+                  closeModal={this.closeModal}
+                  {...this.props.modalProps}
+                />
+      default:
+        return null
+    }
+  }
+
   closeModal() {
     this.setState({ modalIsOpen: false })
   }
@@ -49,10 +69,7 @@ class ModalContainer extends Component {
           onRequestClose={this.closeModal}
           style={customStyles}
         >
-          <FormModal
-            closeModal={this.closeModal}
-            {...this.props.modalProps}
-          />
+        {this.modalToRender()}
         </ReactModal>
       </div>
     )

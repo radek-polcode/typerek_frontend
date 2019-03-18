@@ -1,0 +1,15 @@
+.alert__modal__content {
+  background-color: #3a4149 !important;
+  color: #fff !important;
+}
+
+.alert__modal__header {
+}
+
+.alert__modal__body {
+  padding: 0 !important;
+}
+
+.button__modal__close {
+  color: #fff !important;
+}
