@@ -81,11 +81,10 @@ export default class Teams extends Component {
     } else {
       return null
     }
-  
   }
 
   handleDeleteTeam(id) {
-    return this.props.dispatch(teamActions.delete(id));
+    return this.props.deleteTeam(id);
   }
 
   onPageChanged = data => {
@@ -110,8 +109,6 @@ export default class Teams extends Component {
   }
 
   openFormModal = ({team, isEditing}) => {
-    console.log(team)
-    console.log(isEditing)
     this.props.showModal({
       closeModal: this.closeModal,
       isEditing: isEditing,
@@ -219,6 +216,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   getAllTeams: (currentPage, perPage) => dispatch(teamActions.getAll(currentPage, perPage)),
+  deleteTeam: (id) => dispatch(teamActions.delete(id)),
   hideModal: () => dispatch(modalActions.hideModal()),
   showModal: (modalProps, modalType) => {
     dispatch(modalActions.showModal(modalProps, modalType ))
