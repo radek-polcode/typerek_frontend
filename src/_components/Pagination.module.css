@@ -4,3 +4,7 @@
   justify-content: center;
   text-align: center;
 }
+
+.page-item.active {
+  z-index: 0 !important;
+}

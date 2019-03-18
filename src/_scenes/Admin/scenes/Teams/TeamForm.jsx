@@ -23,6 +23,7 @@ class TeamForm extends Component {
   }
 
   static propTypes = {
+    closeModal: PropTypes.func.isRequired,
     isEditing: PropTypes.bool.isRequired,
     team: PropTypes.object.isRequired
   }
@@ -40,9 +41,10 @@ class TeamForm extends Component {
     teamId: this.props.team.id,
     submitted: false
   }
+
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps.team)
     return {
+      closeModal: nextProps.closeModal,
       isEditing: nextProps.isEditing,
       photo: nextProps.team.attributes.photo
     }
@@ -124,7 +126,8 @@ class TeamForm extends Component {
       abbreviation, 
       flag, 
       name, 
-      nameEn, 
+      nameEn,
+      newPhoto
     } = this.state
 
     const { dispatch } = this.props;
@@ -133,10 +136,11 @@ class TeamForm extends Component {
       data: {
         type: 'teams',
         attributes: {
-          name: name,
-          name_en: nameEn,
           abbreviation: abbreviation,
           flag: flag,
+          name: name,
+          name_en: nameEn,
+          photo: newPhoto,
         }
       }
     }
@@ -148,6 +152,8 @@ class TeamForm extends Component {
         dispatch(teamActions.addTeam(team))
       }
     }
+
+    this.props.closeModal()
   }
 
   setButtonName(t) {
@@ -175,13 +181,10 @@ class TeamForm extends Component {
     const handleSelectedFile = this.handleSelectedFile
     const handleUpload = this.handleUpload
 
-    const { alert, t } = this.props
+    const { alert, closeModal, t } = this.props
 
     return (
       <Card className="card__form">
-        <CardHeader tag="h2">
-          {t('admin.teamForm.title')}
-        </CardHeader>
         <CardBody>
           <Form name="form" onSubmit={this.handleSubmit}>
             <FormGroup className={(submitted && !name ? ' has-error' : '')}>

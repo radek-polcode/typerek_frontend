@@ -10,9 +10,13 @@ import styles from '../../../../App/App.css'
 import { listPosition } from '../../../../_helpers'
 
 TeamsTableRow.propTypes = {
-  team: PropTypes.object.isRequired,
+  handleDeleteTeam: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
-  handleDeleteTeam: PropTypes.func.isRequired
+  openFormModal: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  perPage: PropTypes.number.isRequired,
+  t: PropTypes.func.isRequired,
+  team: PropTypes.object.isRequired,
 }
 
 TeamsTableRow.defaultProps = {
@@ -21,18 +25,18 @@ TeamsTableRow.defaultProps = {
 }
 
 function TeamsTableRow({
-   handleDeleteTeam, 
-   index, 
-   page,
-   perPage,
-   t, 
-   team, 
-  }) {
+  handleDeleteTeam, 
+  index,
+  openFormModal,
+  page,
+  perPage,
+  t, 
+  team, 
+}) {
   const { 
     abbreviation,
     name,
     name_en,
-    photo
   } = team.attributes
   return (
     <tr>
@@ -59,9 +63,10 @@ function TeamsTableRow({
           />
       </td>
       <td>
-        <Link to={`/admin/teams/${team.id}/edit`}>
-          <FaPencilAlt className={cx(styles.table__action__icon, styles.icon__edit)} />
-        </Link>
+        <FaPencilAlt 
+          className="table__action__icon icon__edit"
+          onClick={() => openFormModal({team, isEditing: true})}
+        />
         <FaTrashAlt 
           className="table__action__icon icon__delete"
           onClick={() => { if(window.confirm(t('admin.teamForm.confirmationMessage'))) handleDeleteTeam(team.id)} }

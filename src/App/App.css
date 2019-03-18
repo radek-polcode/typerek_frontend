@@ -83,9 +83,9 @@ body {
 }
 
 .card__form {
-  background-color: #3a4149;
+  background-color: #3a4149 !important;
   padding: 15px;
-  color: #e4e7ea;
+  color: #e4e7ea !important;
 }
 
 .card__form__header {
@@ -94,19 +94,19 @@ body {
 }
 
 .card__form__input:focus {
-  color: #e4e7ea;
+  color: #e4e7ea !important;
 }
 
 .card__form__input {
   background-color: #515b65 !important;
-  border: 1px solid #23282c;
-  color: #e4e7ea;
+  border: 1px solid #23282c !important;
+  color: #e4e7ea !important;
 }
 
 .card__form__input__prepend {
-  background-color: #343b41;
-  border: 1px solid #23282c;
-  color: #d9dce0;
+  background-color: #343b41 !important;
+  border: 1px solid #23282c !important;
+  color: #d9dce0 !important;
 }
 
 .card__form__title {
@@ -114,6 +114,10 @@ body {
 }
 
 /* Tables */
+.table {
+  color: #e4e7ea !important;
+}
+
 .table__action__icon {
   cursor: pointer;
   margin: 0 5px 0 5px;

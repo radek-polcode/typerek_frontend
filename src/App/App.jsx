@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Container } from 'reactstrap'
 
 import { alertActions } from '../_actions'
+import { modalActions } from '../_actions'
 import { history } from '../_helpers'
 
 import { AddCompetition } from '../_scenes/Admin'
@@ -18,6 +19,7 @@ import { EditUser } from '../_scenes/Admin'
 import { Header, Footer } from '../_scenes/Layout/components'
 import { HomePage } from '../_scenes/HomePage';
 import { LoginPage } from '../_scenes/Sign';
+import { ModalContainer } from '../_scenes/Modal'
 import { PrivateRoute } from '../_components'
 import { RegisterPage } from '../_scenes/Sign'
 import { Teams } from '../_scenes/Admin'
@@ -28,11 +30,26 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props)
-    const { dispatch } = this.props;
+    this.openFormModal = this.openFormModal.bind(this)
+    this.closeModal = this.closeModal.bind(this);
+
     history.listen((location, action) => {
       // clear alert on location change
-      dispatch(alertActions.clear());
+      this.props.clearAlerts();
     });
+  }
+
+  closeModal(event) {
+    this.props.hideModal()
+  }
+
+  openFormModal(event) {
+    this.props.showModal({
+      open: true,
+      title: 'Form Modal',
+      message: 'MESSAGE',
+      closeModal: this.closeModal
+    }, 'form')
   }
 
   render() {
@@ -66,6 +83,7 @@ class App extends Component {
               </div>
             </Container>
             <Footer />
+            <ModalContainer />
           </>
         </Router>
       </div>
@@ -80,5 +98,13 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedApp = connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  clearAlerts: () => dispatch(alertActions.clear()),
+  hideModal: () => dispatch(modalActions.hideModal()),
+  showModal: (modalProps, modalType) => {
+    dispatch(modalActions.showModal(modalProps, modalType ))
+  }
+})
+
+const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 export { connectedApp as App }; 
