@@ -38,6 +38,7 @@ function addUser(user) {
           dispatch(success(user));
           history.push('/admin/users');
           dispatch(alertActions.success(
+            userConstants.ADDUSER_SUCCESS,
             t('alerts.users.addedSuccessfully')
           ));
         },
@@ -64,12 +65,18 @@ function updateUser(user, id) {
           dispatch(success(user));
           history.push('/admin/users');
           dispatch(alertActions.success(
+            userConstants.UPDATEUSER_SUCCESS,
             t('alerts.users.editedSuccessfully')
           ));
         },
         error => {
           dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
+          dispatch(
+            alertActions.error(
+              userConstants.UPDATEUSER_FAILURE,
+              error.toString()
+            )
+          );
         }
       )
   };
@@ -90,6 +97,7 @@ function _delete(id) {
         user => {
           dispatch(success(id));
           dispatch(alertActions.success(
+            userConstants.DELETE_SUCCESS,
             t('alerts.users.removedSuccessfully')
           ));
         },

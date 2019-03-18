@@ -22,12 +22,18 @@ function addCompetition(competition) {
           dispatch(success(competition));
           history.push('/admin/competitions');
           dispatch(alertActions.success(
+            competitionConstants.ADDCOMPETITION_SUCCESS,
             t('alerts.competitions.addedSuccessfully')
           ));
         },
         error => {
           dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
+          dispatch(
+            alertActions.error(
+              competitionConstants.ADDCOMPETITION_FAILURE,
+              error.toString()
+            )
+          );
         }
     );
   };
@@ -48,6 +54,7 @@ function _delete(id) {
         competition => {
           dispatch(success(id));
           dispatch(alertActions.success(
+            competitionConstants.DELETE_SUCCESS,
             t('alerts.competitions.removedSuccessfully')
           ));
         },
@@ -88,12 +95,18 @@ function updateCompetition(competition, id) {
           dispatch(success(competition));
           history.push('/admin/competitions');
           dispatch(alertActions.success(
+            competitionConstants.UPDATECOMPETITION_SUCCESS,
             t('alerts.competitions.editedSuccessfully')
           ));
         },
         error => {
           dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
+          dispatch(
+            alertActions.error(
+              competitionConstants.UPDATECOMPETITION_FAILURE,
+              error.toString()
+            )
+          );
         }
       )
   };
