@@ -49,7 +49,7 @@ class UserForm extends Component {
 
     const userId = this.state.userId
     const isEditing = this.props.isEditing
-    
+    console.log(this.state)
     const { email, username, password, role, takesPart } = this.state
     const { dispatch } = this.props;
 
@@ -169,7 +169,7 @@ class UserForm extends Component {
                       return <option
                                 key={index + 1}
                                 value={el.value}>
-                                  {  el.value}
+                                  { el.value }
                               </option>
                     })}
                   </Input>

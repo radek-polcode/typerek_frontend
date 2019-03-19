@@ -28,11 +28,13 @@ class Users extends Component {
   }
 
   openFormModal = ({user, isEditing}) => {
+    console.log('openFormModal')
+    console.log(user)
     this.props.showModal({
       closeModal: this.closeModal,
       isEditing: isEditing,
       open: true,
-      user: user,
+      entity: user,
       title: 'User form',
     }, 'form')
   }
@@ -49,12 +51,12 @@ class Users extends Component {
 
     const newUser = {
       attributes: {
-        name: '',
-        nameEn: '',
-        abbreviation: '',
-        flag: '',
-        photo: ''
-      }
+        email: '',
+        username: '',
+        password: '',
+        registered: '',
+      },
+      type: 'user'
     }
 
     return (

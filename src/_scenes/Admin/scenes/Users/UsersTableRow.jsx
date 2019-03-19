@@ -8,12 +8,10 @@ import { withNamespaces } from 'react-i18next';
 import styles from '../../../../App/App.css'
 
 UsersTableRow.propTypes = {
-  user: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   handleDeleteUser: PropTypes.func.isRequired,
   openFormModal: PropTypes.func.isRequired,
-
-
+  user: PropTypes.object.isRequired,
 }
 
 UsersTableRow.defaultProps = {
