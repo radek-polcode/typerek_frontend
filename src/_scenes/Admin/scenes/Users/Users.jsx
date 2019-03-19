@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 
+import { alertActions } from '../../../../_actions/alert.actions'
+import { modalActions } from '../../../../_actions/modal.actions'
 import { userActions } from '../../../../_actions/user.actions'
 
 import { UsersTable } from './UsersTable'
@@ -18,11 +20,11 @@ class Users extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(userActions.getAll());
+    this.props.getAllUsers();
   }
 
   handleDeleteUser(id) {
-    return this.props.dispatch(userActions.delete(id));
+    return this.props.deleteUser(id);
   }
 
   render() {
@@ -47,8 +49,17 @@ function mapStateToProps(state) {
     users
   };
 }
+const mapDispatchToProps = dispatch => ({
+  clearAlerts: () => dispatch(alertActions.clear()),
+  deleteUser: (id) => dispatch(userActions.delete(id)),
+  getAllUsers: () => dispatch(userActions.getAll()),
+  hideModal: () => dispatch(modalActions.hideModal()),
+  showModal: (modalProps, modalType) => {
+    dispatch(modalActions.showModal(modalProps, modalType ))
+  }
+})
 
-const connectedUsers = connect(mapStateToProps)(Users);
+const connectedUsers = connect(mapStateToProps, mapDispatchToProps)(Users);
 const translatedUsers = withNamespaces()(connectedUsers)
 
 export { translatedUsers as Users }; 
