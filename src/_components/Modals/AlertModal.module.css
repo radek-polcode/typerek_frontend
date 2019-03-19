@@ -7,7 +7,9 @@
 }
 
 .alert__modal__body {
+  margin-top: 10px;
   padding: 0 !important;
+  text-align: center;
 }
 
 .button__modal__close {

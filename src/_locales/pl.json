@@ -60,6 +60,13 @@
       "editedSuccessfully": "Użytkownik został edytowany.",
       "registeredSuccessfully": "Zostałeś/aś zarejestrowany/a.",
       "removedSuccessfully": "Użytkownik został usunięty."
+    },
+    "teams": {
+      "addedSuccessfully": "Drużyna została dodana.",
+      "editedSuccessfully": "Drużyna została edytowana.",
+      "photoChanged": "Zdjęcie drużyny zostało zmienione.",
+      "photoDeleted": "Zdjęcie drużyny zostało usunięte.",
+      "removedSuccessfully": "Drużyna została usunięta."
     }
   },
   "auth": {

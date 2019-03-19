@@ -60,6 +60,13 @@
       "editedSuccessfully": "User edited successfully.",
       "registeredSuccessfully": "Registration successful.",
       "removedSuccessfully": "User removed successfully."
+    },
+    "teams": {
+      "addedSuccessfully": "Team added successfully.",
+      "editedSuccessfully": "Team edited successfully.",
+      "photoChanged": "Team photo changed successfully.",
+      "photoDeleted": "Team photo deleted successfully.",
+      "removedSuccessfully": "Team removed successfully."
     }
   },
   "auth": {
