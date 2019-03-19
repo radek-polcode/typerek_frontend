@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import ReactModal from 'react-modal';
 import { withNamespaces } from 'react-i18next';
 
+import { AlertModal } from '../../_components/Modals'
 import { FormModal } from '../../_components/Modals'
+
+import './ModalContainer.css' 
 
 const customStyles = {
   overlay: {
@@ -30,6 +33,24 @@ class ModalContainer extends Component {
     }
   }
 
+  contentToRender() {
+    const modalType =  this.props.modalType
+    switch (modalType) {
+      case 'form':
+        return <FormModal
+                  closeModal={this.closeModal}
+                  {...this.props.modalProps}
+                />
+      case 'alert':
+        return <AlertModal
+                  closeModal={this.closeModal}
+                  {...this.props.modalProps}
+                />
+      default:
+        return null
+    }
+  }
+
   closeModal() {
     this.setState({ modalIsOpen: false })
   }
@@ -42,17 +63,14 @@ class ModalContainer extends Component {
       <div>
         <ReactModal
           ariaHideApp={false}
-          bodyOpenClassName="modal-open"
           className="modal-dialog modal-dialog-centered"
-          contentLabel="Example Modal"
+          closeTimeoutMS={300}
+          contentLabel="Modal"
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           style={customStyles}
         >
-          <FormModal
-            closeModal={this.closeModal}
-            {...this.props.modalProps}
-          />
+          {this.contentToRender()}
         </ReactModal>
       </div>
     )

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
 import queryString from 'query-string'
 
 import { ItemsPerPageDropdown, LoadingView, Pagination } from '../../../../_components';
+import { alertActions } from '../../../../_actions/alert.actions'
 import { modalActions } from '../../../../_actions/modal.actions'
 import { teamActions } from '../../../../_actions/team.actions'
 
@@ -121,6 +120,7 @@ export default class Teams extends Component {
 
   closeModal = event => {
     this.props.hideModal()
+    this.props.clearAlerts()
   }
 
   render() {
@@ -215,8 +215,9 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getAllTeams: (currentPage, perPage) => dispatch(teamActions.getAll(currentPage, perPage)),
+  clearAlerts: () => dispatch(alertActions.clear()),
   deleteTeam: (id) => dispatch(teamActions.delete(id)),
+  getAllTeams: (currentPage, perPage) => dispatch(teamActions.getAll(currentPage, perPage)),
   hideModal: () => dispatch(modalActions.hideModal()),
   showModal: (modalProps, modalType) => {
     dispatch(modalActions.showModal(modalProps, modalType ))

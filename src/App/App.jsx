@@ -8,13 +8,10 @@ import { modalActions } from '../_actions'
 import { history } from '../_helpers'
 
 import { AddCompetition } from '../_scenes/Admin'
-import { AddTeam } from '../_scenes/Admin'
 import { AddUser } from '../_scenes/Admin'
-import { AppAlert } from '../_scenes/Layout/components';
 import { Competitions } from '../_scenes/Admin'
 import { Dashboard } from '../_scenes/Admin'
 import { EditCompetition } from '../_scenes/Admin'
-import { EditTeam } from '../_scenes/Admin'
 import { EditUser } from '../_scenes/Admin'
 import { Header, Footer } from '../_scenes/Layout/components'
 import { HomePage } from '../_scenes/HomePage';
@@ -31,7 +28,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.openFormModal = this.openFormModal.bind(this)
-    this.closeModal = this.closeModal.bind(this);
+    this.closeAlertModal = this.closeAlertModal.bind(this);
+    this.closeFormModal = this.closeFormModal.bind(this);
 
     history.listen((location, action) => {
       // clear alert on location change
@@ -39,17 +37,33 @@ class App extends Component {
     });
   }
 
-  closeModal(event) {
+  closeAlertModal() {
     this.props.hideModal()
+    this.props.clearAlerts();
   }
 
-  openFormModal(event) {
+  closeFormModal() {
+    this.props.hideModal();
+  }
+
+  openFormModal() {
     this.props.showModal({
       open: true,
       title: 'Form Modal',
       message: 'MESSAGE',
-      closeModal: this.closeModal
+      closeModal: this.closeFormModal
     }, 'form')
+  }
+
+  openAlertModal(alert) {
+    if (alert.modal && alert.message) {
+      this.props.showModal({
+        open: true,
+        title: 'Alert Modal',
+        message: alert.message,
+        closeModal: this.closeAlertModal
+      }, 'alert')
+    }
   }
 
   render() {
@@ -61,12 +75,7 @@ class App extends Component {
             <Header />
             <Container className="main">
               <div className="main__content">
-                {alert.message &&
-                  <AppAlert
-                    message={alert.message}
-                    alertType={alert.type}
-                  />
-                }
+                { alert.message && this.openAlertModal(alert) }
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/admin/competitions" component={Competitions} />
                 <PrivateRoute exact path="/admin/competitions/new" component={AddCompetition} />
@@ -76,8 +85,6 @@ class App extends Component {
                 <PrivateRoute exact path="/admin/users/new" component={AddUser} />
                 <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
                 <PrivateRoute exact path="/admin/teams" component={Teams} />
-                <PrivateRoute exact path="/admin/teams/new" component={AddTeam} />
-                <PrivateRoute exact path="/admin/teams/:id/edit" component={EditTeam} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
               </div>

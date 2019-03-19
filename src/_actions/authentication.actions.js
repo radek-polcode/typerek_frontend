@@ -1,4 +1,4 @@
-import { authenticationConstants} from '../_constants'
+import { authenticationConstants } from '../_constants'
 import { authenticationService } from '../_services'
 import { alertActions } from '.';
 import { history } from '../_helpers'
@@ -38,6 +38,7 @@ function logout() {
     authenticationService.logout();
     dispatch(success());
     dispatch(alertActions.success(
+      authenticationConstants.LOGOUT,
       t('alerts.authentication.logout')
     ))
     history.push('/login');
@@ -58,12 +59,18 @@ function register(authentication) {
           dispatch(success());
           history.push('/login');
           dispatch(alertActions.success(
+            authenticationConstants.REGISTER_SUCCESS,
             t('alerts.authentications.registeredSuccessfully')
           ));
         },
         error => {
           dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
+          dispatch(
+            alertActions.error(
+              authenticationConstants.REGISTER_SUCCESS,
+              error.toString()
+            )
+          );
         }
       );
   };
