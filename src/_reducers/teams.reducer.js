@@ -71,22 +71,22 @@ export function teams(state = {}, action) {
       return {
         error: action.error
     };
-    case teamConstants.UPDATE_TEAM_REQUEST:
+    case teamConstants.UPDATETEAM_REQUEST:
       return {
         ...state,
       }
-    case teamConstants.UPDATE_TEAM_FAILURE:
+    case teamConstants.UPDATETEAM_FAILURE:
       return {
         error: action.error
       }
-    case teamConstants.UPDATE_TEAM_SUCCESS:
+    case teamConstants.UPDATETEAM_SUCCESS:
       return {
         ...state,
-        items: state.items.filter(function(team) {
-          if (team.id === action.team.id) {
-            return team
+        items: state.items.map(function(team) {
+          if (team.id === action.team.data.id) {
+            return action.team.data
           } else {
-            return action.team
+            return team
           }
         })          
     }
