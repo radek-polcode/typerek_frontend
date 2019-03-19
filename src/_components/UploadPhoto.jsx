@@ -8,13 +8,14 @@ import { FaTimes } from 'react-icons/fa';
 import styles from './UploadPhoto.module.css'
 
 UploadPhoto.propTypes = {
+  alert: PropTypes.object,
   handleDeleteThumb: PropTypes.func.isRequired,
   handleUpload: PropTypes.func.isRequired,
   handleSelectedFile: PropTypes.func.isRequired,
-  imgSrc: PropTypes.string,
   isEditing: PropTypes.bool.isRequired,
+  newPhoto: PropTypes.string,
   newPhotoLabel: PropTypes.string,
-  photoUrl: PropTypes.string
+  photo: PropTypes.object
 }
 
 function UploadPhoto({
@@ -23,20 +24,20 @@ function UploadPhoto({
   handleUpload,
   handleSelectedFile,
   isEditing,
-  imgSrc = undefined,
+  newPhoto = undefined,
   newPhotoLabel,
   photo,
   t
 }) {
   return (
     <div className={styles.uploadBox}>
-      { (imgSrc || (photo && photo.medium.url)) &&
+      { (newPhoto || (photo && photo.medium.url)) &&
         <div>
           <img
             alt="Team"
             className={cx(styles.team__photo__thumb)}
             id="team__photo__thumb"
-            src={imgSrc ? imgSrc : photo.medium.url}
+            src={newPhoto ? newPhoto : photo.medium.url}
           />
           <FaTimes
             className={cx(styles.team__photo__thumb__remove)}

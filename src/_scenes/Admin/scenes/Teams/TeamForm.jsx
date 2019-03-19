@@ -44,12 +44,18 @@ class TeamForm extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    return {
-      alert: nextProps.alert,
-      closeModal: nextProps.closeModal,
-      isEditing: nextProps.isEditing,
-      photo: nextProps.team.attributes.photo
-    }
+    if (nextProps.alert !== prevState.alert ||
+        nextProps.closeModal !== prevState.closeModal ||
+        nextProps.isEditing !== prevState.isEditing
+      ) {
+        return {
+          alert: nextProps.alert,
+          closeModal: nextProps.closeModal,
+          isEditing: nextProps.isEditing,
+        }
+      } else {
+        return null
+      }
   }
 
   handleDeleteThumb(e) {
@@ -64,10 +70,12 @@ class TeamForm extends Component {
         }
       }
     }
-    this.setState({
-      newPhoto: null
-    })
     dispatch(teamActions.deleteTeamPhoto(deletePhotoData, teamId))
+
+    this.setState({
+      newPhoto: null,
+      photo: null
+    })
   }
 
   handleInputChange(e) {
@@ -250,7 +258,7 @@ class TeamForm extends Component {
               handleDeleteThumb={handleDeleteThumb}
               handleSelectedFile={handleSelectedFile}
               handleUpload={handleUpload}
-              imgSrc={newPhoto}
+              newPhoto={newPhoto}
               isEditing={isEditing}
               newPhotoLabel={newPhotoLabel}
               photo={photo}
