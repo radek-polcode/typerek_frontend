@@ -27,13 +27,41 @@ class Users extends Component {
     return this.props.deleteUser(id);
   }
 
+  openFormModal = ({user, isEditing}) => {
+    this.props.showModal({
+      closeModal: this.closeModal,
+      isEditing: isEditing,
+      open: true,
+      user: user,
+      title: 'User form',
+    }, 'form')
+  }
+
+  closeModal = event => {
+    this.props.hideModal()
+    this.props.clearAlerts()
+  }
+
   render() {
     const { users, t } = this.props
     const handleDeleteUser = this.handleDeleteUser
+    const openFormModal = this.openFormModal
+
+    const newUser = {
+      attributes: {
+        name: '',
+        nameEn: '',
+        abbreviation: '',
+        flag: '',
+        photo: ''
+      }
+    }
 
     return (
       <div>
-        <Button> 
+        <Button
+          onClick={() => openFormModal({user: newUser, isEditing: false})}
+        > 
           {t('admin.usersTable.addNewUser')}
         </Button>
         <Card className="card__form">
@@ -58,9 +86,10 @@ class Users extends Component {
                   {users.items &&
                     users.items.map((user, index) =>
                     <UsersTableRow
-                      key={user.id}
                       handleDeleteUser={handleDeleteUser}
                       index={index}
+                      key={user.id}
+                      openFormModal={openFormModal}
                       user={user}
                     />
                   )}
