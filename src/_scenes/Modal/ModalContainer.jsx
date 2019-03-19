@@ -63,10 +63,9 @@ class ModalContainer extends Component {
       <div>
         <ReactModal
           ariaHideApp={false}
-          bodyOpenClassName="modal-open"
           className="modal-dialog modal-dialog-centered"
           closeTimeoutMS={200}
-          contentLabel="Example Modal"
+          contentLabel="Modal"
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           style={customStyles}
