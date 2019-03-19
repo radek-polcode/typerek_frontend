@@ -7,6 +7,8 @@ import { withNamespaces } from 'react-i18next';
 import { AlertModal } from '../../_components/Modals'
 import { FormModal } from '../../_components/Modals'
 
+import './ModalContainer.css' 
+
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(58, 65, 73, 0.75)"
@@ -31,7 +33,7 @@ class ModalContainer extends Component {
     }
   }
 
-  modalToRender() {
+  contentToRender() {
     const modalType =  this.props.modalType
     switch (modalType) {
       case 'form':
@@ -63,12 +65,13 @@ class ModalContainer extends Component {
           ariaHideApp={false}
           bodyOpenClassName="modal-open"
           className="modal-dialog modal-dialog-centered"
+          closeTimeoutMS={200}
           contentLabel="Example Modal"
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           style={customStyles}
         >
-        {this.modalToRender()}
+          {this.contentToRender()}
         </ReactModal>
       </div>
     )
