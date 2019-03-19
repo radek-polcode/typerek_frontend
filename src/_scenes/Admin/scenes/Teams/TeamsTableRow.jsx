@@ -1,12 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import Flag from "react-flags"
 
-import styles from '../../../../App/App.css'
 import { listPosition } from '../../../../_helpers'
 
 TeamsTableRow.propTypes = {

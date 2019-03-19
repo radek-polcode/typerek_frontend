@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
 import queryString from 'query-string'

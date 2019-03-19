@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withNamespaces } from 'react-i18next';
 
 import { Button,
-         Card, CardHeader, CardBody,
+         Card, CardBody,
          Form, FormGroup, 
          Input, InputGroup, 
          Label } from 'reactstrap';
