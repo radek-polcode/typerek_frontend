@@ -11,28 +11,51 @@ import { Button,
 import { FaAt, FaLock, FaUser } from 'react-icons/fa';
 
 import '../../../../App/App.css'
+import { UploadPhoto } from '../../../../_components';
 import { userActions } from '../../../../_actions';
 
 class UserForm extends Component {
   constructor(props) {
     super(props)
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSelectedFile = this.handleSelectedFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
   }
 
   static propTypes = {
+    closeModal: PropTypes.func.isRequired,
     isEditing: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired
   }
 
   state = {
     email: this.props.user.attributes.email,
+    isEditing: undefined,
+    newPhoto: null,
+    newPhotoLabel: 'Choose new photo',
+    photo: this.props.user.attributes.photo,
     role: this.props.user.attributes.role,
     submitted: false,
     takesPart: this.props.user.attributes.take_part,
     type: this.props.user.type,
     userId: this.props.user.id,
     username: this.props.user.attributes.username
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.alert !== prevState.alert ||
+        nextProps.closeModal !== prevState.closeModal ||
+        nextProps.isEditing !== prevState.isEditing
+      ) {
+        return {
+          alert: nextProps.alert,
+          closeModal: nextProps.closeModal,
+          isEditing: nextProps.isEditing,
+        }
+      } else {
+        return null
+      }
   }
 
   handleInputChange(e) {
@@ -44,13 +67,60 @@ class UserForm extends Component {
     });
   }
 
+  handleSelectedFile = (event) => {
+    if (event.target.files.length > 0) {
+      const scope = this
+      const file = event.target.files[0]
+      const fileName = event.target.files[0].name
+
+      let reader = new FileReader()
+
+      reader.onload = function(event) {
+        let dataURL = reader.result
+        scope.setState({
+          newPhoto: dataURL,
+          newPhotoLabel: fileName
+        })
+      }
+      reader.readAsDataURL(file);
+    } else {
+      return undefined
+    }
+  }
+
+  handleUpload = (e) => {
+    e.preventDefault()
+
+    const { dispatch } = this.props;
+    const userId = this.state.userId
+    const newPhoto = this.state.newPhoto
+
+    let userWithNewPhoto = {
+      data: {
+        type: 'users',
+        attributes: {
+          photo: newPhoto,
+        }
+      }
+    }
+    dispatch(userActions.updateUserPhoto(userWithNewPhoto, userId))
+  }
+
   handleSubmit(e) {
     e.preventDefault()
 
     const userId = this.state.userId
     const isEditing = this.props.isEditing
-    console.log(this.state)
-    const { email, username, password, role, takesPart } = this.state
+
+    const { 
+      email,
+      newPhoto, 
+      password, 
+      role,
+      takesPart,
+      username, 
+    } = this.state
+
     const { dispatch } = this.props;
 
     let user = {
@@ -58,9 +128,10 @@ class UserForm extends Component {
         type: 'users',
         attributes: {
           email: email,
-          username: username,
+          photo: newPhoto,
           role: role,
-          take_part: takesPart
+          take_part: takesPart,
+          username: username,
         }
       }
     }
@@ -73,6 +144,8 @@ class UserForm extends Component {
         dispatch(userActions.addUser(user))
       }
     }
+
+    this.props.closeModal()
   }
 
   setButtonName(t) {
@@ -84,11 +157,27 @@ class UserForm extends Component {
   }
 
   render() {
-    const { email, username, password, role, takesPart, submitted } = this.state;
+    const {
+      alert,
+      email,
+      isEditing,
+      newPhoto,
+      password,
+      photo, 
+      role, 
+      submitted,
+      takesPart, 
+      username, 
+    } = this.state;
+
+    const handleSelectedFile = this.handleSelectedFile
+    const handleUpload = this.handleUpload
+
     const ROLES = [
         {value: 'registered'},
         {value: 'admin'}
     ]
+
     const { t } = this.props
 
     return (
@@ -190,6 +279,14 @@ class UserForm extends Component {
                 />
               </div>
             </FormGroup>
+            <UploadPhoto
+              alert={alert}
+              handleSelectedFile={handleSelectedFile}
+              handleUpload={handleUpload}
+              isEditing={isEditing}
+              newPhoto={newPhoto}
+              photo={photo}
+            />
             <FormGroup>
               <Button>
                 {this.setButtonName(t)}
@@ -203,7 +300,10 @@ class UserForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  const { alert } = state
+  return {
+    alert
+  };
 }
 
 const connectedUserForm = connect(mapStateToProps)(UserForm);
