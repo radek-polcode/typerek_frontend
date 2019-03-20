@@ -61,7 +61,7 @@ class UserForm extends Component {
 
   handleDeleteThumb(e) {
     const userId = this.state.userId
-    const { dispatch } = this.props;
+    const { deleteUserPhoto } = this.props;
 
     let deletePhotoData = {
       data: {
@@ -71,7 +71,8 @@ class UserForm extends Component {
         }
       }
     }
-    dispatch(userActions.deleteUserPhoto(deletePhotoData, userId))
+
+    deleteUserPhoto(deletePhotoData, userId)
 
     this.setState({
       newPhoto: null,
@@ -112,7 +113,7 @@ class UserForm extends Component {
   handleUpload = (e) => {
     e.preventDefault()
 
-    const { dispatch } = this.props;
+    const { updateUserPhoto } = this.props;
     const userId = this.state.userId
     const newPhoto = this.state.newPhoto
 
@@ -124,7 +125,7 @@ class UserForm extends Component {
         }
       }
     }
-    dispatch(userActions.updateUserPhoto(userWithNewPhoto, userId))
+    updateUserPhoto(userWithNewPhoto, userId)
   }
 
   handleSubmit(e) {
@@ -142,7 +143,7 @@ class UserForm extends Component {
       username, 
     } = this.state
 
-    const { dispatch } = this.props;
+    const { addUser, updateUser } = this.props;
     
     let user = {
       data: {
@@ -158,11 +159,11 @@ class UserForm extends Component {
     }
 
     if (isEditing) {
-      dispatch(userActions.updateUser(user, userId))
+      updateUser(user, userId)
     } else {
       if (email && username && password && role) {
         Object.assign(user.data.attributes, {password: password})
-        dispatch(userActions.addUser(user))
+        addUser(user)
       }
     }
 
@@ -329,7 +330,15 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedUserForm = connect(mapStateToProps)(UserForm);
+const mapDispatchToProps = dispatch => ({
+  addUser: (user) => dispatch(userActions.addUser(user)),
+  deleteUserPhoto: (id) => dispatch(userActions.deleteUserPhoto(id)),
+  updateUser: (user, userId) => dispatch(userActions.updateUser(user, userId)),
+  updateUserPhoto: (id, userWithNewPhoto) => dispatch(userActions.updateUserPhoto(id, userWithNewPhoto)),
+})
+
+
+const connectedUserForm = connect(mapStateToProps, mapDispatchToProps)(UserForm);
 const translatedUserForm = withNamespaces()(connectedUserForm)
 
 export { translatedUserForm as UserForm };
