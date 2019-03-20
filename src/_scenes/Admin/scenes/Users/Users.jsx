@@ -28,8 +28,6 @@ class Users extends Component {
   }
 
   openFormModal = ({user, isEditing}) => {
-    console.log('openFormModal')
-    console.log(user)
     this.props.showModal({
       closeModal: this.closeModal,
       isEditing: isEditing,
@@ -54,7 +52,7 @@ class Users extends Component {
         email: '',
         username: '',
         password: '',
-        registered: '',
+        role: '',
       },
       type: 'user'
     }

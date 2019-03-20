@@ -84,7 +84,7 @@ class UserForm extends Component {
   }
 
   render() {
-    const { email, username, password, takesPart, submitted } = this.state;
+    const { email, username, password, role, takesPart, submitted } = this.state;
     const ROLES = [
         {value: 'registered'},
         {value: 'admin'}
@@ -159,12 +159,13 @@ class UserForm extends Component {
             <FormGroup>
                 <Label htmlFor="role">{t('shared.role')}</Label>
                 <InputGroup>
-                  <Input type="select" 
-                         className="form-control card__form__input"
+                  <Input className="form-control card__form__input"
                          name="role" 
                          onChange={this.handleInputChange}
-                         value={this.state.role}
+                         type="select" 
+                         value={role}
                   >
+                    <option value="" disabled>Select role</option>
                     {ROLES.map((el, index) => {
                       return <option
                                 key={index + 1}
@@ -178,14 +179,14 @@ class UserForm extends Component {
             <FormGroup check inline>
               <div>
                 <CustomInput
-                  id="takesPart"
-                  type="checkbox"
-                  value={takesPart} 
                   checked={takesPart ? true : false}
+                  id="takesPart"
+                  inline
                   label={t('shared.takesPart')}
                   name="takesPart"
                   onChange={this.handleInputChange}
-                  inline
+                  type="checkbox"
+                  value={takesPart} 
                 />
               </div>
             </FormGroup>

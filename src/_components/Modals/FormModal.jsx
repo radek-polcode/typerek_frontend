@@ -8,7 +8,6 @@ import cx from 'classnames';
 import styles from './FormModal.module.css'
 
 function contentToRender({ closeModal, entity, isEditing }) {
-  console.log('contentToRender')
   console.log(entity)
   const entityType = entity.type
   switch (entityType) {
