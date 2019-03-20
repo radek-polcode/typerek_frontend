@@ -58,6 +58,8 @@
     "users": {
       "addedSuccessfully": "Użytkownik został dodany.",
       "editedSuccessfully": "Użytkownik został edytowany.",
+      "photoChanged": "Zdjęcie użytkownika zostało zmienione.",
+      "photoDeleted": "Zdjęcie użytkownika zostało usunięte.",
       "registeredSuccessfully": "Zostałeś/aś zarejestrowany/a.",
       "removedSuccessfully": "Użytkownik został usunięty."
     },
