@@ -10,11 +10,9 @@ import cx from 'classnames';
 import styles from './FormModal.module.css'
 
 function contentToRender({ closeModal, entity, isEditing }) {
-  console.log(entity.type)
   const entityType = entity.type
   switch (entityType) {
     case 'competition':
-      console.log('dupa')
       return <CompetitionForm
                 isEditing={isEditing}
                 competition={entity}
@@ -38,7 +36,6 @@ function contentToRender({ closeModal, entity, isEditing }) {
 }
 
 const FormModal = ({ closeModal, entity, isEditing, title }) => {
-  console.log(entity)
   return (
     <div className={cx(styles.form__modal__content, "modal-content")}>
       <div className={cx(styles.form__modal__header, "modal-header")}>

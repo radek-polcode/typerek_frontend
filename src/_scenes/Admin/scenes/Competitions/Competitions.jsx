@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+
+import moment from 'moment'
 import { withNamespaces } from 'react-i18next';
 import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
 
@@ -9,6 +11,7 @@ import { modalActions } from '../../../../_actions/modal.actions'
 import { competitionActions } from '../../../../_actions/competition.actions'
 
 import { CompetitionsTableRow } from './CompetitionsTableRow'
+import { formattingDateTime } from '../../../../_helpers'
 
 export default class Competitions extends Component {
   static propTypes = {
@@ -43,15 +46,16 @@ export default class Competitions extends Component {
   }
 
   render() {
+    const dateNow = formattingDateTime.toIsoFormat(moment())
     const { competitions, t } = this.props
     const handleDeleteCompetition = this.handleDeleteCompetition
     const openFormModal = this.openFormModal
     const newCompetition = {
       attributes: {
-        end_date: '',
+        end_date: dateNow,
         name: '',
         place: '',
-        start_date: '',
+        start_date: dateNow,
         winner_id: '',
         year: ''
       },
