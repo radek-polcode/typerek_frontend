@@ -76,8 +76,6 @@ class App extends Component {
                 { alert.message && this.openAlertModal(alert) }
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/admin/competitions" component={Competitions} />
-                <PrivateRoute exact path="/admin/competitions/new" component={AddCompetition} />
-                <PrivateRoute exact path="/admin/competitions/:id/edit" component={EditCompetition} />
                 <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/admin/users" component={Users} />
                 <PrivateRoute exact path="/admin/teams" component={Teams} />
