@@ -113,7 +113,7 @@ export default class Teams extends Component {
       isEditing: isEditing,
       message: 'MESSAGE',
       open: true,
-      team: team,
+      entity: team,
       title: 'Team form',
     }, 'form')
   }
@@ -138,7 +138,8 @@ export default class Teams extends Component {
         abbreviation: '',
         flag: '',
         photo: ''
-      }
+      },
+      type: 'team'
     }
 
     return (

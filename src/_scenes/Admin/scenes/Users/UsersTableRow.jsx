@@ -8,9 +8,10 @@ import { withNamespaces } from 'react-i18next';
 import styles from '../../../../App/App.css'
 
 UsersTableRow.propTypes = {
-  user: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  handleDeleteUser: PropTypes.func.isRequired
+  handleDeleteUser: PropTypes.func.isRequired,
+  openFormModal: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 }
 
 UsersTableRow.defaultProps = {
@@ -18,35 +19,49 @@ UsersTableRow.defaultProps = {
   index: 0
 }
 
-function UsersTableRow({ user, index, handleDeleteUser, t }) {
+function UsersTableRow({
+  user, 
+  index, 
+  handleDeleteUser, 
+  openFormModal,
+  t 
+}) {
+  const { 
+    created_at,
+    email,
+    role,
+    take_part,
+    username,
+  } = user.attributes
   return (
     <tr>
       <td>
         {index + 1}
       </td>
       <td>
-        {user.attributes.username}
+        {username}
       </td>
       <td>
-        {user.attributes.email}
+        {email}
       </td>
       <td>
-        {user.attributes.role}
+        {role}
       </td>
       <td>
-        {user.attributes.take_part.toString()}
+        {take_part.toString()}
       </td>
       <td>
-        {user.attributes.created_at}
+        {created_at}
       </td>
       <td>
-        <Link to={`/admin/users/${user.id}/edit`}>
-          <FaPencilAlt className={cx(styles.table__action__icon, styles.icon__edit)} />
-        </Link>
-        <FaTrashAlt 
-          className="table__action__icon icon__delete" 
-          onClick={() => { if(window.confirm(t('userForm.confirmationMessage'))) handleDeleteUser(user.id)} }
-        /> 
+        <FaPencilAlt 
+            className="table__action__icon icon__edit"
+            onClick={() => openFormModal({user, isEditing: true})}
+          />
+          <FaTrashAlt 
+            className="table__action__icon icon__delete"
+            onClick={() => { if(window.confirm(t('admin.userForm.confirmationMessage'))) handleDeleteUser(user.id)} }
+          /> 
       </td>
     </tr>
   )

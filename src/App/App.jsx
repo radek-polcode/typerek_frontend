@@ -8,11 +8,9 @@ import { modalActions } from '../_actions'
 import { history } from '../_helpers'
 
 import { AddCompetition } from '../_scenes/Admin'
-import { AddUser } from '../_scenes/Admin'
 import { Competitions } from '../_scenes/Admin'
 import { Dashboard } from '../_scenes/Admin'
 import { EditCompetition } from '../_scenes/Admin'
-import { EditUser } from '../_scenes/Admin'
 import { Header, Footer } from '../_scenes/Layout/components'
 import { HomePage } from '../_scenes/HomePage';
 import { LoginPage } from '../_scenes/Sign';
@@ -82,8 +80,6 @@ class App extends Component {
                 <PrivateRoute exact path="/admin/competitions/:id/edit" component={EditCompetition} />
                 <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/admin/users" component={Users} />
-                <PrivateRoute exact path="/admin/users/new" component={AddUser} />
-                <PrivateRoute exact path="/admin/users/:id/edit" component={EditUser} />
                 <PrivateRoute exact path="/admin/teams" component={Teams} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />

@@ -6,9 +6,11 @@ import i18n from '../i18n';
 
 export const userActions = {
   addUser,
-  updateUser,
+  delete: _delete,
+  deleteUserPhoto,
   getAll,
-  delete: _delete
+  updateUser,
+  updateUserPhoto
 };
 
 function getAll() {
@@ -54,6 +56,39 @@ function addUser(user) {
   function failure(error) { return { type: userConstants.ADDUSER_FAILURE, error } }
 }
 
+function deleteUserPhoto(payload, id) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request());
+    userService.deleteUserPhoto(payload, id)
+      .then(
+        user => {
+          dispatch(success(user));
+          dispatch(alertActions.success(
+            userConstants.DELETEUSERPHOTO_SUCCESS,
+            t('alerts.users.photoDeleted'),
+            false
+          ));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(
+            alertActions.error(
+              userConstants.DELETEUSERPHOTO_FAILURE,
+              error.toString(),
+              false
+            )
+          );
+        }
+      )
+  };
+
+  function request(user) { return { type: userConstants.DELETEUSERPHOTO_REQUEST, user } }
+  function success(user) { return { type: userConstants.DELETEUSERPHOTO_SUCCESS, user } }
+  function failure(error) { return { type: userConstants.DELETEUSERPHOTO_FAILURE, error } }
+}
+
 function updateUser(user, id) {
   let t = i18n.t.bind(i18n);
 
@@ -84,6 +119,39 @@ function updateUser(user, id) {
   function request(user) { return { type: userConstants.UPDATEUSER_REQUEST, user } }
   function success(user) { return { type: userConstants.UPDATEUSER_SUCCESS, user } }
   function failure(error) { return { type: userConstants.UPDATEUSER_FAILURE, error } }
+}
+
+function updateUserPhoto(user, id) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request());
+    userService.updateUserPhoto(user, id)
+      .then(
+        user => {
+          dispatch(success(user));
+          dispatch(alertActions.success(
+            userConstants.UPDATEUSERPHOTO_SUCCESS,
+            t('alerts.users.photoChanged'),
+            false
+          ));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(
+            alertActions.error(
+              userConstants.UPDATEUSERPHOTO_FAILURE,
+              error.toString(),
+              false
+            )
+          );
+        }
+      )
+  };
+
+  function request(user) { return { type: userConstants.UPDATEUSERPHOTO_REQUEST, user } }
+  function success(user) { return { type: userConstants.UPDATEUSERPHOTO_SUCCESS, user } }
+  function failure(error) { return { type: userConstants.UPDATEUSERPHOTO_FAILURE, error } }
 }
 
 function _delete(id) {

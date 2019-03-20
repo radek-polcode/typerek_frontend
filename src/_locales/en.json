@@ -58,6 +58,8 @@
     "users": {
       "addedSuccessfully": "User added successfully.",
       "editedSuccessfully": "User edited successfully.",
+      "photoChanged": "User photo changed successfully.",
+      "photoDeleted": "User photo deleted successfully.",
       "registeredSuccessfully": "Registration successful.",
       "removedSuccessfully": "User removed successfully."
     },

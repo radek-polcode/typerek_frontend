@@ -11,28 +11,73 @@ import { Button,
 import { FaAt, FaLock, FaUser } from 'react-icons/fa';
 
 import '../../../../App/App.css'
+import { UploadPhoto } from '../../../../_components';
 import { userActions } from '../../../../_actions';
 
 class UserForm extends Component {
   constructor(props) {
     super(props)
+    this.handleDeleteThumb = this.handleDeleteThumb.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSelectedFile = this.handleSelectedFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
   }
 
   static propTypes = {
+    closeModal: PropTypes.func.isRequired,
     isEditing: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired
   }
 
   state = {
-    userId: this.props.user.id,
-    type: this.props.user.type,
     email: this.props.user.attributes.email,
-    username: this.props.user.attributes.username,
+    isEditing: undefined,
+    newPhoto: null,
+    newPhotoLabel: 'Choose new photo',
+    photo: this.props.user.attributes.photo,
     role: this.props.user.attributes.role,
-    takesPart: this.props.user.attributes.takesPart,
-    submitted: false
+    submitted: false,
+    takesPart: this.props.user.attributes.take_part,
+    type: this.props.user.type,
+    userId: this.props.user.id,
+    username: this.props.user.attributes.username
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.alert !== prevState.alert ||
+        nextProps.closeModal !== prevState.closeModal ||
+        nextProps.isEditing !== prevState.isEditing
+      ) {
+        return {
+          alert: nextProps.alert,
+          closeModal: nextProps.closeModal,
+          isEditing: nextProps.isEditing,
+        }
+      } else {
+        return null
+      }
+  }
+
+  handleDeleteThumb(e) {
+    const userId = this.state.userId
+    const { deleteUserPhoto } = this.props;
+
+    let deletePhotoData = {
+      data: {
+        type: 'users',
+        attributes: {
+          remove_photo: true,
+        }
+      }
+    }
+
+    deleteUserPhoto(deletePhotoData, userId)
+
+    this.setState({
+      newPhoto: null,
+      photo: null
+    })
   }
 
   handleInputChange(e) {
@@ -44,35 +89,85 @@ class UserForm extends Component {
     });
   }
 
+  handleSelectedFile = (event) => {
+    if (event.target.files.length > 0) {
+      const scope = this
+      const file = event.target.files[0]
+      const fileName = event.target.files[0].name
+
+      let reader = new FileReader()
+
+      reader.onload = function(event) {
+        let dataURL = reader.result
+        scope.setState({
+          newPhoto: dataURL,
+          newPhotoLabel: fileName
+        })
+      }
+      reader.readAsDataURL(file);
+    } else {
+      return undefined
+    }
+  }
+
+  handleUpload = (e) => {
+    e.preventDefault()
+
+    const { updateUserPhoto } = this.props;
+    const userId = this.state.userId
+    const newPhoto = this.state.newPhoto
+
+    let userWithNewPhoto = {
+      data: {
+        type: 'users',
+        attributes: {
+          photo: newPhoto,
+        }
+      }
+    }
+    updateUserPhoto(userWithNewPhoto, userId)
+  }
+
   handleSubmit(e) {
     e.preventDefault()
 
     const userId = this.state.userId
     const isEditing = this.props.isEditing
-    
-    const { email, username, password, role, takesPart } = this.state
-    const { dispatch } = this.props;
 
+    const { 
+      email,
+      newPhoto, 
+      password, 
+      role,
+      takesPart,
+      username, 
+    } = this.state
+
+    const { addUser, updateUser } = this.props;
+    
     let user = {
       data: {
         type: 'users',
         attributes: {
           email: email,
-          username: username,
+          photo: newPhoto,
           role: role,
-          take_part: takesPart
+          take_part: takesPart,
+          username: username,
         }
       }
     }
 
     if (isEditing) {
-      dispatch(userActions.updateUser(user, userId))
+      updateUser(user, userId)
     } else {
       if (email && username && password && role) {
         Object.assign(user.data.attributes, {password: password})
-        dispatch(userActions.addUser(user))
+        addUser(user)
       }
     }
+
+    this.props.closeModal()
   }
 
   setButtonName(t) {
@@ -84,11 +179,28 @@ class UserForm extends Component {
   }
 
   render() {
-    const { email, username, password, takesPart, submitted } = this.state;
+    const {
+      alert,
+      email,
+      isEditing,
+      newPhoto,
+      password,
+      photo, 
+      role, 
+      submitted,
+      takesPart, 
+      username, 
+    } = this.state;
+
+    const handleDeleteThumb = this.handleDeleteThumb
+    const handleSelectedFile = this.handleSelectedFile
+    const handleUpload = this.handleUpload
+
     const ROLES = [
         {value: 'registered'},
         {value: 'admin'}
     ]
+
     const { t } = this.props
 
     return (
@@ -159,17 +271,18 @@ class UserForm extends Component {
             <FormGroup>
                 <Label htmlFor="role">{t('shared.role')}</Label>
                 <InputGroup>
-                  <Input type="select" 
-                         className="form-control card__form__input"
+                  <Input className="form-control card__form__input"
                          name="role" 
                          onChange={this.handleInputChange}
-                         value={this.state.role}
+                         type="select" 
+                         value={role}
                   >
+                    <option value="" disabled>Select role</option>
                     {ROLES.map((el, index) => {
                       return <option
                                 key={index + 1}
                                 value={el.value}>
-                                  {  el.value}
+                                  { el.value }
                               </option>
                     })}
                   </Input>
@@ -178,17 +291,26 @@ class UserForm extends Component {
             <FormGroup check inline>
               <div>
                 <CustomInput
-                  id="takesPart"
-                  type="checkbox"
-                  value={takesPart} 
                   checked={takesPart ? true : false}
+                  id="takesPart"
+                  inline
                   label={t('shared.takesPart')}
                   name="takesPart"
                   onChange={this.handleInputChange}
-                  inline
+                  type="checkbox"
+                  value={takesPart} 
                 />
               </div>
             </FormGroup>
+            <UploadPhoto
+              alert={alert}
+              handleDeleteThumb={handleDeleteThumb}
+              handleSelectedFile={handleSelectedFile}
+              handleUpload={handleUpload}
+              isEditing={isEditing}
+              newPhoto={newPhoto}
+              photo={photo}
+            />
             <FormGroup>
               <Button>
                 {this.setButtonName(t)}
@@ -202,10 +324,21 @@ class UserForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  const { alert } = state
+  return {
+    alert
+  };
 }
 
-const connectedUserForm = connect(mapStateToProps)(UserForm);
+const mapDispatchToProps = dispatch => ({
+  addUser: (user) => dispatch(userActions.addUser(user)),
+  deleteUserPhoto: (deletePhotoData, userId) => dispatch(userActions.deleteUserPhoto(deletePhotoData, userId)),
+  updateUser: (user, userId) => dispatch(userActions.updateUser(user, userId)),
+  updateUserPhoto: (id, userWithNewPhoto) => dispatch(userActions.updateUserPhoto(id, userWithNewPhoto)),
+})
+
+
+const connectedUserForm = connect(mapStateToProps, mapDispatchToProps)(UserForm);
 const translatedUserForm = withNamespaces()(connectedUserForm)
 
 export { translatedUserForm as UserForm };
