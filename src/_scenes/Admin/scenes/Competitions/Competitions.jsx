@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
+import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
 
 import { competitionActions } from '../../../../_actions/competition.actions'
 
-import { CompetitionsTable } from './CompetitionsTable'
+import { CompetitionsTableRow } from './CompetitionsTableRow'
 
 export default class Competitions extends Component {
   static propTypes = {
@@ -32,10 +33,40 @@ export default class Competitions extends Component {
     return (
       <div>
         <Link to='/admin/competitions/new'>{t('admin.competitionsTable.addNewCompetition')}</Link>
-        <CompetitionsTable
-          competitions={competitions}
-          handleDeleteCompetition={handleDeleteCompetition}
-        />
+        <Card className="card__form">
+          <CardHeader tag="h2">
+            {t('admin.competitionsTable.title')}
+          </CardHeader>
+          <CardBody>
+            <Table
+                responsive
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>{t('admin.competitionsTable.competitionName')}</th>
+                    <th>{t('admin.competitionsTable.place')}</th>
+                    <th>{t('admin.competitionsTable.year')}</th>
+                    <th>{t('admin.competitionsTable.startDate')}</th>
+                    <th>{t('admin.competitionsTable.endDate')}</th>
+                    <th>{t('admin.competitionsTable.winner')}</th>
+                    <th>{t('shared.action')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {competitions.items &&
+                    competitions.items.map((competition, index) =>
+                    <CompetitionsTableRow
+                      competition={competition}
+                      handleDeleteCompetition={handleDeleteCompetition}
+                      index={index}
+                      key={competition.id}
+                    />
+                  )}
+                </tbody>
+            </Table>
+          </CardBody>
+        </Card>
       </div>
     )
   }
