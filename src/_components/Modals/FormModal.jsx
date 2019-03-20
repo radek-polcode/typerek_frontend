@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+import { CompetitionForm } from '../../_scenes/Admin/scenes/Competitions/CompetitionForm'
 import { TeamForm } from '../../_scenes/Admin/scenes/Teams/TeamForm'
 import { UserForm } from '../../_scenes/Admin/scenes/Users/UserForm'
 
@@ -8,9 +10,14 @@ import cx from 'classnames';
 import styles from './FormModal.module.css'
 
 function contentToRender({ closeModal, entity, isEditing }) {
-  console.log(entity)
   const entityType = entity.type
   switch (entityType) {
+    case 'competition':
+      return <CompetitionForm
+                isEditing={isEditing}
+                competition={entity}
+                closeModal={closeModal}
+              />
     case 'user':
       return <UserForm
                 isEditing={isEditing}

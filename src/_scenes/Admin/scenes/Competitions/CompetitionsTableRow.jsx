@@ -1,13 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 
 import { formattingDateTime } from '../../../../_helpers'
-
-import styles from '../../../../App/App.css'
 
 CompetitionsTableRow.propTypes = {
   competition: PropTypes.object.isRequired,
@@ -20,7 +16,14 @@ CompetitionsTableRow.defaultProps = {
   index: 0
 }
 
-function CompetitionsTableRow({ competition, handleDeleteCompetition, index, t }) {
+function CompetitionsTableRow({
+  competition, 
+  handleDeleteCompetition, 
+  index,
+  openFormModal,
+  t 
+}) {
+
   const { 
     end_date,
     name,
@@ -29,6 +32,7 @@ function CompetitionsTableRow({ competition, handleDeleteCompetition, index, t }
     winner_id,
     year
   } = competition.attributes
+
   return (
     <tr>
       <td>
@@ -53,9 +57,10 @@ function CompetitionsTableRow({ competition, handleDeleteCompetition, index, t }
         {winner_id}
       </td>
       <td>
-        <Link to={`/admin/competitions/${competition.id}/edit`}>
-          <FaPencilAlt className={cx(styles.table__action__icon, styles.icon__edit)} />
-        </Link>
+        <FaPencilAlt 
+          className="table__action__icon icon__edit"
+          onClick={() => openFormModal({competition, isEditing: true})}
+        />
         <FaTrashAlt 
           className="table__action__icon icon__delete"
           onClick={() => { if(window.confirm(t('admin.competitionForm.confirmationMessage'))) handleDeleteCompetition(competition.id)} }

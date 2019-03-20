@@ -5,7 +5,7 @@ import DateTime from 'react-datetime';
 import { withNamespaces } from 'react-i18next';
 
 import { Button,
-         Card, CardHeader, CardBody,
+         Card, CardBody,
          Form, FormGroup, 
          Input, InputGroup, 
          Label } from 'reactstrap';
@@ -24,6 +24,7 @@ class CompetitionForm extends Component {
   }
 
   static propTypes = {
+    closeModal: PropTypes.func.isRequired,
     competition: PropTypes.object.isRequired,
     isEditing: PropTypes.bool.isRequired
   }
@@ -37,6 +38,21 @@ class CompetitionForm extends Component {
     winnerId: this.props.competition.attributes.winner_id,
     year: this.props.competition.attributes.year,
     submitted: false
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.alert !== prevState.alert ||
+        nextProps.closeModal !== prevState.closeModal ||
+        nextProps.isEditing !== prevState.isEditing
+      ) {
+        return {
+          alert: nextProps.alert,
+          closeModal: nextProps.closeModal,
+          isEditing: nextProps.isEditing,
+        }
+      } else {
+        return null
+      }
   }
 
   handleInputChange(e) {
@@ -62,7 +78,6 @@ class CompetitionForm extends Component {
     const isEditing = this.props.isEditing
     
     const { endDate, name, place, startDate, winnerId, year } = this.state
-    const { dispatch } = this.props;
 
     let competition = {
       data: {
@@ -79,10 +94,12 @@ class CompetitionForm extends Component {
     }
 
     if (isEditing) {
-      dispatch(competitionActions.updateCompetition(competition, competitionId))
+      this.props.updateCompetition(competition, competitionId)
     } else {
-      dispatch(competitionActions.addCompetition(competition))
+      this.props.addCompetition(competition)
     }
+
+    this.props.closeModal()
   }
 
   setButtonName(t) {
@@ -105,12 +122,8 @@ class CompetitionForm extends Component {
     } = this.state;
 
     const { t } = this.props
-
     return (
       <Card className="card__form">
-        <CardHeader tag="h2">
-          {t('admin.competitionForm.title')}
-        </CardHeader>
         <CardBody>
           <Form name="form" onSubmit={this.handleSubmit}>
             <FormGroup className={(submitted && !name ? ' has-error' : '')}>
@@ -234,10 +247,18 @@ class CompetitionForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  const { alert } = state
+  return {
+    alert
+  };
 }
 
-const connectedForm = connect(mapStateToProps)(CompetitionForm);
+const mapDispatchToProps = dispatch => ({
+  addCompetition: (competition) => dispatch(competitionActions.addCompetition(competition)),
+  updateCompetition: (competition, competitionId) => dispatch(competitionActions.updateCompetition(competition, competitionId)),
+})
+
+const connectedForm = connect(mapStateToProps, mapDispatchToProps)(CompetitionForm);
 const translatedForm = withNamespaces()(connectedForm)
 
 export { translatedForm as CompetitionForm };
