@@ -7,10 +7,8 @@ import { alertActions } from '../_actions'
 import { modalActions } from '../_actions'
 import { history } from '../_helpers'
 
-import { AddCompetition } from '../_scenes/Admin'
 import { Competitions } from '../_scenes/Admin'
 import { Dashboard } from '../_scenes/Admin'
-import { EditCompetition } from '../_scenes/Admin'
 import { Header, Footer } from '../_scenes/Layout/components'
 import { HomePage } from '../_scenes/HomePage';
 import { LoginPage } from '../_scenes/Sign';
