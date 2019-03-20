@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
 
+import { alertActions } from '../../../../_actions/alert.actions'
+import { modalActions } from '../../../../_actions/modal.actions'
 import { competitionActions } from '../../../../_actions/competition.actions'
 
 import { CompetitionsTableRow } from './CompetitionsTableRow'
@@ -19,20 +20,51 @@ export default class Competitions extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(competitionActions.getAll());
+    this.props.getAllCompetitions();
   }
 
   handleDeleteCompetition(id) {
-    return this.props.dispatch(competitionActions.delete(id));
+    return this.props.deleteCompetition(id);
+  }
+
+  openFormModal = ({competition, isEditing}) => {
+    this.props.showModal({
+      closeModal: this.closeModal,
+      isEditing: isEditing,
+      open: true,
+      entity: competition,
+      title: 'Competition form',
+    }, 'form')
+  }
+
+  closeModal = event => {
+    this.props.hideModal()
+    this.props.clearAlerts()
   }
 
   render() {
     const { competitions, t } = this.props
     const handleDeleteCompetition = this.handleDeleteCompetition
+    const openFormModal = this.openFormModal
+    const newCompetition = {
+      attributes: {
+        end_date: '',
+        name: '',
+        place: '',
+        start_date: '',
+        winner_id: '',
+        year: ''
+      },
+      type: 'competition'
+    }
 
     return (
       <div>
-        <Link to='/admin/competitions/new'>{t('admin.competitionsTable.addNewCompetition')}</Link>
+        <Button
+          onClick={() => openFormModal({competition: newCompetition, isEditing: false})}
+        > 
+          {t('admin.competitionsTable.addNewCompetition')}
+        </Button>        
         <Card className="card__form">
           <CardHeader tag="h2">
             {t('admin.competitionsTable.title')}
@@ -61,6 +93,7 @@ export default class Competitions extends Component {
                       handleDeleteCompetition={handleDeleteCompetition}
                       index={index}
                       key={competition.id}
+                      openFormModal={openFormModal}
                     />
                   )}
                 </tbody>
@@ -79,7 +112,17 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedCompetitions = connect(mapStateToProps)(Competitions);
+const mapDispatchToProps = dispatch => ({
+  clearAlerts: () => dispatch(alertActions.clear()),
+  deleteCompetition: (id) => dispatch(competitionActions.delete(id)),
+  getAllCompetitions: (currentPage, perPage) => dispatch(competitionActions.getAll(currentPage, perPage)),
+  hideModal: () => dispatch(modalActions.hideModal()),
+  showModal: (modalProps, modalType) => {
+    dispatch(modalActions.showModal(modalProps, modalType ))
+  }
+})
+
+const connectedCompetitions = connect(mapStateToProps, mapDispatchToProps)(Competitions);
 const translatedCompetitions = withNamespaces()(connectedCompetitions)
 
 export { translatedCompetitions as Competitions }; 

@@ -5,7 +5,7 @@ import DateTime from 'react-datetime';
 import { withNamespaces } from 'react-i18next';
 
 import { Button,
-         Card, CardHeader, CardBody,
+         Card, CardBody,
          Form, FormGroup, 
          Input, InputGroup, 
          Label } from 'reactstrap';
@@ -24,6 +24,7 @@ class CompetitionForm extends Component {
   }
 
   static propTypes = {
+    closeModal: PropTypes.func.isRequired,
     competition: PropTypes.object.isRequired,
     isEditing: PropTypes.bool.isRequired
   }
@@ -37,6 +38,21 @@ class CompetitionForm extends Component {
     winnerId: this.props.competition.attributes.winner_id,
     year: this.props.competition.attributes.year,
     submitted: false
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.alert !== prevState.alert ||
+        nextProps.closeModal !== prevState.closeModal ||
+        nextProps.isEditing !== prevState.isEditing
+      ) {
+        return {
+          alert: nextProps.alert,
+          closeModal: nextProps.closeModal,
+          isEditing: nextProps.isEditing,
+        }
+      } else {
+        return null
+      }
   }
 
   handleInputChange(e) {
@@ -83,6 +99,8 @@ class CompetitionForm extends Component {
     } else {
       dispatch(competitionActions.addCompetition(competition))
     }
+
+    this.props.closeModal()
   }
 
   setButtonName(t) {
@@ -105,12 +123,9 @@ class CompetitionForm extends Component {
     } = this.state;
 
     const { t } = this.props
-
+    console.log('CompetitionForm')
     return (
       <Card className="card__form">
-        <CardHeader tag="h2">
-          {t('admin.competitionForm.title')}
-        </CardHeader>
         <CardBody>
           <Form name="form" onSubmit={this.handleSubmit}>
             <FormGroup className={(submitted && !name ? ' has-error' : '')}>
@@ -234,7 +249,10 @@ class CompetitionForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  const { alert } = state
+  return {
+    alert
+  };
 }
 
 const connectedForm = connect(mapStateToProps)(CompetitionForm);

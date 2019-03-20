@@ -37,6 +37,7 @@ class ModalContainer extends Component {
     const modalType =  this.props.modalType
     switch (modalType) {
       case 'form':
+        console.log(modalType)
         return <FormModal
                   closeModal={this.closeModal}
                   {...this.props.modalProps}
