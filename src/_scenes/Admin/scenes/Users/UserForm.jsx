@@ -332,7 +332,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   addUser: (user) => dispatch(userActions.addUser(user)),
-  deleteUserPhoto: (id) => dispatch(userActions.deleteUserPhoto(id)),
+  deleteUserPhoto: (deletePhotoData, userId) => dispatch(userActions.deleteUserPhoto(deletePhotoData, userId)),
   updateUser: (user, userId) => dispatch(userActions.updateUser(user, userId)),
   updateUserPhoto: (id, userWithNewPhoto) => dispatch(userActions.updateUserPhoto(id, userWithNewPhoto)),
 })
