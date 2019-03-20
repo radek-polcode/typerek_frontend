@@ -1,7 +1,5 @@
-export { AddCompetition } from './scenes/Competitions'
 export { Competitions } from './scenes/Competitions'
 export { Dashboard } from './scenes/Dashboard'
-export { EditCompetition } from './scenes/Competitions'
 export { Users } from './scenes/Users'
 export { UserForm } from './scenes/Users'
 export { Teams } from './scenes/Teams'
