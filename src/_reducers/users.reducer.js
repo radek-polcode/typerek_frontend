@@ -14,22 +14,22 @@ export function users(state = {}, action) {
       return {
         items: state.items.concat(action.user.data)
       }
-    case userConstants.UPDATE_USER_REQUEST:
+    case userConstants.UPDATEUSER_REQUEST:
       return {
         ...state,
       }
-    case userConstants.UPDATE_USER_FAILURE:
+    case userConstants.UPDATEUSER_FAILURE:
       return {
         error: action.error
       }
-    case userConstants.UPDATE_USER_SUCCESS:
+    case userConstants.UPDATEUSER_SUCCESS:
       return {
         ...state,
-        items: state.items.filter(function(user) {
-          if (user.id === action.user.id) {
-            return user
+        items: state.items.map(function(user) {
+          if (user.id === action.user.data.id) {
+            return action.user.data
           } else {
-            return action.user
+            return user
           }
         })          
     }
