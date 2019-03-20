@@ -26,13 +26,13 @@ class UserForm extends Component {
   }
 
   state = {
-    userId: this.props.user.id,
-    type: this.props.user.type,
     email: this.props.user.attributes.email,
-    username: this.props.user.attributes.username,
     role: this.props.user.attributes.role,
-    takesPart: this.props.user.attributes.takesPart,
-    submitted: false
+    submitted: false,
+    takesPart: this.props.user.attributes.take_part,
+    type: this.props.user.type,
+    userId: this.props.user.id,
+    username: this.props.user.attributes.username
   }
 
   handleInputChange(e) {

@@ -53,6 +53,7 @@ class Users extends Component {
         username: '',
         password: '',
         role: '',
+        takesPart: true
       },
       type: 'user'
     }
