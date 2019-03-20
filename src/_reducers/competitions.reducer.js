@@ -2,15 +2,15 @@ import { competitionConstants } from '../_constants'
 
 export function competitions(state = {}, action) {
   switch(action.type) {
-    case competitionConstants.ADDUSER_REQUEST:
+    case competitionConstants.ADDCOMPETITION_REQUEST:
     return {
       ...state,
     }
-    case competitionConstants.ADDUSER_FAILURE:
+    case competitionConstants.ADDCOMPETITION_FAILURE:
       return {
         error: action.error
       }
-    case competitionConstants.ADDUSER_SUCCESS:
+    case competitionConstants.ADDCOMPETITION_SUCCESS:
       return {
         items: state.items.concat(action.competition.data)
       }
@@ -50,22 +50,22 @@ export function competitions(state = {}, action) {
       return {
         error: action.error
     };
-    case competitionConstants.UPDATE_COMPETITION_REQUEST:
+    case competitionConstants.UPDATECOMPETITION_REQUEST:
       return {
         ...state,
       }
-    case competitionConstants.UPDATE_COMPETITION_FAILURE:
+    case competitionConstants.UPDATECOMPETITION_FAILURE:
       return {
         error: action.error
       }
-    case competitionConstants.UPDATE_COMPETITION_SUCCESS:
+    case competitionConstants.UPDATECOMPETITION_SUCCESS:
       return {
         ...state,
-        items: state.items.filter(function(competition) {
-          if (competition.id === action.competition.id) {
-            return competition
+        items: state.items.map(function(competition) {
+          if (competition.id === action.competition.data.id) {
+            return action.competition.data
           } else {
-            return action.competition
+            return competition
           }
         })          
     }
