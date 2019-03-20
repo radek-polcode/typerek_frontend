@@ -78,7 +78,6 @@ class CompetitionForm extends Component {
     const isEditing = this.props.isEditing
     
     const { endDate, name, place, startDate, winnerId, year } = this.state
-    const { dispatch } = this.props;
 
     let competition = {
       data: {
@@ -95,9 +94,9 @@ class CompetitionForm extends Component {
     }
 
     if (isEditing) {
-      dispatch(competitionActions.updateCompetition(competition, competitionId))
+      this.props.updateCompetition(competition, competitionId)
     } else {
-      dispatch(competitionActions.addCompetition(competition))
+      this.props.addCompetition(competition)
     }
 
     this.props.closeModal()
@@ -123,7 +122,6 @@ class CompetitionForm extends Component {
     } = this.state;
 
     const { t } = this.props
-    console.log('CompetitionForm')
     return (
       <Card className="card__form">
         <CardBody>
@@ -255,7 +253,12 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedForm = connect(mapStateToProps)(CompetitionForm);
+const mapDispatchToProps = dispatch => ({
+  addCompetition: (competition) => dispatch(competitionActions.addCompetition(competition)),
+  updateCompetition: (competition, competitionId) => dispatch(competitionActions.updateCompetition(competition, competitionId)),
+})
+
+const connectedForm = connect(mapStateToProps, mapDispatchToProps)(CompetitionForm);
 const translatedForm = withNamespaces()(connectedForm)
 
 export { translatedForm as CompetitionForm };
