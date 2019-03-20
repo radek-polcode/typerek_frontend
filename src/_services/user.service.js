@@ -4,6 +4,7 @@ import config from '../_config';
 export const userService = {
   addUser,
   delete: _delete,
+  deleteUserPhoto,
   getAll,
   getById,
   updateUser,
@@ -34,6 +35,17 @@ function _delete(id) {
   return fetch(`${config.apiUrl}/${namespace}users/${id}`, requestOptions)
           .then(handleResponse);
 }
+
+function deleteUserPhoto(data, id) {
+  const requestOptions = {
+    method: 'PATCH',
+    headers: authenticationHeaders(),
+    body: JSON.stringify(data)
+  }
+  return fetch(`${config.apiUrl}/${namespace}users/${id}`, requestOptions)
+          .then(handleResponse)
+}
+
 function getAll() {
   const requestOptions = {
     method: 'GET',

@@ -17,6 +17,7 @@ import { userActions } from '../../../../_actions';
 class UserForm extends Component {
   constructor(props) {
     super(props)
+    this.handleDeleteThumb = this.handleDeleteThumb.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSelectedFile = this.handleSelectedFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,6 +57,26 @@ class UserForm extends Component {
       } else {
         return null
       }
+  }
+
+  handleDeleteThumb(e) {
+    const userId = this.state.userId
+    const { dispatch } = this.props;
+
+    let deletePhotoData = {
+      data: {
+        type: 'users',
+        attributes: {
+          remove_photo: true,
+        }
+      }
+    }
+    dispatch(userActions.deleteUserPhoto(deletePhotoData, userId))
+
+    this.setState({
+      newPhoto: null,
+      photo: null
+    })
   }
 
   handleInputChange(e) {
@@ -122,7 +143,7 @@ class UserForm extends Component {
     } = this.state
 
     const { dispatch } = this.props;
-
+    
     let user = {
       data: {
         type: 'users',
@@ -170,6 +191,7 @@ class UserForm extends Component {
       username, 
     } = this.state;
 
+    const handleDeleteThumb = this.handleDeleteThumb
     const handleSelectedFile = this.handleSelectedFile
     const handleUpload = this.handleUpload
 
@@ -281,6 +303,7 @@ class UserForm extends Component {
             </FormGroup>
             <UploadPhoto
               alert={alert}
+              handleDeleteThumb={handleDeleteThumb}
               handleSelectedFile={handleSelectedFile}
               handleUpload={handleUpload}
               isEditing={isEditing}

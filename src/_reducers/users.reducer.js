@@ -38,6 +38,25 @@ export function users(state = {}, action) {
           return user;
         })
       };
+    case userConstants.DELETEUSERPHOTO_REQUEST:
+      return {
+        ...state,
+      }
+    case userConstants.DELETEUSERPHOTO_FAILURE:
+      return {
+        error: action.error
+      }
+    case userConstants.DELETEUSERPHOTO_SUCCESS:
+      return {
+        ...state,
+        items: state.items.map(function(user) {
+          if (user.id === action.user.data.id) {
+            return action.user.data
+          } else {
+            return user
+          }
+        })          
+      }
     case userConstants.GETALL_REQUEST:
       return {
         loading: true

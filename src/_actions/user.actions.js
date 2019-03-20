@@ -7,6 +7,7 @@ import i18n from '../i18n';
 export const userActions = {
   addUser,
   delete: _delete,
+  deleteUserPhoto,
   getAll,
   updateUser,
   updateUserPhoto
@@ -53,6 +54,39 @@ function addUser(user) {
   function request(user) { return { type: userConstants.ADDUSER_REQUEST, user } }
   function success(user) { return { type: userConstants.ADDUSER_SUCCESS, user } }
   function failure(error) { return { type: userConstants.ADDUSER_FAILURE, error } }
+}
+
+function deleteUserPhoto(payload, id) {
+  let t = i18n.t.bind(i18n);
+
+  return dispatch => {
+    dispatch(request());
+    userService.deleteUserPhoto(payload, id)
+      .then(
+        user => {
+          dispatch(success(user));
+          dispatch(alertActions.success(
+            userConstants.DELETEUSERPHOTO_SUCCESS,
+            t('alerts.users.photoDeleted'),
+            false
+          ));
+        },
+        error => {
+          dispatch(failure(error.toString()));
+          dispatch(
+            alertActions.error(
+              userConstants.DELETEUSERPHOTO_FAILURE,
+              error.toString(),
+              false
+            )
+          );
+        }
+      )
+  };
+
+  function request(user) { return { type: userConstants.DELETEUSERPHOTO_REQUEST, user } }
+  function success(user) { return { type: userConstants.DELETEUSERPHOTO_SUCCESS, user } }
+  function failure(error) { return { type: userConstants.DELETEUSERPHOTO_FAILURE, error } }
 }
 
 function updateUser(user, id) {
