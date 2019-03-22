@@ -16,6 +16,7 @@ function login(email, password) {
     body: JSON.stringify({email, password})
   };
   console.log(requestOptions)
+  console.log(process.env.NODE_ENV)
   return fetch(`${config.apiUrl}/auth/sign_in`, requestOptions)
     .then(handleResponse)
     .then(user => {
