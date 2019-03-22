@@ -15,6 +15,7 @@ function login(email, password) {
     headers: config.defaultHeaders,
     body: JSON.stringify({email, password})
   };
+  console.log(requestOptions)
   return fetch(`${config.apiUrl}/auth/sign_in`, requestOptions)
     .then(handleResponse)
     .then(user => {
