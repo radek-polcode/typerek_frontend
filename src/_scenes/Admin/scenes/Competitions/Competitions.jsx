@@ -11,11 +11,20 @@ import { competitionActions } from '../../../../_actions/competition.actions'
 import { modalActions } from '../../../../_actions/modal.actions'
 import { teamActions } from '../../../../_actions/team.actions'
 
-import { CompetitionsTableRow } from './CompetitionsTableRow'
+import { TableHeadings } from '../../../../_components/Tables'
 import { formattingDateTime } from '../../../../_helpers'
+import TableBody from '../../../../_components/Tables/TableBody';
 
 export default class Competitions extends Component {
   static propTypes = {
+    clearAlerts: PropTypes.func.isRequired,
+    competitions: PropTypes.object,
+    deleteCompetition: PropTypes.func.isRequired,
+    getAllCompetitions:PropTypes.func.isRequired,
+    getAllTeams: PropTypes.func.isRequired,
+    hideModal: PropTypes.func.isRequired,
+    showModal: PropTypes.func.isRequired,
+    teams: PropTypes.object,
   }
 
   constructor(props) {
@@ -28,30 +37,20 @@ export default class Competitions extends Component {
     this.props.getAllTeams();
   }
 
-  handleDeleteCompetition(id) {
-    return this.props.deleteCompetition(id);
-  }
-
-  openFormModal = ({competition, isEditing}) => {
-    this.props.showModal({
-      closeModal: this.closeModal,
-      isEditing: isEditing,
-      open: true,
-      entity: competition,
-      title: 'Competition form',
-    }, 'form')
-  }
-
   closeModal = event => {
     this.props.hideModal()
     this.props.clearAlerts()
   }
 
+  handleDeleteCompetition(id) {
+    return this.props.deleteCompetition(id);
+  }
+
   render() {
+    const { competitions, showModal, t } = this.props
+    const closeModal = this.closeModal
     const dateNow = formattingDateTime.toIsoFormat(moment())
-    const { competitions, t } = this.props
     const handleDeleteCompetition = this.handleDeleteCompetition
-    const openFormModal = this.openFormModal
     const newCompetition = {
       attributes: {
         end_date: dateNow,
@@ -63,11 +62,32 @@ export default class Competitions extends Component {
       },
       type: 'competition'
     }
+    const tableHeadingNames = [
+      '#',
+      t('admin.competitionsTable.competitionName'),
+      t('admin.competitionsTable.place'),
+      t('admin.competitionsTable.year'),
+      t('admin.competitionsTable.startDate'),
+      t('admin.competitionsTable.endDate'),
+      t('admin.competitionsTable.winner'),
+      t('shared.action')
+    ]
 
     return (
       <div>
         <Button
-          onClick={() => openFormModal({competition: newCompetition, isEditing: false})}
+          onClick={() =>
+            showModal(
+              {
+                closeModal: closeModal,
+                item: newCompetition, 
+                isEditing: false,
+                open: true,
+                title: 'Competition form'
+              },
+              'form'
+            )
+          }
         > 
           {t('admin.competitionsTable.addNewCompetition')}
         </Button>        
@@ -76,33 +96,17 @@ export default class Competitions extends Component {
             {t('admin.competitionsTable.title')}
           </CardHeader>
           <CardBody>
-            <Table
-                responsive
-              >
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>{t('admin.competitionsTable.competitionName')}</th>
-                    <th>{t('admin.competitionsTable.place')}</th>
-                    <th>{t('admin.competitionsTable.year')}</th>
-                    <th>{t('admin.competitionsTable.startDate')}</th>
-                    <th>{t('admin.competitionsTable.endDate')}</th>
-                    <th>{t('admin.competitionsTable.winner')}</th>
-                    <th>{t('shared.action')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {competitions.items &&
-                    competitions.items.map((competition, index) =>
-                    <CompetitionsTableRow
-                      competition={competition}
-                      handleDeleteCompetition={handleDeleteCompetition}
-                      index={index}
-                      key={competition.id}
-                      openFormModal={openFormModal}
-                    />
-                  )}
-                </tbody>
+            <Table responsive>
+              <TableHeadings 
+                tableHeadingNames={tableHeadingNames}
+              />
+              <TableBody
+                closeModal={closeModal}
+                handleDeleteItem={handleDeleteCompetition}
+                items={competitions.items}
+                showModal={showModal}
+                title={'Competition form'}
+              />
             </Table>
           </CardBody>
         </Card>
@@ -112,9 +116,10 @@ export default class Competitions extends Component {
 }
 
 function mapStateToProps(state) {
-  const { competitions } = state;
+  const { competitions, teams } = state;
   return {
-    competitions
+    competitions,
+    teams
   };
 }
 

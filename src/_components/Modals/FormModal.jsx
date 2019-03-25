@@ -9,33 +9,33 @@ import cx from 'classnames';
 
 import styles from './FormModal.module.css'
 
-function contentToRender({ closeModal, entity, isEditing }) {
-  const entityType = entity.type
-  switch (entityType) {
+function contentToRender({ closeModal, item, isEditing }) {
+  const itemType = item.type
+  switch (itemType) {
     case 'competition':
       return <CompetitionForm
-                isEditing={isEditing}
-                competition={entity}
                 closeModal={closeModal}
+                competition={item}
+                isEditing={isEditing}
               />
     case 'user':
       return <UserForm
-                isEditing={isEditing}
-                user={entity}
                 closeModal={closeModal}
+                isEditing={isEditing}
+                user={item}
               />
     case 'team':
       return <TeamForm
-                isEditing={isEditing}
-                team={entity}
                 closeModal={closeModal}
+                isEditing={isEditing}
+                team={item}
               />
     default:
       return null
   }
 }
 
-const FormModal = ({ closeModal, entity, isEditing, title }) => {
+const FormModal = ({ closeModal, item, isEditing, title }) => {
   return (
     <div className={cx(styles.form__modal__content, "modal-content")}>
       <div className={cx(styles.form__modal__header, "modal-header")}>
@@ -49,7 +49,7 @@ const FormModal = ({ closeModal, entity, isEditing, title }) => {
         </button>
       </div>
       <div className={cx(styles.form__modal__body, "modal-body")}>
-        { entity && contentToRender({closeModal, entity, isEditing}) }
+        { item && contentToRender({closeModal, item, isEditing}) }
       </div>
     </div>
   )
@@ -57,7 +57,7 @@ const FormModal = ({ closeModal, entity, isEditing, title }) => {
 
 FormModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  entity: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   isEditing: PropTypes.bool.isRequired,
 }
 

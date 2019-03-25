@@ -235,7 +235,6 @@ class CompetitionForm extends Component {
                     {teams && teams.items.map((el, index) => {
                       return <option
                                 key={index + 1}
-                                selected={el.id === winnerId}
                                 value={el.id}>
                                   { el.attributes.name }
                               </option>

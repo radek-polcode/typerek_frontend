@@ -1,6 +1,8 @@
 export * from './PrivateRoute';
-export { LoadingView } from './LoadingView';
 export { FormModal } from './Modals/FormModal';
-export { Pagination } from './Pagination';
 export { ItemsPerPageDropdown } from './ItemsPerPageDropdown';
+export { LoadingView } from './LoadingView';
+export { Pagination } from './Pagination';
+export { TableHeadings } from './Tables';
+export { TableRow } from './Tables';
 export { UploadPhoto } from './UploadPhoto';
