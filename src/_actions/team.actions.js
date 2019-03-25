@@ -104,10 +104,10 @@ function deleteTeamPhoto(payload, id) {
   function failure(error) { return { type: teamConstants.DELETETEAMPHOTO_FAILURE, error } }
 }
 
-function getAll(page, perPage) {
+function getAll(page, perPage, getAll = false) {
   return dispatch => {
     dispatch(request());
-    teamService.getAll(page, perPage)
+    teamService.getAll(page, perPage, getAll)
       .then(
         teams => {
           dispatch(success(teams));
