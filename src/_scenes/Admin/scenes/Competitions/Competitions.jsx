@@ -7,8 +7,9 @@ import { withNamespaces } from 'react-i18next';
 import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
 
 import { alertActions } from '../../../../_actions/alert.actions'
-import { modalActions } from '../../../../_actions/modal.actions'
 import { competitionActions } from '../../../../_actions/competition.actions'
+import { modalActions } from '../../../../_actions/modal.actions'
+import { teamActions } from '../../../../_actions/team.actions'
 
 import { CompetitionsTableRow } from './CompetitionsTableRow'
 import { formattingDateTime } from '../../../../_helpers'
@@ -24,6 +25,7 @@ export default class Competitions extends Component {
 
   componentDidMount() {
     this.props.getAllCompetitions();
+    this.props.getAllTeams();
   }
 
   handleDeleteCompetition(id) {
@@ -120,6 +122,7 @@ const mapDispatchToProps = dispatch => ({
   clearAlerts: () => dispatch(alertActions.clear()),
   deleteCompetition: (id) => dispatch(competitionActions.delete(id)),
   getAllCompetitions: (currentPage, perPage) => dispatch(competitionActions.getAll(currentPage, perPage)),
+  getAllTeams: () => dispatch(teamActions.getAll(null, null, true)),
   hideModal: () => dispatch(modalActions.hideModal()),
   showModal: (modalProps, modalType) => {
     dispatch(modalActions.showModal(modalProps, modalType ))

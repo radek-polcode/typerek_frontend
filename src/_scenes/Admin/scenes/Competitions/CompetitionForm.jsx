@@ -35,6 +35,7 @@ class CompetitionForm extends Component {
     name: this.props.competition.attributes.name,
     place: this.props.competition.attributes.place,
     startDate: this.props.competition.attributes.start_date,
+    teams: {},
     winnerId: this.props.competition.attributes.winner_id,
     year: this.props.competition.attributes.year,
     submitted: false
@@ -43,12 +44,14 @@ class CompetitionForm extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.alert !== prevState.alert ||
         nextProps.closeModal !== prevState.closeModal ||
-        nextProps.isEditing !== prevState.isEditing
+        nextProps.isEditing !== prevState.isEditing ||
+        nextProps.teams !== prevState.teams
       ) {
         return {
           alert: nextProps.alert,
           closeModal: nextProps.closeModal,
           isEditing: nextProps.isEditing,
+          teams: nextProps.teams
         }
       } else {
         return null
@@ -59,6 +62,7 @@ class CompetitionForm extends Component {
     const target = e.target;
     const value = target.value;
     const name = target.name;
+
     this.setState({
       [name]: value
     });
@@ -87,7 +91,7 @@ class CompetitionForm extends Component {
           name: name,
           place: place,
           start_date: startDate,
-          winnerId: winnerId,
+          winner_id: winnerId,
           year: year
         }
       }
@@ -121,7 +125,7 @@ class CompetitionForm extends Component {
       year 
     } = this.state;
 
-    const { t } = this.props
+    const { t, teams } = this.props
     return (
       <Card className="card__form">
         <CardBody>
@@ -218,21 +222,26 @@ class CompetitionForm extends Component {
                 }
               </InputGroup>
             </FormGroup>
-            <FormGroup className={(submitted && !winnerId ? ' has-error' : '')}>
-              <Label htmlFor="winnerId">{t('shared.winner')}</Label>
-              <InputGroup>
-                <Input type="text" 
-                        className="form-control card__form__input" 
-                        name="winnerId" 
-                        onChange={this.handleInputChange}
-                        value={winnerId}
-                />
-                {submitted && !winnerId &&
-                  <div className="help-block">
-                    {t('shared.name')} {t('shared.isRequired')}
-                  </div>
-                }
-              </InputGroup>
+            <FormGroup>
+                <Label htmlFor="role">{t('shared.winner')}</Label>
+                <InputGroup>
+                  <Input className="form-control card__form__input"
+                         name="winnerId" 
+                         onChange={this.handleInputChange}
+                         type="select"
+                         value={winnerId}
+                  >
+                    <option value="" disabled>Select team</option>
+                    {teams && teams.items.map((el, index) => {
+                      return <option
+                                key={index + 1}
+                                selected={el.id === winnerId}
+                                value={el.id}>
+                                  { el.attributes.name }
+                              </option>
+                    })}
+                  </Input>
+                </InputGroup>
             </FormGroup>
             <FormGroup>
               <Button>
@@ -247,9 +256,10 @@ class CompetitionForm extends Component {
 }
 
 function mapStateToProps(state) {
-  const { alert } = state
+  const { alert, teams } = state
   return {
-    alert
+    alert,
+    teams
   };
 }
 

@@ -47,17 +47,22 @@ function deleteTeamPhoto(data, id) {
           .then(handleResponse)
 }
 
-function getAll(page, perPage) {
+function getAll(page, perPage, getAll = false) {
   const currentPage = page ? page : initialPage
   const limitPerPage = perPage ? perPage : initialLimitPerPage
-
   const requestOptions = {
     method: 'GET',
     headers: authenticationHeaders()
   };
 
-  return fetch(`${config.apiUrl}/${namespace}teams?page=${currentPage}&per_page=${limitPerPage}`, requestOptions)
-          .then(handleResponse);
+  if (getAll) {
+    return fetch(`${config.apiUrl}/${namespace}teams?all=true`, requestOptions)
+            .then(handleResponse);
+  } else {
+    return fetch(`${config.apiUrl}/${namespace}teams?page=${currentPage}&per_page=${limitPerPage}`, requestOptions)
+            .then(handleResponse);
+  }
+
 }
 
 function updateTeam(team, id) {  
