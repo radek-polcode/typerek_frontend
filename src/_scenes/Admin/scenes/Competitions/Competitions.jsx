@@ -16,6 +16,8 @@ import { formattingDateTime } from '../../../../_helpers'
 
 export default class Competitions extends Component {
   static propTypes = {
+    competitions: PropTypes.object,
+    teams: PropTypes.object
   }
 
   constructor(props) {
@@ -26,6 +28,11 @@ export default class Competitions extends Component {
   componentDidMount() {
     this.props.getAllCompetitions();
     this.props.getAllTeams();
+  }
+
+  closeModal = event => {
+    this.props.hideModal()
+    this.props.clearAlerts()
   }
 
   handleDeleteCompetition(id) {
@@ -40,11 +47,6 @@ export default class Competitions extends Component {
       entity: competition,
       title: 'Competition form',
     }, 'form')
-  }
-
-  closeModal = event => {
-    this.props.hideModal()
-    this.props.clearAlerts()
   }
 
   render() {
@@ -67,7 +69,8 @@ export default class Competitions extends Component {
     return (
       <div>
         <Button
-          onClick={() => openFormModal({competition: newCompetition, isEditing: false})}
+          onClick={() => openFormModal({competition: newCompetition, 
+                                        isEditing: false})}
         > 
           {t('admin.competitionsTable.addNewCompetition')}
         </Button>        
@@ -112,9 +115,10 @@ export default class Competitions extends Component {
 }
 
 function mapStateToProps(state) {
-  const { competitions } = state;
+  const { competitions, teams } = state;
   return {
-    competitions
+    competitions,
+    teams
   };
 }
 
