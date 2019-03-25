@@ -7,6 +7,8 @@ TableBody.propTypes = {
   closeModal: PropTypes.func,
   handleDeleteItem: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired,
+  page: PropTypes.number,
+  perPage: PropTypes.number,
   showModal: PropTypes.func,
   title: PropTypes.string.isRequired,
 }
@@ -19,6 +21,8 @@ function TableBody(props) {
   const {
     handleDeleteItem,
     items,
+    page,
+    perPage,
     showModal,
     closeModal,
     title
@@ -34,6 +38,8 @@ function TableBody(props) {
             index={index}
             item={item}
             key={item.id}
+            page={page}
+            perPage={perPage}
             showModal={showModal}
             title={title}
           />

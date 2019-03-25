@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import Flag from "react-flags"
 import { withNamespaces } from 'react-i18next';
 
 import { formattingDateTime } from '../../_helpers'
+import { listPosition } from '../../_helpers'
+
+import { TableActionButtons } from './TableActionButtons'
 
 TableRow.propTypes = {
   closeModal: PropTypes.func.isRequired,
@@ -57,11 +60,48 @@ const competitionRow = (item, index) => {
   )
 }
 
-function rowToRender(index, item, title) {
+const teamRow = (item, index, page, perPage) => {
+  const { 
+    abbreviation,
+    name,
+    name_en,
+  } = item.attributes
+
+  return (
+    <>
+      <td>
+        {listPosition.count(index, page, perPage)}
+      </td>
+      <td>
+        {name}
+      </td>
+      <td>
+        {name_en}
+      </td>
+      <td>
+        {abbreviation}
+      </td>
+      <td>
+        <Flag
+          name={abbreviation}
+          format="png"
+          pngSize={24}
+          shiny={false}
+          alt=""
+          basePath='/img/flags'
+          />
+      </td>
+    </>
+  )
+}
+
+function rowToRender(index, item, page, perPage) {
   const type = item.type
   switch (type) {
     case 'competition':
       return competitionRow(item, index)
+    case 'team':
+      return teamRow(item, index, page, perPage)
     default:
       return null
   }
@@ -72,35 +112,28 @@ function TableRow({
   item, 
   handleDeleteItem, 
   index,
+  page,
+  perPage,
   showModal,
   title,
-  t 
+  t
 }) {
   
   return (
     <tr>
       {
-        rowToRender(index, item, title)
+        rowToRender(index, item, page, perPage)
       }
-      <td>
-        <FaPencilAlt 
-          className="table__action__icon icon__edit"
-          onClick={() => showModal({
-            closeModal: closeModal,
-            item,
-            isEditing: true,
-            open: true,
-            title: title
-          }, 'form')}
-        />
-        <FaTrashAlt 
-          className="table__action__icon icon__delete"
-          onClick={() => { 
-            if(window.confirm(t('admin.itemForm.confirmationMessage'))) 
-              handleDeleteItem(item.id)
-          }}
-        /> 
-      </td>
+      <TableActionButtons 
+        closeModal={closeModal}
+        handleDeleteItem={handleDeleteItem}
+        isEditing={true}
+        item={item}
+        open={true}
+        showModal={showModal}
+        title={title}
+        t={t}
+      />
     </tr>
   )
 }
