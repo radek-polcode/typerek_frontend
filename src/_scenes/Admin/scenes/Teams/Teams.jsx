@@ -10,6 +10,7 @@ import { modalActions } from '../../../../_actions/modal.actions'
 import { teamActions } from '../../../../_actions/team.actions'
 
 import { TeamsTableRow } from  './TeamsTableRow'
+import TableBody from '../../../../_components/Tables/TableBody';
 
 export default class Teams extends Component {
   static propTypes = {

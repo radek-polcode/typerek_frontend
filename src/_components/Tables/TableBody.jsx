@@ -43,5 +43,5 @@ function TableBody(props) {
   )
 }
 
-export default TableBody
+export { TableBody }
 
