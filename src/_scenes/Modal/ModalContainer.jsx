@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import ReactModal from 'react-modal';
 import { withNamespaces } from 'react-i18next';
+
+import { alertActions } from '../../_actions/alert.actions'
+import { modalActions } from '../../_actions/modal.actions' 
 
 import { AlertModal } from '../../_components/Modals'
 import { FormModal } from '../../_components/Modals'
@@ -21,6 +25,14 @@ class ModalContainer extends Component {
       modalIsOpen: false
     };
     this.closeModal = this.closeModal.bind(this)
+  }
+
+  static propTypes = {
+    clearAlerts: PropTypes.func,
+    hideModal: PropTypes.func,
+    modalProps: PropTypes.object.isRequired,
+    modalType: PropTypes.object.isRequired
+
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -53,6 +65,8 @@ class ModalContainer extends Component {
 
   closeModal() {
     this.setState({ modalIsOpen: false })
+    this.props.clearAlerts()
+    this.props.hideModal()
   }
 
   render() {
@@ -77,6 +91,11 @@ class ModalContainer extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  clearAlerts: () => dispatch(alertActions.clear()),
+  hideModal: () => dispatch(modalActions.hideModal()),
+})
+
 function mapStateToProps(state) {
   const { modalProps, modalType } = state.modal;
   return {
@@ -85,7 +104,7 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedModalContainer = connect(mapStateToProps)(ModalContainer);
+const connectedModalContainer = connect(mapStateToProps, mapDispatchToProps)(ModalContainer);
 const translatedModalContainer = withNamespaces()(connectedModalContainer)
 
 export { translatedModalContainer as ModalContainer }; 

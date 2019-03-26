@@ -116,14 +116,8 @@ export default class Teams extends Component {
     })
   }
 
-  closeModal = event => {
-    this.props.hideModal()
-    this.props.clearAlerts()
-  }
-
   render() {
     const { showModal, t, teams } = this.props
-    const closeModal = this.closeModal
     const { currentPage, path, perPage, totalPages, totalRecords } = this.state
     const handleDeleteTeam = this.handleDeleteTeam
     const isLoading = this.props.teams.loading
@@ -154,7 +148,6 @@ export default class Teams extends Component {
           onClick={() =>
             showModal(
               {
-                closeModal: closeModal,
                 item: newTeam, 
                 isEditing: false,
                 open: true,
@@ -188,7 +181,6 @@ export default class Teams extends Component {
                     tableHeadingNames={tableHeadingNames}
                   />
                   <TableBody
-                    closeModal={closeModal}
                     handleDeleteItem={handleDeleteTeam}
                     items={teams.items}
                     page={currentPage}

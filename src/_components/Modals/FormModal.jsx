@@ -9,24 +9,21 @@ import cx from 'classnames';
 
 import styles from './FormModal.module.css'
 
-function contentToRender({ closeModal, item, isEditing }) {
+function contentToRender({item, isEditing }) {
   const itemType = item.type
   switch (itemType) {
     case 'competition':
       return <CompetitionForm
-                closeModal={closeModal}
                 competition={item}
                 isEditing={isEditing}
               />
     case 'user':
       return <UserForm
-                closeModal={closeModal}
                 isEditing={isEditing}
                 user={item}
               />
     case 'team':
       return <TeamForm
-                closeModal={closeModal}
                 isEditing={isEditing}
                 team={item}
               />
@@ -42,14 +39,22 @@ const FormModal = ({ closeModal, item, isEditing, title }) => {
         <h5 className="modal-title">
           {title}
         </h5>
-        <button type="button" className="close" aria-label="Close" onClick={closeModal}>
+        <button 
+          type="button" 
+          className="close" 
+          aria-label="Close" 
+          onClick={closeModal}
+        >
           <span     
             className={styles.button__modal__close}
-            aria-hidden="true">&times;</span>
+            aria-hidden="true"
+          >
+            &times;
+          </span>
         </button>
       </div>
       <div className={cx(styles.form__modal__body, "modal-body")}>
-        { item && contentToRender({closeModal, item, isEditing}) }
+        { item && contentToRender({item, isEditing}) }
       </div>
     </div>
   )

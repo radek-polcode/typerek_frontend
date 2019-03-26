@@ -10,10 +10,17 @@ const AlertModal = ({ closeModal, message, title }) => {
         <h5 className="modal-title">
           {title}
         </h5>
-        <button type="button" className="close" aria-label="Close" onClick={closeModal}>
+        <button type="button" 
+          className="close" 
+          aria-label="Close" 
+          onClick={closeModal
+        }>
           <span     
             className={styles.button__modal__close}
-            aria-hidden="true">&times;</span>
+            aria-hidden="true"
+          >
+            &times;
+          </span>
         </button>
       </div>
       <div className={cx(styles.alert__modal__body, "modal-body")}>

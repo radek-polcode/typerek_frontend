@@ -35,14 +35,8 @@ class Users extends Component {
     return this.props.deleteUser(id);
   }
 
-  closeModal = event => {
-    this.props.hideModal()
-    this.props.clearAlerts()
-  }
-
   render() {
     const { showModal, t, users } = this.props
-    const closeModal = this.closeModal
     const handleDeleteUser = this.handleDeleteUser
     const newUser = {
       attributes: {
@@ -70,7 +64,6 @@ class Users extends Component {
           onClick={() =>
             showModal(
               {
-                closeModal: closeModal,
                 item: newUser, 
                 isEditing: false,
                 open: true,
@@ -93,7 +86,6 @@ class Users extends Component {
                 tableHeadingNames={tableHeadingNames}
               />
                 <TableBody
-                  closeModal={closeModal}
                   handleDeleteItem={handleDeleteUser}
                   items={users.items}
                   showModal={showModal}

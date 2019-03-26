@@ -9,7 +9,6 @@ import { listPosition } from '../../_helpers'
 import { TableActionButtons } from './TableActionButtons'
 
 TableRow.propTypes = {
-  closeModal: PropTypes.func.isRequired,
   handleDeleteItem: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   item: PropTypes.object.isRequired,
@@ -143,7 +142,6 @@ function rowToRender(index, item, page, perPage) {
 }
 
 function TableRow({
-  closeModal,
   item, 
   handleDeleteItem, 
   index,
@@ -160,7 +158,6 @@ function TableRow({
         rowToRender(index, item, page, perPage)
       }
       <TableActionButtons 
-        closeModal={closeModal}
         handleDeleteItem={handleDeleteItem}
         isEditing={true}
         item={item}

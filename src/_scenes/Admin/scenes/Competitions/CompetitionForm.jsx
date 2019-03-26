@@ -24,7 +24,6 @@ class CompetitionForm extends Component {
   }
 
   static propTypes = {
-    closeModal: PropTypes.func.isRequired,
     competition: PropTypes.object.isRequired,
     isEditing: PropTypes.bool.isRequired
   }
@@ -43,13 +42,11 @@ class CompetitionForm extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.alert !== prevState.alert ||
-        nextProps.closeModal !== prevState.closeModal ||
         nextProps.isEditing !== prevState.isEditing ||
         nextProps.teams !== prevState.teams
       ) {
         return {
           alert: nextProps.alert,
-          closeModal: nextProps.closeModal,
           isEditing: nextProps.isEditing,
           teams: nextProps.teams
         }
@@ -102,8 +99,6 @@ class CompetitionForm extends Component {
     } else {
       this.props.addCompetition(competition)
     }
-
-    this.props.closeModal()
   }
 
   setButtonName(t) {
