@@ -10,6 +10,8 @@ import { Button,
          Label } from 'reactstrap';
 
 import '../../../../App/App.css'
+import { alertActions } from '../../../../_actions';
+import { modalActions } from '../../../../_actions';
 import { teamActions } from '../../../../_actions';
 import { UploadPhoto } from '../../../../_components';
 
@@ -57,7 +59,6 @@ class TeamForm extends Component {
 
   handleDeleteThumb(e) {
     const teamId = this.state.teamId
-    const { dispatch } = this.props;
 
     let deletePhotoData = {
       data: {
@@ -67,7 +68,7 @@ class TeamForm extends Component {
         }
       }
     }
-    dispatch(teamActions.deleteTeamPhoto(deletePhotoData, teamId))
+    this.props.deleteTeamPhoto(deletePhotoData, teamId)
 
     this.setState({
       newPhoto: null,
@@ -120,7 +121,7 @@ class TeamForm extends Component {
         }
       }
     }
-    dispatch(teamActions.updateTeamPhoto(teamWithNewPhoto, teamId))
+    this.props.updateTeamPhoto(teamWithNewPhoto, teamId)
   }
 
   handleSubmit(e) {
@@ -137,8 +138,6 @@ class TeamForm extends Component {
       newPhoto
     } = this.state
 
-    const { dispatch } = this.props;
-
     let team = {
       data: {
         type: 'teams',
@@ -153,12 +152,14 @@ class TeamForm extends Component {
     }
 
     if (isEditing) {
-      dispatch(teamActions.updateTeam(team, teamId))
+      this.props.updateTeam(team, teamId)
     } else {
       if (name && nameEn && abbreviation) {
-        dispatch(teamActions.addTeam(team))
+        this.props.teamActions.addTeam(team)
       }
     }
+
+    this.props.hideModal()
   }
 
   setButtonName(t) {
@@ -270,6 +271,15 @@ class TeamForm extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  addTeam: (team) => dispatch(teamActions.addTeam(team)),
+  clearAlerts: () => dispatch(alertActions.clear()),
+  deleteTeamPhoto: (deletePhotoData, teamId) => dispatch(teamActions.deleteTeamPhoto(deletePhotoData, teamId)),
+  hideModal: () => dispatch(modalActions.hideModal()),
+  updateTeam: (team, teamId) => dispatch(teamActions.updateTeam(team, teamId)),
+  updateTeamPhoto: (teamWithNewPhoto, teamId) => dispatch(teamActions.updateTeamPhoto(teamWithNewPhoto, teamId))
+})
+
 function mapStateToProps(state) {
   const { alert } = state
   return {
@@ -277,7 +287,7 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedTeamForm = connect(mapStateToProps)(TeamForm);
+const connectedTeamForm = connect(mapStateToProps, mapDispatchToProps)(TeamForm);
 const translatedTeamForm = withNamespaces()(connectedTeamForm)
 
 export { translatedTeamForm as TeamForm };
