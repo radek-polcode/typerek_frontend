@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withNamespaces } from 'react-i18next';
 
 import { Button,
-         Card, CardHeader, CardBody,
+         Card, CardBody,
          CustomInput, Form, FormGroup, 
          Input, InputGroup, InputGroupAddon, InputGroupText, 
          Label } from 'reactstrap';
@@ -12,6 +12,7 @@ import { FaAt, FaLock, FaUser } from 'react-icons/fa';
 
 import '../../../../App/App.css'
 import { UploadPhoto } from '../../../../_components';
+import { modalActions } from '../../../../_actions';
 import { userActions } from '../../../../_actions';
 
 class UserForm extends Component {
@@ -163,6 +164,8 @@ class UserForm extends Component {
         addUser(user)
       }
     }
+
+    this.props.hideModal()
   }
 
   setButtonName(t) {
@@ -325,6 +328,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   addUser: (user) => dispatch(userActions.addUser(user)),
   deleteUserPhoto: (deletePhotoData, userId) => dispatch(userActions.deleteUserPhoto(deletePhotoData, userId)),
+  hideModal: () => dispatch(modalActions.hideModal()),
   updateUser: (user, userId) => dispatch(userActions.updateUser(user, userId)),
   updateUserPhoto: (id, userWithNewPhoto) => dispatch(userActions.updateUserPhoto(id, userWithNewPhoto)),
 })

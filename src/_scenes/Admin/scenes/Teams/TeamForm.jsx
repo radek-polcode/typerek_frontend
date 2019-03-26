@@ -109,7 +109,6 @@ class TeamForm extends Component {
   handleUpload = (e) => {
     e.preventDefault()
 
-    const { dispatch } = this.props;
     const teamId = this.state.teamId
     const newPhoto = this.state.newPhoto
 
@@ -273,7 +272,6 @@ class TeamForm extends Component {
 
 const mapDispatchToProps = dispatch => ({
   addTeam: (team) => dispatch(teamActions.addTeam(team)),
-  clearAlerts: () => dispatch(alertActions.clear()),
   deleteTeamPhoto: (deletePhotoData, teamId) => dispatch(teamActions.deleteTeamPhoto(deletePhotoData, teamId)),
   hideModal: () => dispatch(modalActions.hideModal()),
   updateTeam: (team, teamId) => dispatch(teamActions.updateTeam(team, teamId)),
