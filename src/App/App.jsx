@@ -23,9 +23,7 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.openFormModal = this.openFormModal.bind(this)
     this.closeAlertModal = this.closeAlertModal.bind(this);
-    this.closeFormModal = this.closeFormModal.bind(this);
 
     history.listen((location, action) => {
       // clear alert on location change
@@ -36,19 +34,6 @@ class App extends Component {
   closeAlertModal() {
     this.props.hideModal()
     this.props.clearAlerts();
-  }
-
-  closeFormModal() {
-    this.props.hideModal();
-  }
-
-  openFormModal() {
-    this.props.showModal({
-      open: true,
-      title: 'Form Modal',
-      message: 'MESSAGE',
-      closeModal: this.closeFormModal
-    }, 'form')
   }
 
   openAlertModal(alert) {
