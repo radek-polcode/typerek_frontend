@@ -14,6 +14,7 @@ import '../../../../App/App.css'
 import '../../../../App/react-datetime.css'
 
 import { competitionActions } from '../../../../_actions';
+import { modalActions } from '../../../../_actions';
 import { formattingDateTime } from '../../../../_helpers'
 
 class CompetitionForm extends Component {
@@ -99,6 +100,8 @@ class CompetitionForm extends Component {
     } else {
       this.props.addCompetition(competition)
     }
+
+    this.props.hideModal()
   }
 
   setButtonName(t) {
@@ -259,6 +262,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   addCompetition: (competition) => dispatch(competitionActions.addCompetition(competition)),
+  hideModal: () => dispatch(modalActions.hideModal()),
   updateCompetition: (competition, competitionId) => dispatch(competitionActions.updateCompetition(competition, competitionId)),
 })
 
