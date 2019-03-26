@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
@@ -9,10 +11,17 @@ import { alertActions } from '../../../../_actions/alert.actions'
 import { modalActions } from '../../../../_actions/modal.actions'
 import { teamActions } from '../../../../_actions/team.actions'
 
-import { TeamsTableRow } from  './TeamsTableRow'
+import { TableBody } from '../../../../_components/Tables/TableBody';
+import { TableHeadings } from '../../../../_components/Tables'
 
 export default class Teams extends Component {
   static propTypes = {
+    clearAlerts: PropTypes.func.isRequired,
+    deleteTeam: PropTypes.func.isRequired,
+    getAllTeams:PropTypes.func.isRequired,
+    hideModal: PropTypes.func.isRequired,
+    showModal: PropTypes.func.isRequired,
+    teams: PropTypes.object,
   }
 
   constructor(props) {
@@ -107,30 +116,19 @@ export default class Teams extends Component {
     })
   }
 
-  openFormModal = ({team, isEditing}) => {
-    this.props.showModal({
-      closeModal: this.closeModal,
-      isEditing: isEditing,
-      message: 'MESSAGE',
-      open: true,
-      entity: team,
-      title: 'Team form',
-    }, 'form')
-  }
-
   closeModal = event => {
     this.props.hideModal()
     this.props.clearAlerts()
   }
 
   render() {
-    const { teams, t } = this.props
+    const { showModal, t, teams } = this.props
+    const closeModal = this.closeModal
     const { currentPage, path, perPage, totalPages, totalRecords } = this.state
     const handleDeleteTeam = this.handleDeleteTeam
     const isLoading = this.props.teams.loading
     const onPageChanged = this.onPageChanged
     const onPerPageChanged = this.onPerPageChanged
-    const openFormModal = this.openFormModal
     const newTeam = {
       attributes: {
         name: '',
@@ -141,12 +139,31 @@ export default class Teams extends Component {
       },
       type: 'team'
     }
+    const tableHeadingNames = [
+      '#',
+      t('admin.teamsTable.teamName'),
+      t('admin.teamsTable.teamNameEn'),
+      t('admin.teamsTable.abbreviation'),
+      t('admin.teamsTable.flag'),
+      t('shared.action')
+    ]
 
     return (
       <div>
         <Button
-          onClick={() => openFormModal({team: newTeam, isEditing: false})}
-        > 
+          onClick={() =>
+            showModal(
+              {
+                closeModal: closeModal,
+                item: newTeam, 
+                isEditing: false,
+                open: true,
+                title: 'Team form'
+              },
+              'form'
+            )
+          }
+        >  
           {t('admin.teamsTable.addNewTeam')}
         </Button>
         <Card className="card__form">
@@ -161,37 +178,25 @@ export default class Teams extends Component {
           </CardHeader>
           <CardBody>
             {isLoading && perPage
-            ? <LoadingView
-                perPage={perPage}
-             />
-            : <Table
-                responsive
-              >
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>{t('admin.teamsTable.teamName')}</th>
-                    <th>{t('admin.teamsTable.teamNameEn')}</th>
-                    <th>{t('admin.teamsTable.abbreviation')}</th>
-                    <th>{t('admin.teamsTable.flag')}</th>
-                    <th>{t('shared.action')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teams.items &&
-                    teams.items.map((team, index) =>
-                    <TeamsTableRow
-                      handleDeleteTeam={handleDeleteTeam}
-                      index={index}
-                      key={team.id}
-                      page={currentPage}
-                      perPage={perPage}
-                      openFormModal={openFormModal}
-                      team={team}
-                    />
-                  )}
-                </tbody>
-            </Table>
+              ? <LoadingView
+                  perPage={perPage}
+                />
+              : <Table
+                  responsive
+                >
+                  <TableHeadings 
+                    tableHeadingNames={tableHeadingNames}
+                  />
+                  <TableBody
+                    closeModal={closeModal}
+                    handleDeleteItem={handleDeleteTeam}
+                    items={teams.items}
+                    page={currentPage}
+                    perPage={perPage}
+                    showModal={showModal}
+                    title={'Team form'}
+                  />
+              </Table>
             }           
           </CardBody>
           <Pagination

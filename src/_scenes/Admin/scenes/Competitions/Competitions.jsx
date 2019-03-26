@@ -11,9 +11,9 @@ import { competitionActions } from '../../../../_actions/competition.actions'
 import { modalActions } from '../../../../_actions/modal.actions'
 import { teamActions } from '../../../../_actions/team.actions'
 
-import { TableHeadings } from '../../../../_components/Tables'
 import { formattingDateTime } from '../../../../_helpers'
-import TableBody from '../../../../_components/Tables/TableBody';
+import { TableBody } from '../../../../_components/Tables/TableBody';
+import { TableHeadings } from '../../../../_components/Tables'
 
 export default class Competitions extends Component {
   static propTypes = {
