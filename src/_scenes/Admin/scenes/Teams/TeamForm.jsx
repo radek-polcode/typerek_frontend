@@ -23,7 +23,6 @@ class TeamForm extends Component {
   }
 
   static propTypes = {
-    closeModal: PropTypes.func.isRequired,
     isEditing: PropTypes.bool.isRequired,
     team: PropTypes.object.isRequired
   }
@@ -45,12 +44,10 @@ class TeamForm extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.alert !== prevState.alert ||
-        nextProps.closeModal !== prevState.closeModal ||
         nextProps.isEditing !== prevState.isEditing
       ) {
         return {
           alert: nextProps.alert,
-          closeModal: nextProps.closeModal,
           isEditing: nextProps.isEditing,
         }
       } else {
@@ -162,8 +159,6 @@ class TeamForm extends Component {
         dispatch(teamActions.addTeam(team))
       }
     }
-
-    this.props.closeModal()
   }
 
   setButtonName(t) {

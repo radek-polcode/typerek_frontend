@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { TableRow } from './'
 
 TableBody.propTypes = {
-  closeModal: PropTypes.func,
   handleDeleteItem: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired,
   page: PropTypes.number,
@@ -24,7 +23,6 @@ function TableBody(props) {
     page,
     perPage,
     showModal,
-    closeModal,
     title
   } = props
 
@@ -33,7 +31,6 @@ function TableBody(props) {
       {
         items && items.map((item, index) => (
           <TableRow
-            closeModal={closeModal}
             handleDeleteItem={handleDeleteItem}
             index={index}
             item={item}

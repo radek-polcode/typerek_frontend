@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
 TableActionButtons.propTypes = {
-  closeModal: PropTypes.func,
   handleDeleteItem: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
   showModal: PropTypes.func,
@@ -13,7 +12,6 @@ TableActionButtons.propTypes = {
 
 function TableActionButtons(props) {
   const {
-    closeModal,
     handleDeleteItem,
     item,
     showModal,
@@ -26,7 +24,6 @@ function TableActionButtons(props) {
       <FaPencilAlt 
         className="table__action__icon icon__edit"
         onClick={() => showModal({
-          closeModal: closeModal,
           item,
           isEditing: true,
           open: true,

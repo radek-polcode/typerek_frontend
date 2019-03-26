@@ -25,7 +25,6 @@ class UserForm extends Component {
   }
 
   static propTypes = {
-    closeModal: PropTypes.func.isRequired,
     isEditing: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired
   }
@@ -46,12 +45,10 @@ class UserForm extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.alert !== prevState.alert ||
-        nextProps.closeModal !== prevState.closeModal ||
         nextProps.isEditing !== prevState.isEditing
       ) {
         return {
           alert: nextProps.alert,
-          closeModal: nextProps.closeModal,
           isEditing: nextProps.isEditing,
         }
       } else {
@@ -166,8 +163,6 @@ class UserForm extends Component {
         addUser(user)
       }
     }
-
-    this.props.closeModal()
   }
 
   setButtonName(t) {

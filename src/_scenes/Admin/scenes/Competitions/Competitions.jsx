@@ -37,18 +37,12 @@ export default class Competitions extends Component {
     this.props.getAllTeams();
   }
 
-  closeModal = event => {
-    this.props.hideModal()
-    this.props.clearAlerts()
-  }
-
   handleDeleteCompetition(id) {
     return this.props.deleteCompetition(id);
   }
 
   render() {
     const { competitions, showModal, t } = this.props
-    const closeModal = this.closeModal
     const dateNow = formattingDateTime.toIsoFormat(moment())
     const handleDeleteCompetition = this.handleDeleteCompetition
     const newCompetition = {
@@ -79,7 +73,6 @@ export default class Competitions extends Component {
           onClick={() =>
             showModal(
               {
-                closeModal: closeModal,
                 item: newCompetition, 
                 isEditing: false,
                 open: true,
@@ -101,7 +94,6 @@ export default class Competitions extends Component {
                 tableHeadingNames={tableHeadingNames}
               />
               <TableBody
-                closeModal={closeModal}
                 handleDeleteItem={handleDeleteCompetition}
                 items={competitions.items}
                 showModal={showModal}
