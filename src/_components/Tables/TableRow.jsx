@@ -95,6 +95,39 @@ const teamRow = (item, index, page, perPage) => {
   )
 }
 
+const userRow = (item, index, page, perPage) => {
+  const { 
+    created_at,
+    email,
+    role,
+    take_part,
+    username,
+  } = item.attributes
+
+  return (
+    <>
+      <td>
+        {index + 1}
+      </td>
+      <td>
+        {username}
+      </td>
+      <td>
+        {email}
+      </td>
+      <td>
+        {role}
+      </td>
+      <td>
+        {take_part.toString()}
+      </td>
+      <td>
+        {created_at}
+      </td>
+    </>
+  )
+}
+
 function rowToRender(index, item, page, perPage) {
   const type = item.type
   switch (type) {
@@ -102,6 +135,8 @@ function rowToRender(index, item, page, perPage) {
       return competitionRow(item, index)
     case 'team':
       return teamRow(item, index, page, perPage)
+    case 'user':
+      return userRow(item, index, page, perPage)
     default:
       return null
   }

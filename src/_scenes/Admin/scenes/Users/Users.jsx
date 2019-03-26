@@ -8,10 +8,18 @@ import { alertActions } from '../../../../_actions/alert.actions'
 import { modalActions } from '../../../../_actions/modal.actions'
 import { userActions } from '../../../../_actions/user.actions'
 
-import { UsersTableRow } from './UsersTableRow'
+import { TableBody } from '../../../../_components/Tables/TableBody';
+import { TableHeadings } from '../../../../_components/Tables'
 
 class Users extends Component {
   static propTypes = {
+    clearAlerts: PropTypes.func.isRequired,
+    deleteUser: PropTypes.func.isRequired,
+    getAllUsers:PropTypes.func.isRequired,
+    getAllTeams: PropTypes.func.isRequired,
+    hideModal: PropTypes.func.isRequired,
+    showModal: PropTypes.func.isRequired,
+    users: PropTypes.object,
   }
 
   constructor(props) {
@@ -27,26 +35,15 @@ class Users extends Component {
     return this.props.deleteUser(id);
   }
 
-  openFormModal = ({user, isEditing}) => {
-    this.props.showModal({
-      closeModal: this.closeModal,
-      isEditing: isEditing,
-      open: true,
-      entity: user,
-      title: 'User form',
-    }, 'form')
-  }
-
   closeModal = event => {
     this.props.hideModal()
     this.props.clearAlerts()
   }
 
   render() {
-    const { users, t } = this.props
+    const { showModal, t, users } = this.props
+    const closeModal = this.closeModal
     const handleDeleteUser = this.handleDeleteUser
-    const openFormModal = this.openFormModal
-
     const newUser = {
       attributes: {
         email: '',
@@ -57,11 +54,31 @@ class Users extends Component {
       },
       type: 'user'
     }
+    const tableHeadingNames = [
+      '#',
+      t('shared.username'),
+      t('shared.email'),
+      t('shared.role'),
+      t('shared.takesPart'),
+      t('admin.usersTable.registered'),
+      t('shared.action')
+    ]
 
     return (
       <div>
         <Button
-          onClick={() => openFormModal({user: newUser, isEditing: false})}
+          onClick={() =>
+            showModal(
+              {
+                closeModal: closeModal,
+                item: newUser, 
+                isEditing: false,
+                open: true,
+                title: 'User form'
+              },
+              'form'
+            )
+          }
         > 
           {t('admin.usersTable.addNewUser')}
         </Button>
@@ -72,29 +89,16 @@ class Users extends Component {
           <CardBody>
             <Table responsive
               >
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>{t('shared.username')}</th>
-                    <th>{t('shared.email')}</th>
-                    <th>{t('shared.role')}</th>
-                    <th>{t('shared.takesPart')}</th>
-                    <th>{t('admin.usersTable.registered')}</th>
-                    <th>{t('shared.action')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.items &&
-                    users.items.map((user, index) =>
-                    <UsersTableRow
-                      handleDeleteUser={handleDeleteUser}
-                      index={index}
-                      key={user.id}
-                      openFormModal={openFormModal}
-                      user={user}
-                    />
-                  )}
-                </tbody>
+              <TableHeadings 
+                tableHeadingNames={tableHeadingNames}
+              />
+                <TableBody
+                  closeModal={closeModal}
+                  handleDeleteItem={handleDeleteUser}
+                  items={users.items}
+                  showModal={showModal}
+                  title={'User form'}
+                />
             </Table>
           </CardBody>
         </Card>
@@ -109,6 +113,7 @@ function mapStateToProps(state) {
     users
   };
 }
+
 const mapDispatchToProps = dispatch => ({
   clearAlerts: () => dispatch(alertActions.clear()),
   deleteUser: (id) => dispatch(userActions.delete(id)),

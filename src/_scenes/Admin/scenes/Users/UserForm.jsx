@@ -205,9 +205,6 @@ class UserForm extends Component {
 
     return (
       <Card className="card__form">
-        <CardHeader tag="h2">
-          {t('admin.userForm.title')}
-        </CardHeader>
         <CardBody>
           <Form name="form" onSubmit={this.handleSubmit}>
             <FormGroup className={(submitted && !email ? ' has-error' : '')}>
