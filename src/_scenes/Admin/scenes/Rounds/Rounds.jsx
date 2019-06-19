@@ -8,6 +8,7 @@ import { Button, Card, CardHeader, CardBody, Table } from 'reactstrap';
 import { alertActions } from '../../../../_actions/alert.actions'
 import { modalActions } from '../../../../_actions/modal.actions'
 import { roundActions } from '../../../../_actions/round.actions'
+import { competitionActions } from '../../../../_actions/competition.actions'
 
 import { LoadingView } from '../../../../_components';
 import { TableBody } from '../../../../_components/Tables/TableBody';
@@ -39,6 +40,7 @@ export default class Rounds extends Component {
 
   render() {
     const { showModal, t, rounds } = this.props
+    console.log(this.props)
     const handleDeleteRound = this.handleDeleteRound
     const isLoading = this.props.rounds.loading
     const newRound = {
@@ -94,7 +96,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   clearAlerts: () => dispatch(alertActions.clear()),
   deleteRound: (id) => dispatch(roundActions.delete(id)),
-  getAllRounds: () => dispatch(roundActions.getAll()),
+  getAllRounds: () => dispatch(competitionActions.getAll( { include: 'rounds' } )),
   hideModal: () => dispatch(modalActions.hideModal()),
   showModal: (modalProps, modalType) => {
     dispatch(modalActions.showModal(modalProps, modalType ))
