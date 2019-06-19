@@ -18,7 +18,7 @@ export default class Teams extends Component {
   static propTypes = {
     clearAlerts: PropTypes.func.isRequired,
     deleteTeam: PropTypes.func.isRequired,
-    getAllTeams:PropTypes.func.isRequired,
+    getAllTeams: PropTypes.func.isRequired,
     hideModal: PropTypes.func.isRequired,
     showModal: PropTypes.func.isRequired,
     teams: PropTypes.object,

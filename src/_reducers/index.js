@@ -6,6 +6,7 @@ import { authentication } from './authentication.reducer';
 import { competitions } from './competitions.reducer';
 import { modal } from './modal.reducer';
 import { registration } from './registration.reducer';
+import { rounds } from './round.reducer';
 import { teams } from './teams.reducer';
 import { users } from './users.reducer';
 
@@ -15,6 +16,7 @@ const appReducer = combineReducers({
   competitions,
   modal,
   registration,
+  rounds,
   teams,
   users
 });

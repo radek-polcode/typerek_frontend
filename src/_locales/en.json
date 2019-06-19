@@ -19,6 +19,13 @@
     "dashboard": {
       "title": "Dashboard"
     },
+    "roundsTable": {
+      "addNewRound": "Add new competition",
+      "roundName": "Name",
+      "date": "Name",
+      "no" : "Ordinal number",
+      "title": "Rounds list"
+    },
     "teamForm": {
       "addTeamButton": "Add team",
       "title": "Team form",

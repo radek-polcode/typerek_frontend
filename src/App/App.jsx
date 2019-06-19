@@ -15,6 +15,7 @@ import { LoginPage } from '../_scenes/Sign';
 import { ModalContainer } from '../_scenes/Modal'
 import { PrivateRoute } from '../_components'
 import { RegisterPage } from '../_scenes/Sign'
+import { Rounds } from '../_scenes/Admin'
 import { Teams } from '../_scenes/Admin'
 import { Users } from '../_scenes/Admin'
 
@@ -61,6 +62,7 @@ class App extends Component {
                 <PrivateRoute exact path="/admin/competitions" component={Competitions} />
                 <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/admin/users" component={Users} />
+                <PrivateRoute exact path="/admin/rounds" component={Rounds} />
                 <PrivateRoute exact path="/admin/teams" component={Teams} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
