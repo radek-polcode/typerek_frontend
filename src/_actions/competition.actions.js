@@ -69,10 +69,10 @@ function _delete(id) {
   function failure(id, error) { return { type: competitionConstants.DELETE_FAILURE, id, error } }
 }
 
-function getAll() {
+function getAll(options = {}) {
   return dispatch => {
     dispatch(request());
-    competitionService.getAll()
+    competitionService.getAll(options)
       .then(
         competitions => dispatch(success(competitions)),
         error => dispatch(failure(error.toString()))

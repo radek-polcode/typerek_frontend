@@ -1,5 +1,6 @@
 export { Competitions } from './scenes/Competitions'
 export { Dashboard } from './scenes/Dashboard'
+export { Rounds } from './scenes/Rounds'
 export { Users } from './scenes/Users'
 export { UserForm } from './scenes/Users'
 export { Teams } from './scenes/Teams'

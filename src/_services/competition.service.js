@@ -32,13 +32,19 @@ function _delete(id) {
   return fetch(`${config.apiUrl}/${namespace}competitions/${id}`, requestOptions).then(handleResponse);
 }
 
-function getAll() {
+function getAll( { include } = {} ) {
+  let url = `${config.apiUrl}/${namespace}competitions`
+
   const requestOptions = {
     method: 'GET',
     headers: authenticationHeaders()
   };
 
-  return fetch(`${config.apiUrl}/${namespace}competitions`, requestOptions)
+  if (include) {
+    url = url + `?include=${include}`
+  }
+  console.log(url)
+  return fetch(url, requestOptions)
           .then(handleResponse);
 }
 

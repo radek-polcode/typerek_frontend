@@ -23,6 +23,9 @@ function AdminLinks({ t }) {
       <NavItem>
         <NavLink tag={Link} to="/admin/users">{t('navbar.users')}</NavLink>
       </NavItem>
+      <NavItem>
+        <NavLink tag={Link} to="/admin/rounds">{t('navbar.rounds')}</NavLink>
+      </NavItem>
     </>
   )
 }
