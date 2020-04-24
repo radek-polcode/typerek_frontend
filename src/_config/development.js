@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: 'http://ec2-18-197-115-59.eu-central-1.compute.amazonaws.com',
+  apiUrl: 'http://www.localhost:3001',
   defaultHeaders: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
