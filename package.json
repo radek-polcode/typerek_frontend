@@ -6,7 +6,7 @@
     "babel-plugin-react-css-modules": "^5.0.0",
     "bootstrap": "^4.2.1",
     "classnames": "^2.2.6",
-    "handlebars": "^4.3.0",
+    "handlebars": "^4.7.7",
     "i18next": "^15.0.2",
     "js-yaml": "^3.13.1",
     "moment": "^2.24.0",
